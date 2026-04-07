@@ -1,0 +1,719 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',Arial,sans-serif;background:#FAF9F5}
+.app-header{background:#193F7D;position:relative;overflow:hidden}
+.app-header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1}
+.brand-name span{color:#F6B707}
+.brand-tag{display:inline-block;background:#F6B707;color:#193F7D;font-size:9px;font-weight:700;padding:2px 7px;letter-spacing:0.08em}
+.header-title{color:#fff;font-size:13px;font-weight:500;opacity:0.85;text-align:right;line-height:1.4}
+.diag-accent{position:absolute;right:0;top:0;width:60px;height:100%;background:#F6B707;clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:0.18}
+.section-bar{background:#253464;padding:10px 24px;display:flex;align-items:center;gap:8px}
+.section-bar-label{font-size:11px;font-weight:700;color:#F6B707;text-transform:uppercase;letter-spacing:0.1em}
+.section-bar-sub{font-size:11px;color:rgba(255,255,255,0.6)}
+.comp-grid{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:#fff;border-bottom:2px solid #F6B707}
+.comp-btn{font-family:'Montserrat',Arial,sans-serif;display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid #193F7D;background:#fff;color:#193F7D;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s;text-transform:uppercase;letter-spacing:0.04em}
+.comp-btn:hover{background:#193F7D;color:#fff}
+.comp-btn.active{background:#193F7D;color:#fff}
+.comp-btn .tag{font-size:9px;font-weight:700;background:#F6B707;color:#193F7D;padding:1px 5px;margin-left:2px}
+.main{padding:20px 24px;background:#FAF9F5}
+.comp-header{margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #F6B707}
+.comp-title{font-size:17px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.03em}
+.comp-sub{font-size:11px;color:#6EC1E4;font-weight:700;margin-top:3px;text-transform:uppercase;letter-spacing:0.06em}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.infographic-wrap{background:#fff;border:0.5px solid #ddd;overflow:hidden}
+.infographic-wrap svg{display:block;width:100%}
+.tools-block{margin-bottom:12px}
+.tools-type-label{font-size:10px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.1em;padding:3px 8px;display:inline-block;margin-bottom:5px}
+.tools-type-label.sw{background:#193F7D}
+.tools-type-label.hw{background:#253464}
+.tools-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.pill-sw{font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:700;padding:4px 10px;background:#193F7D;color:#F6B707;border:none;text-transform:uppercase;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:4px}
+.pill-sw::before{content:'';display:inline-block;width:6px;height:6px;background:#F6B707;border-radius:50%}
+.pill-hw{font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:700;padding:4px 10px;background:#fff;color:#253464;border:1.5px solid #253464;text-transform:uppercase;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:4px}
+.pill-hw::before{content:'';display:inline-block;width:6px;height:6px;background:#253464;border-radius:0}
+/* Tabs */
+.tabs{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #F6B707}
+.tab-btn{font-family:'Montserrat',Arial,sans-serif;padding:7px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;border:none;background:none;color:#193F7D;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.15s}
+.tab-btn:hover{background:#f0f0f0}
+.tab-btn.active{background:#193F7D;color:#F6B707;border-bottom-color:#193F7D}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.section-label{font-size:10px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:1px;background:#F6B707}
+.param-card{background:#FAF9F5;border-left:3px solid #F6B707;padding:6px 8px;margin-bottom:5px}
+.param-key{font-size:9px;color:#193F7D;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1px}
+.param-val{font-size:11px;color:#212121;font-weight:500}
+.step{display:flex;gap:8px;padding:6px 0;border-bottom:0.5px solid #e8e5dc}
+.step:last-child{border-bottom:none}
+.step-num{width:20px;height:20px;background:#193F7D;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:11px;font-weight:700;color:#193F7D}
+.step-desc{font-size:10px;color:#212121;margin-top:1px;line-height:1.4;font-weight:400}
+/* Error table */
+.err-table{width:100%;border-collapse:collapse;font-size:10px}
+.err-table th{text-align:left;padding:6px 8px;background:#193F7D;color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:0.04em}
+.err-table td{padding:6px 8px;border-bottom:0.5px solid #e0ddd5;vertical-align:top}
+.err-table tr:nth-child(even) td{background:#fff}
+.err-table tr:nth-child(odd) td{background:#FAF9F5}
+.err-code{font-weight:800;color:#193F7D;white-space:nowrap}
+.err-name{font-weight:700;color:#212121}
+.err-action{color:#555;font-weight:400;line-height:1.4}
+.badge-danger{display:inline-block;font-size:8px;font-weight:800;background:#FCEBEB;color:#A32D2D;padding:1px 5px;text-transform:uppercase;margin-left:4px}
+.badge-warn{display:inline-block;font-size:8px;font-weight:800;background:#FFF8EE;color:#854F0B;padding:1px 5px;text-transform:uppercase;margin-left:4px}
+.warn-box{display:flex;gap:6px;padding:8px 10px;margin-top:8px;border-left:3px solid #F6B707;background:#fff}
+.danger-box{display:flex;gap:6px;padding:8px 10px;margin-top:6px;border-left:3px solid #E3A414;background:#fff8ee}
+.warn-text{font-size:10px;color:#212121;line-height:1.4;font-weight:500}
+.danger-text{font-size:10px;color:#5a3e00;line-height:1.4;font-weight:500}
+.legend{display:flex;gap:16px;align-items:center;padding:7px 24px;background:#FAF9F5;border-bottom:0.5px solid #e0ddd5}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:700;color:#253464;text-transform:uppercase;letter-spacing:0.06em}
+.leg-sw{width:9px;height:9px;background:#193F7D;border-radius:50%}
+.leg-hw{width:9px;height:9px;background:#fff;border:1.5px solid #253464}
+.footer-bar{background:#193F7D;padding:7px 24px;display:flex;align-items:center;justify-content:space-between}
+.footer-bar span{font-size:9px;color:rgba(255,255,255,0.5)}
+.footer-bar strong{font-size:9px;color:#F6B707;font-weight:700}
+</style>
+
+<div class="app-header">
+  <div class="app-header-inner">
+    <div class="brand">
+      <div class="brand-name">syner<span>sight</span></div>
+      <div class="brand-tag">let's move together</div>
+    </div>
+    <div class="header-title">Asistente de configuración<br>Gama Sx — Documentación técnica</div>
+  </div>
+  <div class="diag-accent"></div>
+</div>
+<div class="section-bar">
+  <span class="section-bar-label">Componente</span>
+  <span class="section-bar-sub">Selecciona para ver infografía, configuración y códigos de avería</span>
+</div>
+<div class="comp-grid" id="comp-grid"></div>
+<div class="legend">
+  <div class="legend-item"><div class="leg-sw"></div>Software</div>
+  <div class="legend-item"><div class="leg-hw"></div>Herramienta física</div>
+</div>
+<div class="main" id="main"></div>
+<div class="footer-bar">
+  <span>© 2024 Emayor Synersight Technologies SL</span>
+  <strong>synersight.es</strong>
+</div>
+
+<script>
+const svgs = {
+acu:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="70" y="70" width="120" height="90" rx="4" fill="#193F7D"/>
+  <text x="130" y="95" text-anchor="middle" fill="#F6B707" font-size="11" font-weight="800">ACU</text>
+  <text x="130" y="108" text-anchor="middle" fill="#fff" font-size="6">Automated Control Unit</text>
+  <rect x="78" y="114" width="34" height="12" rx="1" fill="#253464"/>
+  <text x="95" y="123" text-anchor="middle" fill="#6EC1E4" font-size="5.5">AGV CAN</text>
+  <rect x="116" y="114" width="28" height="12" rx="1" fill="#253464"/>
+  <text x="130" y="123" text-anchor="middle" fill="#6EC1E4" font-size="5.5">BAT CAN</text>
+  <rect x="148" y="114" width="34" height="12" rx="1" fill="#253464"/>
+  <text x="165" y="123" text-anchor="middle" fill="#6EC1E4" font-size="5.5">SD CARD</text>
+  <rect x="90" y="130" width="80" height="10" rx="1" fill="#F6B707"/>
+  <text x="130" y="138" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">24V ALIMENTACIÓN</text>
+  <!-- STM32 PC -->
+  <rect x="10" y="14" width="70" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="45" y="26" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC</text>
+  <text x="45" y="36" text-anchor="middle" fill="#fff" font-size="5.5">STM32CubeProg.</text>
+  <line x1="70" y1="28" x2="85" y2="70" stroke="#6EC1E4" stroke-width="1.5"/>
+  <text x="60" y="55" fill="#6EC1E4" font-size="5.5" font-weight="700">STM32/USB</text>
+  <!-- SynFW PC -->
+  <rect x="180" y="14" width="70" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="215" y="26" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC</text>
+  <text x="215" y="36" text-anchor="middle" fill="#fff" font-size="5.5">SynFW MultiTool</text>
+  <line x1="190" y1="28" x2="175" y2="70" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="193" y="55" fill="#F6B707" font-size="5.5" font-weight="700">Kvaser/CAN</text>
+  <!-- HMI -->
+  <rect x="10" y="165" width="60" height="28" rx="3" fill="#253464"/>
+  <text x="40" y="179" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">HMI</text>
+  <text x="40" y="189" text-anchor="middle" fill="#F6B707" font-size="5.5">Ethernet</text>
+  <line x1="70" y1="179" x2="90" y2="160" stroke="#6EC1E4" stroke-width="1.5"/>
+  <!-- Flexi -->
+  <rect x="100" y="165" width="60" height="28" rx="3" fill="#253464"/>
+  <text x="130" y="179" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">CPU FLEXI</text>
+  <text x="130" y="189" text-anchor="middle" fill="#F6B707" font-size="5.5">CAN</text>
+  <line x1="130" y1="165" x2="130" y2="160" stroke="#F6B707" stroke-width="1.5"/>
+  <!-- WOC -->
+  <rect x="190" y="165" width="60" height="28" rx="3" fill="#253464"/>
+  <text x="220" y="179" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">WOC</text>
+  <text x="220" y="189" text-anchor="middle" fill="#F6B707" font-size="5.5">CAN</text>
+  <line x1="185" y1="179" x2="170" y2="160" stroke="#F6B707" stroke-width="1.5"/>
+  <!-- micro-switches note -->
+  <rect x="78" y="148" width="104" height="10" rx="1" fill="#FAF9F5" stroke="#F6B707" stroke-width="0.5"/>
+  <text x="130" y="155" text-anchor="middle" fill="#193F7D" font-size="5.5" font-weight="700">Micro-switches → todos en ON antes de programar</text>
+  <text x="130" y="212" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Unidad central de control y comunicaciones</text>
+</svg>`,
+blvd:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="80" y="95" width="100" height="55" rx="4" fill="#193F7D"/>
+  <text x="130" y="126" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">AGV</text>
+  <rect x="30" y="58" width="40" height="26" rx="2" fill="#253464"/>
+  <text x="50" y="69" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">BLVD</text>
+  <text x="50" y="79" text-anchor="middle" fill="#fff" font-size="5.5">M_DER ID3</text>
+  <rect x="190" y="58" width="40" height="26" rx="2" fill="#253464"/>
+  <text x="210" y="69" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">BLVD</text>
+  <text x="210" y="79" text-anchor="middle" fill="#fff" font-size="5.5">M_IZQ ID5</text>
+  <rect x="30" y="150" width="40" height="26" rx="2" fill="#253464"/>
+  <text x="50" y="161" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">BLVD</text>
+  <text x="50" y="171" text-anchor="middle" fill="#fff" font-size="5.5">S_DER ID7</text>
+  <rect x="190" y="150" width="40" height="26" rx="2" fill="#253464"/>
+  <text x="210" y="161" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">BLVD</text>
+  <text x="210" y="171" text-anchor="middle" fill="#fff" font-size="5.5">S_IZQ ID9</text>
+  <line x1="70" y1="71" x2="80" y2="110" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="190" y1="71" x2="180" y2="110" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="70" y1="163" x2="80" y2="145" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="190" y1="163" x2="180" y2="145" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <rect x="90" y="104" width="80" height="12" rx="2" fill="#F6B707"/>
+  <text x="130" y="113" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">BUS CAN 250 kbps</text>
+  <rect x="90" y="18" width="80" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="30" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC — BLVD Software</text>
+  <text x="130" y="40" text-anchor="middle" fill="#fff" font-size="5.5">Communication → Start monitor</text>
+  <line x1="130" y1="46" x2="130" y2="95" stroke="#6EC1E4" stroke-width="1.5"/>
+  <circle cx="22" cy="71" r="9" fill="#FAF9F5" stroke="#193F7D" stroke-width="1.5"/>
+  <text x="22" y="75" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">M</text>
+  <circle cx="238" cy="71" r="9" fill="#FAF9F5" stroke="#193F7D" stroke-width="1.5"/>
+  <text x="238" y="75" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">M</text>
+  <circle cx="22" cy="163" r="9" fill="#FAF9F5" stroke="#193F7D" stroke-width="1.5"/>
+  <text x="22" y="167" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">M</text>
+  <circle cx="238" cy="163" r="9" fill="#FAF9F5" stroke="#193F7D" stroke-width="1.5"/>
+  <text x="238" y="167" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">M</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">4 variadores — tracción omnidireccional</text>
+</svg>`,
+woc:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="90" y="12" width="80" height="32" rx="3" fill="#193F7D"/>
+  <text x="130" y="26" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">VSystems</text>
+  <text x="130" y="37" text-anchor="middle" fill="#F6B707" font-size="6">Servidor</text>
+  <rect x="10" y="12" width="60" height="32" rx="3" fill="#253464"/>
+  <text x="40" y="26" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">AP WiFi</text>
+  <text x="40" y="37" text-anchor="middle" fill="#6EC1E4" font-size="6">SSID / WPA2</text>
+  <path d="M40,48 Q55,56 55,64" fill="none" stroke="#6EC1E4" stroke-width="1.5"/>
+  <path d="M40,48 Q25,56 25,64" fill="none" stroke="#6EC1E4" stroke-width="1.5"/>
+  <rect x="80" y="85" width="100" height="48" rx="3" fill="#253464"/>
+  <text x="130" y="105" text-anchor="middle" fill="#F6B707" font-size="9" font-weight="800">WOC</text>
+  <text x="130" y="117" text-anchor="middle" fill="#fff" font-size="6">Wireless Over CAN</text>
+  <text x="130" y="127" text-anchor="middle" fill="#6EC1E4" font-size="5.5">SynFW MultiTool</text>
+  <rect x="80" y="158" width="100" height="32" rx="3" fill="#193F7D"/>
+  <text x="130" y="173" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">ACU</text>
+  <text x="130" y="184" text-anchor="middle" fill="#F6B707" font-size="5.5">Control principal AGV</text>
+  <line x1="130" y1="133" x2="130" y2="158" stroke="#F6B707" stroke-width="2"/>
+  <rect x="106" y="142" width="48" height="10" rx="2" fill="#F6B707"/>
+  <text x="130" y="150" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">BUS CAN</text>
+  <line x1="100" y1="92" x2="55" y2="50" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="63" y="76" fill="#6EC1E4" font-size="6" font-weight="700">WiFi</text>
+  <line x1="90" y1="28" x2="70" y2="28" stroke="#6EC1E4" stroke-width="1.5"/>
+  <rect x="185" y="85" width="60" height="76" rx="3" fill="#FAF9F5" stroke="#ddd" stroke-width="0.5"/>
+  <text x="215" y="98" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">LED STATUS</text>
+  <circle cx="196" cy="110" r="4" fill="#F6B707"/><text x="205" y="113" fill="#212121" font-size="5.5">2 — Cargador</text>
+  <circle cx="196" cy="122" r="4" fill="#6EC1E4"/><text x="205" y="125" fill="#212121" font-size="5.5">3 — WLAN</text>
+  <circle cx="196" cy="134" r="4" fill="#193F7D"/><text x="205" y="137" fill="#212121" font-size="5.5">4 — VSystems</text>
+  <circle cx="196" cy="146" r="4" fill="#E3A414"/><text x="205" y="149" fill="#212121" font-size="5.5">5/6 — WiFi HW</text>
+  <circle cx="196" cy="158" r="4" fill="#888"/><text x="205" y="161" fill="#212121" font-size="5.5">Fijo — Sin NS</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Puente inalámbrico AGV ↔ VSystems</text>
+</svg>`,
+varta:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="60" y="68" width="140" height="76" rx="4" fill="#253464"/>
+  <rect x="65" y="73" width="130" height="66" rx="3" fill="#193F7D"/>
+  <text x="130" y="99" text-anchor="middle" fill="#fff" font-size="9" font-weight="800">PACK BATERÍA</text>
+  <text x="130" y="112" text-anchor="middle" fill="#F6B707" font-size="8" font-weight="700">48V</text>
+  <text x="130" y="124" text-anchor="middle" fill="#6EC1E4" font-size="6">Varta Tool v1.0</text>
+  <rect x="183" y="82" width="14" height="10" rx="1" fill="#F6B707"/>
+  <text x="190" y="90" text-anchor="middle" fill="#193F7D" font-size="7" font-weight="800">+</text>
+  <rect x="63" y="82" width="14" height="10" rx="1" fill="#888"/>
+  <text x="70" y="90" text-anchor="middle" fill="#fff" font-size="7" font-weight="800">−</text>
+  <rect x="95" y="18" width="70" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="30" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">Kvaser</text>
+  <text x="130" y="40" text-anchor="middle" fill="#fff" font-size="6">Leaf Light v2</text>
+  <line x1="130" y1="46" x2="130" y2="68" stroke="#F6B707" stroke-width="2"/>
+  <rect x="107" y="54" width="46" height="10" rx="2" fill="#F6B707"/>
+  <text x="130" y="62" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">CAN</text>
+  <circle cx="130" cy="46" r="6" fill="#FAF9F5" stroke="#6EC1E4" stroke-width="1.5"/>
+  <text x="130" y="49" text-anchor="middle" fill="#193F7D" font-size="5" font-weight="700">M12</text>
+  <rect x="95" y="165" width="70" height="28" rx="3" fill="#193F7D"/>
+  <text x="130" y="178" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">PC — Varta Tool</text>
+  <text x="130" y="188" text-anchor="middle" fill="#F6B707" font-size="5.5">Tools → Configure Pack</text>
+  <line x1="130" y1="144" x2="130" y2="165" stroke="#6EC1E4" stroke-width="1.5"/>
+  <rect x="10" y="86" width="48" height="56" rx="3" fill="#FAF9F5" stroke="#F6B707" stroke-width="1"/>
+  <text x="34" y="98" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">PARAMS</text>
+  <text x="34" y="110" text-anchor="middle" fill="#212121" font-size="5.5">Custom SN</text>
+  <text x="34" y="120" text-anchor="middle" fill="#212121" font-size="5.5">Deadband</text>
+  <text x="34" y="130" text-anchor="middle" fill="#212121" font-size="5.5">OK Temp A</text>
+  <text x="34" y="140" text-anchor="middle" fill="#212121" font-size="5.5">Hi Temp A</text>
+  <line x1="58" y1="114" x2="65" y2="114" stroke="#F6B707" stroke-width="1.5"/>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Configuración y monitoreo de packs de baterías</text>
+</svg>`,
+flexi:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="88" y="12" width="84" height="30" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="24" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC — Safety Designer</text>
+  <text x="130" y="35" text-anchor="middle" fill="#fff" font-size="5.5">Login Admin requerido</text>
+  <line x1="130" y1="42" x2="130" y2="66" stroke="#6EC1E4" stroke-width="1.5"/>
+  <text x="136" y="56" fill="#6EC1E4" font-size="6" font-weight="700">USB</text>
+  <rect x="70" y="66" width="120" height="44" rx="3" fill="#193F7D"/>
+  <text x="130" y="84" text-anchor="middle" fill="#F6B707" font-size="9" font-weight="800">CPU FLEXI</text>
+  <text x="130" y="97" text-anchor="middle" fill="#fff" font-size="6">Sistema de seguridad</text>
+  <text x="130" y="107" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Modelo: SB.60.2n</text>
+  <line x1="95" y1="110" x2="58" y2="142" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="165" y1="110" x2="202" y2="142" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="48" y="138" fill="#F6B707" font-size="5.5" font-weight="700">Efipro</text>
+  <rect x="18" y="142" width="80" height="38" rx="3" fill="#253464"/>
+  <text x="58" y="157" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">nanoScan</text>
+  <text x="58" y="168" text-anchor="middle" fill="#F6B707" font-size="6">MAESTRO</text>
+  <text x="58" y="178" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Zona delantera</text>
+  <rect x="162" y="142" width="80" height="38" rx="3" fill="#253464"/>
+  <text x="202" y="157" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">nanoScan</text>
+  <text x="202" y="168" text-anchor="middle" fill="#F6B707" font-size="6">ESCLAVO</text>
+  <text x="202" y="178" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Zona trasera</text>
+  <rect x="70" y="122" width="120" height="16" rx="2" fill="#FAF9F5" stroke="#F6B707" stroke-width="0.5"/>
+  <text x="130" y="133" text-anchor="middle" fill="#193F7D" font-size="5.5" font-weight="700">Errores 257-293 · Red Efipro escáneres</text>
+  <rect x="200" y="66" width="50" height="24" rx="3" fill="#F6B707"/>
+  <text x="225" y="77" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">VERIFICAR</text>
+  <text x="225" y="86" text-anchor="middle" fill="#193F7D" font-size="5.5">tras carga</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Sistema de seguridad funcional — doble canal</text>
+</svg>`,
+mag:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="20" y="168" width="220" height="14" rx="2" fill="#253464"/>
+  <text x="130" y="179" text-anchor="middle" fill="#F6B707" font-size="6" font-weight="800">BANDA MAGNÉTICA — SUELO</text>
+  <rect x="80" y="98" width="100" height="54" rx="4" fill="#193F7D"/>
+  <text x="130" y="128" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">AGV</text>
+  <rect x="95" y="150" width="70" height="18" rx="2" fill="#F6B707"/>
+  <text x="130" y="162" text-anchor="middle" fill="#193F7D" font-size="7" font-weight="800">SEGUIDOR MAG.</text>
+  <line x1="130" y1="168" x2="130" y2="182" stroke="#193F7D" stroke-width="2"/>
+  <polygon points="126,168 134,168 130,160" fill="#F6B707"/>
+  <rect x="88" y="22" width="84" height="34" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="35" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">PC — MFT</text>
+  <text x="130" y="46" text-anchor="middle" fill="#fff" font-size="5.5">Calibrated Sensors</text>
+  <text x="130" y="55" text-anchor="middle" fill="#fff" font-size="5.5">Working Node</text>
+  <line x1="130" y1="56" x2="130" y2="98" stroke="#6EC1E4" stroke-width="1.5"/>
+  <rect x="10" y="96" width="62" height="54" rx="3" fill="#FAF9F5" stroke="#F6B707" stroke-width="1"/>
+  <text x="41" y="108" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">CALIBRAR</text>
+  <text x="41" y="120" text-anchor="middle" fill="#212121" font-size="5.5">1. Working Node</text>
+  <text x="41" y="130" text-anchor="middle" fill="#212121" font-size="5.5">2. Calibrate</text>
+  <text x="41" y="140" text-anchor="middle" fill="#212121" font-size="5.5">3. Change Target</text>
+  <text x="41" y="150" text-anchor="middle" fill="#212121" font-size="5.5">4. Desconectar</text>
+  <rect x="188" y="96" width="62" height="54" rx="3" fill="#FAF9F5" stroke="#193F7D" stroke-width="0.5"/>
+  <text x="219" y="108" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">SENSORES</text>
+  <circle cx="204" cy="122" r="5" fill="#F6B707"/>
+  <circle cx="219" cy="122" r="5" fill="#F6B707"/>
+  <circle cx="234" cy="122" r="5" fill="#F6B707"/>
+  <text x="219" y="138" text-anchor="middle" fill="#212121" font-size="5.5">Array lineal</text>
+  <text x="219" y="148" text-anchor="middle" fill="#212121" font-size="5.5">campo magnético</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Guiado por detección de banda magnética</text>
+</svg>`,
+rfid:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="90" y="176" width="80" height="20" rx="2" fill="#253464"/>
+  <text x="130" y="190" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="800">TAG RFID — SUELO</text>
+  <rect x="95" y="138" width="70" height="22" rx="2" fill="#F6B707"/>
+  <text x="130" y="153" text-anchor="middle" fill="#193F7D" font-size="7" font-weight="800">LECTOR RFID</text>
+  <path d="M115,138 Q115,130 115,126" fill="none" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <path d="M130,138 Q130,130 130,126" fill="none" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <path d="M145,138 Q145,130 145,126" fill="none" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <rect x="80" y="88" width="100" height="50" rx="4" fill="#193F7D"/>
+  <text x="130" y="108" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">AGV</text>
+  <text x="130" y="121" text-anchor="middle" fill="#6EC1E4" font-size="6">ATSAMC21E18A</text>
+  <line x1="80" y1="113" x2="50" y2="113" stroke="#F6B707" stroke-width="1.5"/>
+  <rect x="10" y="98" width="40" height="30" rx="2" fill="#253464"/>
+  <text x="30" y="112" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">ACU</text>
+  <text x="30" y="122" text-anchor="middle" fill="#F6B707" font-size="5">BUS CAN</text>
+  <rect x="170" y="26" width="70" height="28" rx="3" fill="#E3A414"/>
+  <text x="205" y="39" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PICKIT4</text>
+  <text x="205" y="49" text-anchor="middle" fill="#fff" font-size="5.5">Programador HW</text>
+  <rect x="20" y="26" width="70" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="55" y="39" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">MPLAB IPE</text>
+  <text x="55" y="49" text-anchor="middle" fill="#fff" font-size="5.5">Advanced Mode</text>
+  <line x1="170" y1="40" x2="150" y2="88" stroke="#E3A414" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="90" y1="54" x2="110" y2="88" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <rect x="88" y="10" width="84" height="14" rx="2" fill="#FCEBEB" stroke="#E3A414" stroke-width="1"/>
+  <text x="130" y="19" text-anchor="middle" fill="#A32D2D" font-size="6" font-weight="800">SIN TENSIÓN al programar</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Identificación de posición por tags en suelo</text>
+</svg>`,
+modas:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="88" y="18" width="84" height="32" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="30" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">PC</text>
+  <text x="130" y="40" text-anchor="middle" fill="#fff" font-size="6">MC Configuration tool</text>
+  <text x="130" y="49" text-anchor="middle" fill="#fff" font-size="5.5">Load from File → Apply</text>
+  <line x1="130" y1="50" x2="130" y2="83" stroke="#6EC1E4" stroke-width="2"/>
+  <rect x="100" y="63" width="60" height="12" rx="2" fill="#6EC1E4"/>
+  <text x="130" y="72" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">ETHERNET RJ45</text>
+  <rect x="70" y="83" width="120" height="54" rx="4" fill="#193F7D"/>
+  <text x="130" y="105" text-anchor="middle" fill="#F6B707" font-size="11" font-weight="800">MODAS</text>
+  <text x="130" y="119" text-anchor="middle" fill="#fff" font-size="6">Módulo de comunicaciones</text>
+  <text x="130" y="130" text-anchor="middle" fill="#6EC1E4" font-size="5.5">IP auto-detectada</text>
+  <line x1="95" y1="137" x2="60" y2="162" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="130" y1="137" x2="130" y2="162" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="165" y1="137" x2="200" y2="162" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <rect x="20" y="162" width="60" height="26" rx="3" fill="#253464"/>
+  <text x="50" y="176" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">AGV Bus</text>
+  <text x="50" y="185" text-anchor="middle" fill="#F6B707" font-size="5.5">CAN</text>
+  <rect x="100" y="162" width="60" height="26" rx="3" fill="#253464"/>
+  <text x="130" y="176" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">Red planta</text>
+  <text x="130" y="185" text-anchor="middle" fill="#F6B707" font-size="5.5">Ethernet</text>
+  <rect x="180" y="162" width="60" height="26" rx="3" fill="#253464"/>
+  <text x="210" y="176" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">Dispositivos</text>
+  <text x="210" y="185" text-anchor="middle" fill="#F6B707" font-size="5.5">I/O</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Módulo de comunicaciones multi-interfaz</text>
+</svg>`,
+p20:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="10" y="18" width="80" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="50" y="30" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">SynFW MultiTool</text>
+  <text x="50" y="40" text-anchor="middle" fill="#fff" font-size="5.5">Can Configurator</text>
+  <rect x="170" y="18" width="80" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="210" y="30" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">MPLAB IPE</text>
+  <text x="210" y="40" text-anchor="middle" fill="#fff" font-size="5.5">Flash firmware</text>
+  <rect x="175" y="63" width="70" height="24" rx="3" fill="#E3A414"/>
+  <text x="210" y="75" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PICKIT4</text>
+  <text x="210" y="84" text-anchor="middle" fill="#fff" font-size="5.5">NO tensión al usar</text>
+  <rect x="15" y="63" width="70" height="24" rx="3" fill="#253464"/>
+  <text x="50" y="75" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">Kvaser</text>
+  <text x="50" y="84" text-anchor="middle" fill="#F6B707" font-size="5.5">Bus CAN</text>
+  <line x1="50" y1="46" x2="50" y2="63" stroke="#6EC1E4" stroke-width="1.5"/>
+  <line x1="50" y1="87" x2="90" y2="112" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="210" y1="46" x2="210" y2="63" stroke="#6EC1E4" stroke-width="1.5"/>
+  <line x1="210" y1="87" x2="175" y2="112" stroke="#E3A414" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <rect x="80" y="108" width="100" height="60" rx="4" fill="#193F7D"/>
+  <text x="130" y="130" text-anchor="middle" fill="#F6B707" font-size="9" font-weight="800">P20.R10</text>
+  <text x="130" y="143" text-anchor="middle" fill="#fff" font-size="6">Módulo PIN</text>
+  <text x="130" y="154" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Write key: fabWr</text>
+  <text x="130" y="163" text-anchor="middle" fill="#6EC1E4" font-size="5.5">NS → últimos dígitos</text>
+  <rect x="112" y="168" width="36" height="20" rx="2" fill="#F6B707"/>
+  <text x="130" y="180" text-anchor="middle" fill="#193F7D" font-size="7" font-weight="800">PIN</text>
+  <text x="130" y="189" text-anchor="middle" fill="#193F7D" font-size="5.5">Leva / Bulón</text>
+  <rect x="60" y="94" width="140" height="12" rx="2" fill="#FCEBEB" stroke="#E3A414" stroke-width="1"/>
+  <text x="130" y="103" text-anchor="middle" fill="#A32D2D" font-size="6" font-weight="800">Alimentar ANTES de conectar PICKIT4</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Control del mecanismo PIN del AGV</text>
+</svg>`
+};
+
+const C = [
+  {id:"acu", name:"Placa ACU", subtitle:"Automated Control Unit", tag:"Control",
+   software:["STM32CubeProgrammer","SynFW MultiTool"], hardware:["Kvaser Leaf Light v2","Programador STM32"],
+   params:[
+     {k:"Micro-switches",v:"Todos en posición ON antes de programar"},
+     {k:"Nº de Serie",v:"Según etiqueta física de la caja ACU"},
+     {k:"Modo IP",v:"DHCP o IP Estática"},
+     {k:"Versión firmware",v:"Compatible con HMI y CPU Flexi"},
+     {k:"Conexión servicio",v:"STM32/USB (firmware) · Kvaser/CAN (NS)"},
+   ],
+   steps:[
+     {t:"Micro-switches en ON",d:"Poner todos los micro-switches físicos de la placa en posición ON."},
+     {t:"Conectar herramienta STM32",d:"Conectar la placa al PC mediante el programador STM32 vía USB."},
+     {t:"Abrir STM32CubeProgrammer",d:"Seleccionar ST-LINK y pulsar Connect."},
+     {t:"Read Out Protection (si error)",d:"Si aparece \"Data read failed\": pestaña OB → Read Out Protection → AA → Apply."},
+     {t:"Cargar firmware .hex",d:"Device memory → abrir archivo .hex → pulsar Download."},
+     {t:"Disconnect",d:"Pulsar Disconnect al finalizar la carga."},
+     {t:"Grabar Nº de serie",d:"Conectar Kvaser al CAN → SynFW MultiTool → Can Configurator → introducir NS de la etiqueta → guardar."},
+   ],
+   errors:[
+     {code:"b0",name:"COMMS INTERNAS",action:"Problema de comunicación entre módulos internos. Requiere sustitución de la placa."},
+     {code:"b1",name:"VOLTAJE 24V NOK",action:"Alimentación de 24V incorrecta. Revisar fuente externa o cableado."},
+     {code:"b8",name:"PID CONFIGS / AUX 12",action:"Datos corruptos en memoria. Reinicializar la máquina."},
+     {code:"b10",name:"BATERÍA RTC DEFECTUOSA",action:"Pila interna de la ACU agotada. Sustituir pila."},
+     {code:"b11",name:"RTC DESINCRONIZADO",action:"Reloj interno desajustado. Ocurre tras cambio de batería o primer arranque."},
+     {code:"b12",name:"CARGA ONLINE EN DEFECTO",action:"Fallo en comunicación con cargador o falta de corriente hacia la batería."},
+     {code:"b13",name:"COMUNICACIÓN CAN BATERÍA",action:"Fallo en red CAN. Revisar cableado y versiones de periféricos."},
+     {code:"b14",name:"SD EN ERROR",action:"La placa no detecta la tarjeta SD. Revisar inserción o sustituir tarjeta."},
+     {code:"264",name:"VERSIÓN FLEXI INCOMPATIBLE",action:"Versión del Flexi y de la ACU no son compatibles entre sí."},
+     {code:"265",name:"FRENO MAGNÉTICO NO LIBERADO",action:"Freno no se libera pese a orden de marcha. Revisar driver del motor."},
+   ],
+   warns:[{type:"warn",text:"Si aparece error de lectura al conectar STM32: ir a pestaña OB → Read Out Protection → AA → Apply."}]
+  },
+  {id:"blvd", name:"Variadores BLVD", subtitle:"Oriental Motor — CAN Bus", tag:"CAN",
+   software:["Software BLVD Oriental"], hardware:[],
+   params:[
+     {k:"Bitrate",v:"250 kbps (fijo)"},
+     {k:"Node-ID M_DER",v:"3 — M_DER_3.mxex"},
+     {k:"Node-ID M_IZQ",v:"5 — M_IZQ_5.mxex"},
+     {k:"Node-ID S_DER",v:"7 — S_DER_7.mxex"},
+     {k:"Node-ID S_IZQ",v:"9 — S_IZQ_9.mxex"},
+   ],
+   steps:[
+     {t:"Conectar variador al PC",d:"Conexión física directa."},
+     {t:"Abrir BLVD Oriental",d:"Communication → Start monitor."},
+     {t:"Pulsar conexión",d:"Establecer comunicación."},
+     {t:"Verificar Present Value",d:"Comprobar Node-ID y Bitrate. Ignorar Input value."},
+     {t:"Cargar archivo .mxex",d:"El que corresponde a la posición del variador."},
+   ],
+   errors:[
+     {code:"—",name:"Node-ID incorrecto",action:"El variador no responde al Node-ID esperado. Verificar archivo .mxex cargado."},
+     {code:"—",name:"Bitrate erróneo",action:"Comunicación fallida. Verificar que el Bitrate está a 250 kbps en Present Value."},
+     {code:"274/275",name:"EDM tracción S1/S2 no válido",action:"Discrepancia en variador de tracción. Revisar conexión y estado del variador."},
+   ],
+   warns:[{type:"warn",text:"Solo es válido el campo \"Present value\". Ignorar \"Input value\" durante la verificación."}]
+  },
+  {id:"woc", name:"Placa WOC", subtitle:"Wireless Over CAN", tag:"WiFi/CAN",
+   software:["STM32 CUBE Programmer","SynFW MultiTool"], hardware:["Cable Micro USB"],
+   params:[
+     {k:"Nº de Serie",v:"Según etiqueta física WOC"},
+     {k:"Modo IP",v:"DHCP o IP Estática"},
+     {k:"Autenticación WiFi",v:"WPA2 o EAP"},
+     {k:"SSID / Password",v:"Red del cliente"},
+     {k:"IP Servidor VSystems",v:"IP o nombre del host"},
+     {k:"Puerto / TLS",v:"Puerto + TLS opcional"},
+   ],
+   steps:[
+     {t:"Conectar Micro USB",d:"Placa WOC al PC."},
+     {t:"Abrir SynFW MultiTool",d:"Beacon / WOC / ACU Config."},
+     {t:"Pulsar Connect",d:"Establecer comunicación."},
+     {t:"Editar parámetros",d:"IP, WiFi, VSystems, nº serie."},
+     {t:"SAVE CONFIG + Reiniciar",d:"Apagar y encender para aplicar cambios."},
+   ],
+   errors:[
+     {code:"1 parpadeo",name:"EERAM no disponible",action:"Placa defectuosa. Sustituir placa WOC."},
+     {code:"2 parpadeos",name:"Cargador no responde",action:"Revisar cableado CAN o resistencia de terminación."},
+     {code:"3 parpadeos",name:"WLAN desconectado",action:"Sin conexión al AP tras 2 min. Revisar SSID, contraseña y cobertura WiFi."},
+     {code:"4 parpadeos",name:"VSystems desconectado",action:"Revisar IP/puerto del servidor o bloqueos de firewall."},
+     {code:"5 parpadeos",name:"Módulo WiFi no disponible",action:"Posible avería física del módulo. Sustituir."},
+     {code:"6 parpadeos",name:"Módulo WiFi desactualizado",action:"Actualizar firmware del módulo vía OTA."},
+     {code:"LED fijo",name:"Nº serie sin inicializar",action:"Grabar número de serie con SynFW MultiTool."},
+   ],
+   warns:[
+     {type:"warn",text:"Reiniciar obligatorio tras guardar. Sin reinicio, los cambios no se aplican."},
+     {type:"warn",text:"TLS requiere soporte en el motor VSystems. Verificar antes de activar."}
+   ]
+  },
+  {id:"varta", name:"Varta Tool", subtitle:"Packs de baterías 48V", tag:"Batería",
+   software:["Varta Tool v1.0"], hardware:["Kvaser Leaf Light v2","Adaptador D-SUB(DE-9) → M12-5"],
+   params:[
+     {k:"Custom SN",v:"Nº de serie del pack"},
+     {k:"Deadband",v:"Ej: -0,200 A"},
+     {k:"Shutdown Timer",v:"Tiempo auto-apagado"},
+     {k:"Current (OK Temp)",v:"Corriente máx. temp. normal"},
+     {k:"Current (High Temp)",v:"Corriente máx. temp. alta"},
+   ],
+   steps:[
+     {t:"Conectar Kvaser al CAN",d:"Adaptador D-SUB(DE-9) → M12-5."},
+     {t:"Abrir Varta Tool",d:"Conectar al pack."},
+     {t:"Tools → Configure Pack",d:"Abrir Pack Configurator."},
+     {t:"Seleccionar Update Selection",d:"Marcar parámetros a modificar."},
+     {t:"Set Configuration",d:"Aplicar al pack."},
+   ],
+   errors:[
+     {code:"—",name:"Sobrecalentamiento",action:"Corriente de carga excede límite. Reducir Current en OK/High Temp."},
+     {code:"—",name:"Auto-apagado prematuro",action:"Deadband demasiado alto. Ajustar umbral de corriente."},
+     {code:"b12 (ACU)",name:"Carga online en defecto",action:"Fallo de comunicación con el pack. Revisar cableado CAN y conexión M12."},
+     {code:"b13 (ACU)",name:"Comm. CAN batería",action:"Revisar cableado CAN entre ACU y batería, y versiones de firmware."},
+   ],
+   warns:[{type:"danger",text:"CRÍTICO: Limitar corriente según cableado y pads. Riesgo de sobrecalentamiento."}],
+   pinout:[
+     {dsub:"Pin 2 — CAN_L",m12:"Pin 5"},
+     {dsub:"Pin 7 — CAN_H",m12:"Pin 4"},
+     {dsub:"Pin 3 — GND",m12:"Pin 3"},
+   ]
+  },
+  {id:"flexi", name:"CPU Flexi / nanoScan", subtitle:"Seguridad funcional SICK", tag:"Seguridad",
+   software:["SICK Safety Designer","SICK AppSpace Suite"], hardware:["Cable USB","Cable Ethernet"],
+   params:[
+     {k:"Versión/Modelo",v:"Ej: SB.60.2n"},
+     {k:"Contraseña Admin",v:"Requerida para Login"},
+     {k:"Conexión",v:"USB / Ethernet / WiFi"},
+   ],
+   steps:[
+     {t:"Conectar al escáner",d:"USB preferido."},
+     {t:"Abrir Safety Designer",d:"Seleccionar modelo de máquina."},
+     {t:"Login Administrador",d:"Introducir contraseña."},
+     {t:"Modificar páginas lógicas",d:"Aplicar cambios de seguridad."},
+     {t:"Escribir configuración",d:"Cargar programa en el dispositivo."},
+     {t:"Verificar dispositivo",d:"Clicar símbolo de verificación."},
+   ],
+   errors:[
+     {code:"257",name:"Fallo Flexi-ACU",action:"Fallo de comunicación entre ACU y FLEXI. Revisar cableado o GPL."},
+     {code:"258/261",name:"Error interno escáner M/S",action:"Error interno en escáner maestro/esclavo. Consultar diagnóstico del escáner."},
+     {code:"259/262",name:"Error aplicación escáner M/S",action:"Mapa incorrecto o mala programación. Recargar configuración."},
+     {code:"260/263",name:"Cubierta sucia M/S",action:"Limpiar cubierta del escáner con paño apropiado."},
+     {code:"264",name:"Versión Flexi no válida",action:"Incompatibilidad de versión con la ACU. Actualizar firmware."},
+     {code:"265",name:"Freno magnético no liberado",action:"Posible error en driver del motor. Revisar variador."},
+     {code:"268",name:"Canal dual no válido",action:"Discrepancia en fotocélula. Revisar cableado."},
+     {code:"269",name:"Relé driver EDM no válido",action:"Discrepancia en relé del pin. Revisar conexiones."},
+     {code:"274/275",name:"Driver tracción S1/S2 EDM",action:"Discrepancia en variador de tracción. Revisar variadores."},
+     {code:"276",name:"PIN se movió en marcha",action:"El PIN se activó durante movimiento del AGV."},
+     {code:"277/278",name:"Velocidad GM incorrecta",action:"Velocidad excede límite del mapa. Revisar parámetros de mapa."},
+     {code:"280",name:"Error rampa velocidad",action:"No frena en tiempo previsto. Revisar sistema de frenado."},
+     {code:"281",name:"Error de dirección",action:"Encoder montado al revés o feedback contrario. Revisar montaje."},
+     {code:"282",name:"Error inmovilización",action:"Movimiento cuando debería estar parado. Revisar frenos."},
+     {code:"291",name:"Inmovilización independiente",action:"Una rueda parada mientras el AGV marcha. Revisar variadores."},
+     {code:"292",name:"Desajuste de orientación",action:"Encoder de dirección no coincide con ruedas. Recalibrar."},
+     {code:"293",name:"Red Efipro caída",action:"Fallo en red de escáneres. Revisar cableado Efipro."},
+   ],
+   warns:[{type:"danger",text:"NO sobrescribir sin consultar control de cambios. Configuración específica por implantación."}]
+  },
+  {id:"mag", name:"Seguidor magnético", subtitle:"Calibración de sensor", tag:"Navegación",
+   software:["Software MFT"], hardware:[],
+   params:[
+     {k:"Working Node",v:"Nodo activo del seguidor"},
+     {k:"Calibrated Sensors",v:"Pestaña de calibración"},
+   ],
+   steps:[
+     {t:"Abrir software MFT",d:"Iniciar aplicación."},
+     {t:"Seleccionar Working Node",d:"Elegir nodo del seguidor."},
+     {t:"Calibrated Sensors",d:"Acceder a la pestaña."},
+     {t:"Pulsar Calibrate",d:"Iniciar calibración."},
+     {t:"Pulsar Change Target",d:"Confirmar nuevo objetivo."},
+     {t:"Cerrar y desconectar",d:"Finalizar proceso."},
+   ],
+   errors:[
+     {code:"—",name:"Pérdida de banda",action:"El AGV pierde la guía. Recalibrar sensor o revisar estado de la banda en suelo."},
+     {code:"—",name:"Node-ID erróneo",action:"Cambio de Node-ID requiere apagar y encender el dispositivo para aplicarse."},
+     {code:"293 (Flexi)",name:"Red Efipro caída",action:"Puede afectar al seguidor. Revisar cableado de red Efipro."},
+   ],
+   warns:[]
+  },
+  {id:"rfid", name:"Módulo RFID", subtitle:"Programación PIC", tag:"RFID",
+   software:["MPLAB IPE","SynFW MultiTool"], hardware:["Programador PICKIT4","Kvaser"],
+   params:[
+     {k:"Modelo PIC",v:"ATSAMC21E18A"},
+     {k:"Modo acceso",v:"Advanced Mode"},
+     {k:"Clave",v:"microchip"},
+     {k:"Switch CONFIG",v:"Radio / Sin radio"},
+   ],
+   steps:[
+     {t:"Conectar PICKIT4",d:"Sin alimentar la máquina."},
+     {t:"Abrir MPLAB IPE",d:"Seleccionar ATSAMC21E18A."},
+     {t:"Advanced Mode",d:"Clave: microchip."},
+     {t:"Cargar y programar",d:"Seleccionar firmware y programar."},
+   ],
+   errors:[
+     {code:"b3 (PIN)",name:"BOLT POSITION LOST",action:"Switch CONFIG indica módulo radio pero no hay físicamente. Corregir switch CONFIG."},
+     {code:"b6 (PIN)",name:"CAN COMM. FAILURE",action:"Fallo de mensajes en red CAN. Revisar cableado CAN del módulo RFID."},
+     {code:"—",name:"PIC no reconocido",action:"Verificar modelo seleccionado: ATSAMC21E18A. Reconectar PICKIT4."},
+   ],
+   warns:[
+     {type:"danger",text:"NO alimentar la máquina con PICKIT4 conectado. Daño irreversible al programador."},
+     {type:"warn",text:"Switch CONFIG erróneo genera error b3 en placa PIN."}
+   ]
+  },
+  {id:"modas", name:"MODAS", subtitle:"Comunicaciones multi-interfaz", tag:"Red",
+   software:["MC Configuration tool"], hardware:["Cable Ethernet RJ45"],
+   params:[
+     {k:"Conexión",v:"Ethernet RJ45 directo"},
+     {k:"Archivo config",v:"Fichero local .cfg"},
+   ],
+   steps:[
+     {t:"Conectar Ethernet RJ45",d:"PC al módulo MODAS."},
+     {t:"Abrir MC Configuration tool",d:"Iniciar software."},
+     {t:"Seleccionar dispositivo",d:"Auto-detectado en red."},
+     {t:"Pulsar Config",d:"Acceder a panel."},
+     {t:"Load from File",d:"Cargar archivo de configuración."},
+     {t:"Apply",d:"Aplicar configuración."},
+   ],
+   errors:[
+     {code:"—",name:"Dispositivo no detectado",action:"Verificar cable Ethernet y configuración IP del PC (subred correcta)."},
+     {code:"—",name:"Config no aplicada",action:"Revisar que el archivo .cfg corresponde al modelo de MODAS instalado."},
+     {code:"—",name:"Pérdida de comunicación CAN",action:"Verificar cableado CAN aguas abajo del módulo."},
+   ],
+   warns:[]
+  },
+  {id:"p20", name:"Placa P20.R10", subtitle:"Módulo PIN — Nº serie", tag:"PIN",
+   software:["MPLAB IPE","SynFW MultiTool"], hardware:["Programador PICKIT4","Kvaser"],
+   params:[
+     {k:"Serial Number",v:"Últimos dígitos significativos"},
+     {k:"Clave Write",v:"fabWr"},
+     {k:"Ruta",v:"Can Configurator → PIN P20"},
+   ],
+   steps:[
+     {t:"Alimentar la máquina",d:"Antes de conectar PICKIT4."},
+     {t:"Conectar Kvaser al CAN",d:"Bus CAN del AGV."},
+     {t:"Abrir SynFW MultiTool",d:"Acceder a Can Configurator."},
+     {t:"Seleccionar PIN P20",d:"Opción correcta del módulo."},
+     {t:"Introducir Nº serie",d:"Últimos dígitos significativos."},
+     {t:"Write con clave fabWr",d:"Confirmar grabación."},
+   ],
+   errors:[
+     {code:"b0",name:"DRIVER FAULT",action:"Fallo del driver del motor del PIN. Revisar driver y cableado."},
+     {code:"b1",name:"Transition Timeout (leva)",action:"La leva no llega a su posición. Revisar obstrucción mecánica."},
+     {code:"b2",name:"Error sensor posición leva",action:"Revisar switches o sensores inductivos de la leva."},
+     {code:"b3",name:"BOLT POSITION LOST",action:"Bulón sube y baja erráticamente. Revisar switch CONFIG del RFID."},
+     {code:"b4",name:"Transition Timeout (bulón)",action:"El bulón no llega a su posición. Revisar obstrucción mecánica."},
+     {code:"b5",name:"Error sensor posición bulón",action:"Revisar switches o sensores inductivos del bulón."},
+     {code:"b6",name:"CAN COMM. FAILURE",action:"Fallo de mensajes CAN. Revisar cableado y resistencia de terminación."},
+     {code:"b7",name:"DRIVER POWEROFF",action:"Falta de energía por seta de emergencia activada."},
+   ],
+   warns:[{type:"danger",text:"NO usar PICKIT4 con máquina alimentada para programar flash. Daño permanente al programador."}]
+  },
+];
+
+function renderGrid(){
+  document.getElementById('comp-grid').innerHTML=C.map((c,i)=>`
+    <button class="comp-btn${i===0?' active':''}" onclick="show(${i})" id="btn-${i}">
+      ${c.name}<span class="tag">${c.tag}</span>
+    </button>`).join('');
+}
+
+function showTab(id,tab){
+  document.querySelectorAll(`#tab-content-${id} .tab-content`).forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll(`#tab-bar-${id} .tab-btn`).forEach(t=>t.classList.remove('active'));
+  document.getElementById(`tab-${id}-${tab}`).classList.add('active');
+  document.getElementById(`tabcontent-${id}-${tab}`).classList.add('active');
+}
+
+function show(idx){
+  document.querySelectorAll('.comp-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  const c=C[idx];
+  let toolsHtml='<div class="tools-block">';
+  if(c.software&&c.software.length) toolsHtml+=`<div class="tools-type-label sw">Software</div><div class="tools-row">${c.software.map(t=>`<span class="pill-sw">${t}</span>`).join('')}</div>`;
+  if(c.hardware&&c.hardware.length) toolsHtml+=`<div class="tools-type-label hw">Herramienta física</div><div class="tools-row">${c.hardware.map(t=>`<span class="pill-hw">${t}</span>`).join('')}</div>`;
+  toolsHtml+='</div>';
+
+  const id=c.id;
+  const configTab=`
+    <div class="two-col">
+      <div>
+        <div class="section-label">Parámetros</div>
+        ${c.params.map(p=>`<div class="param-card"><div class="param-key">${p.k}</div><div class="param-val">${p.v}</div></div>`).join('')}
+        ${c.pinout?`<div class="section-label" style="margin-top:10px">Pinout Kvaser D-SUB → M12</div><table class="err-table"><tr><th>D-SUB</th><th>M12-5</th></tr>${c.pinout.map(p=>`<tr><td class="err-code">${p.dsub}</td><td>${p.m12}</td></tr>`).join('')}</table>`:''}
+      </div>
+      <div>
+        <div class="section-label">Procedimiento</div>
+        ${c.steps.map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div><div class="step-title">${s.t}</div><div class="step-desc">${s.d}</div></div></div>`).join('')}
+      </div>
+    </div>
+    ${(c.warns&&c.warns.length)?c.warns.map(w=>w.type==='danger'
+      ?`<div class="danger-box"><span style="color:#E3A414;font-weight:800;font-size:12px;flex-shrink:0">!</span><div class="danger-text">${w.text}</div></div>`
+      :`<div class="warn-box"><span style="color:#F6B707;font-weight:800;font-size:12px;flex-shrink:0">!</span><div class="warn-text">${w.text}</div></div>`
+    ).join(''):''}
+  `;
+
+  const errTab=`
+    <div class="section-label">Códigos de avería</div>
+    <table class="err-table">
+      <tr><th style="width:80px">Código</th><th style="width:160px">Nombre</th><th>Causa / Acción correctiva</th></tr>
+      ${c.errors.map(e=>`<tr><td class="err-code">${e.code}</td><td class="err-name">${e.name}</td><td class="err-action">${e.action}</td></tr>`).join('')}
+    </table>
+  `;
+
+  const html=`
+    <div class="comp-header">
+      <div class="comp-title">${c.name}</div>
+      <div class="comp-sub">${c.subtitle}</div>
+    </div>
+    <div class="layout">
+      <div class="infographic-wrap">${svgs[id]||''}</div>
+      <div>
+        ${toolsHtml}
+        <div class="tabs" id="tab-bar-${id}">
+          <button class="tab-btn active" id="tab-${id}-config" onclick="showTab('${id}','config')">Configuración</button>
+          <button class="tab-btn" id="tab-${id}-errors" onclick="showTab('${id}','errors')">Códigos de avería (${c.errors.length})</button>
+        </div>
+        <div id="tab-content-${id}">
+          <div class="tab-content active" id="tabcontent-${id}-config">${configTab}</div>
+          <div class="tab-content" id="tabcontent-${id}-errors">${errTab}</div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('main').innerHTML=html;
+}
+
+renderGrid();
+show(0);
+</script>

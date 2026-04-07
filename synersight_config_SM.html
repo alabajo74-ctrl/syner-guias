@@ -1,0 +1,748 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',Arial,sans-serif;background:#FAF9F5}
+.app-header{background:#193F7D;position:relative;overflow:hidden}
+.app-header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1}
+.brand-name span{color:#F6B707}
+.brand-tag{display:inline-block;background:#F6B707;color:#193F7D;font-size:9px;font-weight:700;padding:2px 7px;letter-spacing:0.08em}
+.header-title{color:#fff;font-size:13px;font-weight:500;opacity:0.85;text-align:right;line-height:1.4}
+.diag-accent{position:absolute;right:0;top:0;width:60px;height:100%;background:#F6B707;clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:0.18}
+.gama-bar{background:#002664;padding:6px 24px;display:flex;align-items:center;gap:10px}
+.gama-badge{font-size:10px;font-weight:800;color:#193F7D;background:#F6B707;padding:2px 8px;letter-spacing:0.06em}
+.gama-label{font-size:11px;color:rgba(255,255,255,0.7);font-weight:400}
+.section-bar{background:#253464;padding:10px 24px;display:flex;align-items:center;gap:8px}
+.section-bar-label{font-size:11px;font-weight:700;color:#F6B707;text-transform:uppercase;letter-spacing:0.1em}
+.section-bar-sub{font-size:11px;color:rgba(255,255,255,0.6)}
+.comp-grid{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:#fff;border-bottom:2px solid #F6B707}
+.comp-btn{font-family:'Montserrat',Arial,sans-serif;display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid #193F7D;background:#fff;color:#193F7D;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s;text-transform:uppercase;letter-spacing:0.04em}
+.comp-btn:hover{background:#193F7D;color:#fff}
+.comp-btn.active{background:#193F7D;color:#fff}
+.comp-btn .tag{font-size:9px;font-weight:700;background:#F6B707;color:#193F7D;padding:1px 5px;margin-left:2px}
+.legend{display:flex;gap:16px;align-items:center;padding:7px 24px;background:#FAF9F5;border-bottom:0.5px solid #e0ddd5}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:700;color:#253464;text-transform:uppercase;letter-spacing:0.06em}
+.leg-sw{width:9px;height:9px;background:#193F7D;border-radius:50%}
+.leg-hw{width:9px;height:9px;background:#fff;border:1.5px solid #253464}
+.main{padding:20px 24px;background:#FAF9F5}
+.comp-header{margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #F6B707}
+.comp-title{font-size:17px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.03em}
+.comp-sub{font-size:11px;color:#6EC1E4;font-weight:700;margin-top:3px;text-transform:uppercase;letter-spacing:0.06em}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start}
+.infographic-wrap{background:#fff;border:0.5px solid #ddd;overflow:hidden}
+.infographic-wrap svg{display:block;width:100%}
+.tools-block{margin-bottom:12px}
+.tools-type-label{font-size:10px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.1em;padding:3px 8px;display:inline-block;margin-bottom:5px}
+.tools-type-label.sw{background:#193F7D}
+.tools-type-label.hw{background:#253464}
+.tools-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.pill-sw{font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:700;padding:4px 10px;background:#193F7D;color:#F6B707;border:none;text-transform:uppercase;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:4px}
+.pill-sw::before{content:'';display:inline-block;width:6px;height:6px;background:#F6B707;border-radius:50%}
+.pill-hw{font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:700;padding:4px 10px;background:#fff;color:#253464;border:1.5px solid #253464;text-transform:uppercase;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:4px}
+.pill-hw::before{content:'';display:inline-block;width:6px;height:6px;background:#253464;border-radius:0}
+.tabs{display:flex;gap:0;margin-bottom:14px;border-bottom:2px solid #F6B707}
+.tab-btn{font-family:'Montserrat',Arial,sans-serif;padding:7px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;border:none;background:none;color:#193F7D;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.15s}
+.tab-btn:hover{background:#f0f0f0}
+.tab-btn.active{background:#193F7D;color:#F6B707;border-bottom-color:#193F7D}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.section-label{font-size:10px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:1px;background:#F6B707}
+.param-card{background:#FAF9F5;border-left:3px solid #F6B707;padding:6px 8px;margin-bottom:5px}
+.param-key{font-size:9px;color:#193F7D;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1px}
+.param-val{font-size:11px;color:#212121;font-weight:500}
+.step{display:flex;gap:8px;padding:6px 0;border-bottom:0.5px solid #e8e5dc}
+.step:last-child{border-bottom:none}
+.step-num{width:20px;height:20px;background:#193F7D;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:11px;font-weight:700;color:#193F7D}
+.step-desc{font-size:10px;color:#212121;margin-top:1px;line-height:1.4;font-weight:400}
+.err-table{width:100%;border-collapse:collapse;font-size:10px}
+.err-table th{text-align:left;padding:6px 8px;background:#193F7D;color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:0.04em}
+.err-table td{padding:5px 8px;border-bottom:0.5px solid #e0ddd5;vertical-align:top}
+.err-table tr:nth-child(even) td{background:#fff}
+.err-table tr:nth-child(odd) td{background:#FAF9F5}
+.err-code{font-weight:800;color:#193F7D;white-space:nowrap}
+.err-name{font-weight:700;color:#212121}
+.err-action{color:#555;font-weight:400;line-height:1.4}
+.warn-box{display:flex;gap:6px;padding:8px 10px;margin-top:8px;border-left:3px solid #F6B707;background:#fff}
+.danger-box{display:flex;gap:6px;padding:8px 10px;margin-top:6px;border-left:3px solid #E3A414;background:#fff8ee}
+.warn-text{font-size:10px;color:#212121;line-height:1.4;font-weight:500}
+.danger-text{font-size:10px;color:#5a3e00;line-height:1.4;font-weight:500}
+.footer-bar{background:#193F7D;padding:7px 24px;display:flex;align-items:center;justify-content:space-between}
+.footer-bar span{font-size:9px;color:rgba(255,255,255,0.5)}
+.footer-bar strong{font-size:9px;color:#F6B707;font-weight:700}
+</style>
+
+<div class="app-header">
+  <div class="app-header-inner">
+    <div class="brand">
+      <div class="brand-name">syner<span>sight</span></div>
+      <div class="brand-tag">let's move together</div>
+    </div>
+    <div class="header-title">Asistente de configuración<br>Gama SM / SMU / SMB</div>
+  </div>
+  <div class="diag-accent"></div>
+</div>
+<div class="gama-bar">
+  <span class="gama-badge">SM · SMU · SMB</span>
+  <span class="gama-label">PLC Siemens S7-1200 · PROFINET · Bus CAN</span>
+</div>
+<div class="section-bar">
+  <span class="section-bar-label">Componente</span>
+  <span class="section-bar-sub">Selecciona para ver infografía, configuración y códigos de avería</span>
+</div>
+<div class="comp-grid" id="comp-grid"></div>
+<div class="legend">
+  <div class="legend-item"><div class="leg-sw"></div>Software</div>
+  <div class="legend-item"><div class="leg-hw"></div>Herramienta física</div>
+</div>
+<div class="main" id="main"></div>
+<div class="footer-bar">
+  <span>© 2024 Emayor Synersight Technologies SL</span>
+  <strong>synersight.es</strong>
+</div>
+
+<script>
+const svgs = {
+plc:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <rect x="80" y="70" width="100" height="70" rx="4" fill="#193F7D"/>
+  <text x="130" y="97" text-anchor="middle" fill="#F6B707" font-size="9" font-weight="800">PLC S7-1200</text>
+  <text x="130" y="109" text-anchor="middle" fill="#fff" font-size="6">Maestro 192.168.3.10</text>
+  <text x="130" y="119" text-anchor="middle" fill="#6EC1E4" font-size="5.5">PROFINET / Modbus RTU</text>
+  <rect x="84" y="126" width="92" height="10" rx="1" fill="#F6B707"/>
+  <text x="130" y="134" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">Simatic Automation Tool</text>
+  <!-- PC -->
+  <rect x="95" y="14" width="70" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="26" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC</text>
+  <text x="130" y="37" text-anchor="middle" fill="#fff" font-size="5.5">Simatic Automation Tool</text>
+  <line x1="130" y1="42" x2="130" y2="70" stroke="#6EC1E4" stroke-width="1.5"/>
+  <rect x="105" y="53" width="50" height="10" rx="2" fill="#6EC1E4"/>
+  <text x="130" y="61" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">ETHERNET</text>
+  <!-- PLC Esclavo -->
+  <rect x="170" y="100" width="76" height="40" rx="3" fill="#253464"/>
+  <text x="208" y="117" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PLC Esclavo</text>
+  <text x="208" y="128" text-anchor="middle" fill="#F6B707" font-size="5.5">192.168.3.30</text>
+  <text x="208" y="137" text-anchor="middle" fill="#6EC1E4" font-size="5.5">PROFINET</text>
+  <line x1="180" y1="110" x2="170" y2="110" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <!-- HMI -->
+  <rect x="14" y="100" width="60" height="40" rx="3" fill="#253464"/>
+  <text x="44" y="117" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">HMI exP20</text>
+  <text x="44" y="128" text-anchor="middle" fill="#F6B707" font-size="5.5">192.168.3.12</text>
+  <text x="44" y="137" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Ethernet</text>
+  <line x1="80" y1="110" x2="74" y2="110" stroke="#6EC1E4" stroke-width="1.5"/>
+  <!-- PN/CAN -->
+  <rect x="80" y="165" width="100" height="36" rx="3" fill="#253464"/>
+  <text x="130" y="180" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PN/CAN Link</text>
+  <text x="130" y="191" text-anchor="middle" fill="#F6B707" font-size="5.5">192.168.3.11</text>
+  <text x="130" y="200" text-anchor="middle" fill="#6EC1E4" font-size="5.5">PROFINET → CAN</text>
+  <line x1="130" y1="140" x2="130" y2="165" stroke="#F6B707" stroke-width="1.5"/>
+  <text x="136" y="155" fill="#F6B707" font-size="5.5" font-weight="700">PN</text>
+  <!-- Vsystems -->
+  <rect x="170" y="165" width="76" height="36" rx="3" fill="#193F7D"/>
+  <text x="208" y="180" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">VSystems</text>
+  <text x="208" y="191" text-anchor="middle" fill="#F6B707" font-size="5.5">Gestión flota</text>
+  <text x="208" y="200" text-anchor="middle" fill="#6EC1E4" font-size="5.5">WiFi / LAN</text>
+  <line x1="180" y1="175" x2="170" y2="150" stroke="#6EC1E4" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="130" y="214" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Unidad central de control — AGV gama SM</text>
+</svg>`,
+pncan:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <!-- PLC -->
+  <rect x="10" y="14" width="70" height="30" rx="3" fill="#193F7D"/>
+  <text x="45" y="27" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PLC S7-1200</text>
+  <text x="45" y="38" text-anchor="middle" fill="#F6B707" font-size="5.5">PROFINET</text>
+  <!-- Switch -->
+  <rect x="100" y="14" width="60" height="30" rx="3" fill="#253464"/>
+  <text x="130" y="27" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">Switch</text>
+  <text x="130" y="38" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Red AGV</text>
+  <!-- PC -->
+  <rect x="180" y="14" width="70" height="30" rx="3" fill="#6EC1E4"/>
+  <text x="215" y="27" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC</text>
+  <text x="215" y="38" text-anchor="middle" fill="#fff" font-size="5.5">Simatic Auto. Tool</text>
+  <!-- PN/CAN Link central -->
+  <rect x="70" y="80" width="120" height="60" rx="4" fill="#193F7D"/>
+  <text x="130" y="102" text-anchor="middle" fill="#F6B707" font-size="9" font-weight="800">PN/CAN Link</text>
+  <text x="130" y="114" text-anchor="middle" fill="#fff" font-size="6">IP: 192.168.3.11</text>
+  <text x="130" y="124" text-anchor="middle" fill="#fff" font-size="5.5">Nombre: Link_1</text>
+  <rect x="78" y="130" width="104" height="8" rx="1" fill="#F6B707"/>
+  <text x="130" y="136" text-anchor="middle" fill="#193F7D" font-size="5.5" font-weight="800">2× ETH inferior (bridge) + CAN Sub-D9</text>
+  <!-- connection lines top -->
+  <line x1="80" y1="44" x2="100" y2="80" stroke="#6EC1E4" stroke-width="1.5"/>
+  <line x1="130" y1="44" x2="130" y2="80" stroke="#6EC1E4" stroke-width="1.5"/>
+  <line x1="190" y1="44" x2="170" y2="80" stroke="#6EC1E4" stroke-width="1.5"/>
+  <!-- CAN bus below -->
+  <line x1="130" y1="140" x2="130" y2="165" stroke="#F6B707" stroke-width="2"/>
+  <rect x="105" y="153" width="50" height="10" rx="2" fill="#F6B707"/>
+  <text x="130" y="161" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">BUS CAN</text>
+  <!-- CAN devices -->
+  <rect x="20" y="168" width="55" height="26" rx="3" fill="#253464"/>
+  <text x="47" y="181" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">Variadores</text>
+  <text x="47" y="191" text-anchor="middle" fill="#F6B707" font-size="5.5">Roboteq</text>
+  <rect x="82" y="168" width="55" height="26" rx="3" fill="#253464"/>
+  <text x="109" y="181" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">Seguidor</text>
+  <text x="109" y="191" text-anchor="middle" fill="#F6B707" font-size="5.5">Magnético</text>
+  <rect x="144" y="168" width="55" height="26" rx="3" fill="#253464"/>
+  <text x="171" y="181" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">RFID</text>
+  <text x="171" y="191" text-anchor="middle" fill="#F6B707" font-size="5.5">RFH620</text>
+  <rect x="206" y="168" width="44" height="26" rx="3" fill="#253464"/>
+  <text x="228" y="181" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">Joystick</text>
+  <text x="228" y="191" text-anchor="middle" fill="#F6B707" font-size="5.5">CAN</text>
+  <line x1="47" y1="168" x2="90" y2="165" stroke="#F6B707" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="109" y1="168" x2="115" y2="165" stroke="#F6B707" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="171" y1="168" x2="155" y2="165" stroke="#F6B707" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="222" y1="168" x2="170" y2="165" stroke="#F6B707" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Pasarela PROFINET ↔ Bus CAN</text>
+</svg>`,
+canbridge:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <!-- Battery cofre -->
+  <rect x="10" y="80" width="80" height="60" rx="4" fill="#253464"/>
+  <text x="50" y="107" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">Batería</text>
+  <text x="50" y="119" text-anchor="middle" fill="#F6B707" font-size="7">Plomo / Litio</text>
+  <text x="50" y="130" text-anchor="middle" fill="#6EC1E4" font-size="5.5">24V / 48V</text>
+  <!-- CAN Bridge -->
+  <rect x="100" y="75" width="110" height="70" rx="4" fill="#193F7D"/>
+  <text x="155" y="100" text-anchor="middle" fill="#F6B707" font-size="9" font-weight="800">CAN Bridge</text>
+  <text x="155" y="113" text-anchor="middle" fill="#fff" font-size="6">ATSAMC21J18A</text>
+  <text x="155" y="124" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Switch S4: 24V / 48V</text>
+  <rect x="108" y="130" width="94" height="10" rx="1" fill="#F6B707"/>
+  <text x="155" y="138" text-anchor="middle" fill="#193F7D" font-size="5.5" font-weight="800">CAN AGV · CAN BATT</text>
+  <!-- LED indicator -->
+  <rect x="205" y="75" width="45" height="40" rx="3" fill="#FAF9F5" stroke="#ddd" stroke-width="0.5"/>
+  <text x="227" y="87" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">LED D7</text>
+  <circle cx="216" cy="100" r="4" fill="#6EC1E4"/><text x="226" y="103" fill="#212121" font-size="5.5">1× — OK</text>
+  <circle cx="216" cy="111" r="4" fill="#E3A414"/><text x="226" y="114" fill="#212121" font-size="5.5">2× — CAN fail</text>
+  <!-- CAN lines -->
+  <line x1="90" y1="110" x2="100" y2="110" stroke="#F6B707" stroke-width="2"/>
+  <rect x="88" y="104" width="14" height="12" rx="2" fill="#F6B707"/>
+  <text x="95" y="113" text-anchor="middle" fill="#193F7D" font-size="5" font-weight="800">CAN</text>
+  <!-- PC + PicKit -->
+  <rect x="80" y="14" width="70" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="115" y="26" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC — MPLAB IPE</text>
+  <text x="115" y="37" text-anchor="middle" fill="#fff" font-size="5.5">HTerm (calibración)</text>
+  <rect x="155" y="14" width="70" height="28" rx="3" fill="#E3A414"/>
+  <text x="190" y="26" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PicKit4</text>
+  <text x="190" y="37" text-anchor="middle" fill="#fff" font-size="5.5">Programación HW</text>
+  <line x1="115" y1="42" x2="130" y2="75" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="190" y1="42" x2="175" y2="75" stroke="#E3A414" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <!-- ACU / PLC bus -->
+  <rect x="100" y="165" width="110" height="28" rx="3" fill="#253464"/>
+  <text x="155" y="179" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">Sistema AGV (PLC)</text>
+  <text x="155" y="189" text-anchor="middle" fill="#F6B707" font-size="5.5">CAN AGV</text>
+  <line x1="155" y1="145" x2="155" y2="165" stroke="#F6B707" stroke-width="1.5"/>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Interfaz de comunicación batería ↔ sistema</text>
+</svg>`,
+sick:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <!-- PC Flexi Soft -->
+  <rect x="88" y="12" width="84" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="24" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC — Flexi Soft Designer</text>
+  <text x="130" y="35" text-anchor="middle" fill="#fff" font-size="5.5">CDS Configuration Software</text>
+  <!-- UE4740 Gateway -->
+  <rect x="70" y="60" width="120" height="40" rx="3" fill="#253464"/>
+  <text x="130" y="77" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">PROFIsafe UE4740</text>
+  <text x="130" y="89" text-anchor="middle" fill="#F6B707" font-size="5.5">IP: 192.168.3.31 · Nombre: UE4740</text>
+  <line x1="130" y1="40" x2="130" y2="60" stroke="#6EC1E4" stroke-width="1.5"/>
+  <!-- PLC -->
+  <rect x="10" y="60" width="55" height="40" rx="3" fill="#193F7D"/>
+  <text x="37" y="77" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PLC S7</text>
+  <text x="37" y="88" text-anchor="middle" fill="#F6B707" font-size="5.5">PROFINET</text>
+  <line x1="70" y1="78" x2="65" y2="78" stroke="#6EC1E4" stroke-width="1.5"/>
+  <!-- EFI lines to scanners -->
+  <line x1="95" y1="100" x2="60" y2="135" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="165" y1="100" x2="200" y2="135" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="50" y="130" fill="#F6B707" font-size="5.5" font-weight="700">EFI</text>
+  <!-- S300 scanners -->
+  <rect x="18" y="135" width="80" height="38" rx="3" fill="#193F7D"/>
+  <text x="58" y="150" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">SICK S300</text>
+  <text x="58" y="161" text-anchor="middle" fill="#F6B707" font-size="6">MAESTRO</text>
+  <text x="58" y="172" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Campo protección</text>
+  <rect x="162" y="135" width="80" height="38" rx="3" fill="#193F7D"/>
+  <text x="202" y="150" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">SICK S300</text>
+  <text x="202" y="161" text-anchor="middle" fill="#F6B707" font-size="6">ESCLAVO</text>
+  <text x="202" y="172" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Campo aviso</text>
+  <!-- display 7seg -->
+  <rect x="95" y="108" width="70" height="24" rx="2" fill="#FAF9F5" stroke="#F6B707" stroke-width="0.5"/>
+  <text x="130" y="119" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">Display 7 seg.</text>
+  <text x="130" y="129" text-anchor="middle" fill="#193F7D" font-size="5.5">E1·F1-F9·I1·I2·U1</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Seguridad funcional — PROFINET / EFI / PROFIsafe</text>
+</svg>`,
+variadores:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <!-- AGV body -->
+  <rect x="80" y="85" width="100" height="55" rx="4" fill="#193F7D"/>
+  <text x="130" y="112" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">AGV</text>
+  <text x="130" y="124" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Tracción + Dirección</text>
+  <!-- Roboteq variators CAN -->
+  <rect x="10" y="55" width="60" height="30" rx="2" fill="#253464"/>
+  <text x="40" y="68" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">Roboteq</text>
+  <text x="40" y="78" text-anchor="middle" fill="#fff" font-size="5.5">CAN · M1/M2</text>
+  <rect x="10" y="140" width="60" height="30" rx="2" fill="#253464"/>
+  <text x="40" y="153" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">Roboteq</text>
+  <text x="40" y="163" text-anchor="middle" fill="#fff" font-size="5.5">CAN · M3/M4</text>
+  <!-- Oriental Motor Modbus -->
+  <rect x="190" y="55" width="60" height="30" rx="2" fill="#002664"/>
+  <text x="220" y="68" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">Oriental</text>
+  <text x="220" y="78" text-anchor="middle" fill="#fff" font-size="5.5">Modbus RS485</text>
+  <rect x="190" y="140" width="60" height="30" rx="2" fill="#002664"/>
+  <text x="220" y="153" text-anchor="middle" fill="#F6B707" font-size="7" font-weight="700">Oriental</text>
+  <text x="220" y="163" text-anchor="middle" fill="#fff" font-size="5.5">Modbus RS485</text>
+  <!-- connection lines -->
+  <line x1="70" y1="70" x2="80" y2="105" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="70" y1="155" x2="80" y2="130" stroke="#F6B707" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="190" y1="70" x2="180" y2="105" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="190" y1="155" x2="180" y2="130" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <!-- bus labels -->
+  <rect x="82" y="93" width="46" height="10" rx="2" fill="#F6B707"/>
+  <text x="105" y="101" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">BUS CAN</text>
+  <rect x="132" y="93" width="46" height="10" rx="2" fill="#6EC1E4"/>
+  <text x="155" y="101" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">RS485</text>
+  <!-- PC / OPX-2A -->
+  <rect x="88" y="14" width="84" height="28" rx="3" fill="#6EC1E4"/>
+  <text x="130" y="26" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">PC (Roboteq USB)</text>
+  <text x="130" y="37" text-anchor="middle" fill="#fff" font-size="5.5">OPX-2A (Oriental)</text>
+  <line x1="110" y1="42" x2="100" y2="85" stroke="#6EC1E4" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="42" x2="160" y2="85" stroke="#6EC1E4" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- motors -->
+  <circle cx="22" cy="195" r="10" fill="#FAF9F5" stroke="#193F7D" stroke-width="1.5"/>
+  <text x="22" y="199" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">M</text>
+  <circle cx="238" cy="195" r="10" fill="#FAF9F5" stroke="#193F7D" stroke-width="1.5"/>
+  <text x="238" y="199" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">M</text>
+  <line x1="40" y1="170" x2="22" y2="185" stroke="#193F7D" stroke-width="1.5"/>
+  <line x1="220" y1="170" x2="238" y2="185" stroke="#193F7D" stroke-width="1.5"/>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Roboteq (CAN) · Oriental Motor (Modbus RS485)</text>
+</svg>`,
+joystick:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <!-- Joystick device -->
+  <rect x="80" y="55" width="100" height="80" rx="8" fill="#253464"/>
+  <circle cx="130" cy="95" r="20" fill="#193F7D"/>
+  <circle cx="130" cy="95" r="8" fill="#F6B707"/>
+  <text x="130" y="99" text-anchor="middle" fill="#193F7D" font-size="7" font-weight="800">J</text>
+  <rect x="90" y="120" width="28" height="10" rx="2" fill="#F6B707"/>
+  <text x="104" y="128" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">STD</text>
+  <rect x="122" y="120" width="28" height="10" rx="2" fill="#6EC1E4"/>
+  <text x="136" y="128" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">ADV</text>
+  <text x="130" y="148" text-anchor="middle" fill="#F6B707" font-size="6" font-weight="700">JOYSTICK CAN</text>
+  <!-- AGV connector -->
+  <rect x="88" y="14" width="84" height="26" rx="3" fill="#193F7D"/>
+  <text x="130" y="25" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">AGV — Conector frontal</text>
+  <text x="130" y="36" text-anchor="middle" fill="#F6B707" font-size="5.5">Bus CAN / I2C</text>
+  <line x1="130" y1="40" x2="130" y2="55" stroke="#F6B707" stroke-width="2"/>
+  <!-- Status codes -->
+  <rect x="10" y="55" width="62" height="80" rx="3" fill="#FAF9F5" stroke="#F6B707" stroke-width="1"/>
+  <text x="41" y="68" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">ESTADOS</text>
+  <circle cx="20" cy="82" r="4" fill="#6EC1E4"/><text x="30" y="85" fill="#212121" font-size="5.5">0x40 Conect.</text>
+  <circle cx="20" cy="96" r="4" fill="#888"/><text x="30" y="99" fill="#212121" font-size="5.5">0x41 Descon.</text>
+  <circle cx="20" cy="110" r="4" fill="#F6B707"/><text x="30" y="113" fill="#212121" font-size="5.5">0x42 OVR ON</text>
+  <circle cx="20" cy="124" r="4" fill="#193F7D"/><text x="30" y="127" fill="#212121" font-size="5.5">0x43 OVR OFF</text>
+  <!-- HMI warnings -->
+  <rect x="188" y="55" width="62" height="80" rx="3" fill="#FAF9F5" stroke="#193F7D" stroke-width="0.5"/>
+  <text x="219" y="68" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">HMI</text>
+  <rect x="193" y="75" width="52" height="10" rx="2" fill="#F6B707"/>
+  <text x="219" y="83" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">W!! fijo</text>
+  <text x="219" y="95" text-anchor="middle" fill="#212121" font-size="5.5">Avisos no</text>
+  <text x="219" y="105" text-anchor="middle" fill="#212121" font-size="5.5">inmovilizantes</text>
+  <rect x="193" y="112" width="52" height="10" rx="2" fill="#E3A414"/>
+  <text x="219" y="120" text-anchor="middle" fill="#fff" font-size="6" font-weight="800">W!! parpad.</text>
+  <text x="219" y="132" text-anchor="middle" fill="#212121" font-size="5.5">Aviso que</text>
+  <text x="219" y="142" text-anchor="middle" fill="#212121" font-size="5.5">inmoviliza</text>
+  <!-- menus -->
+  <rect x="80" y="158" width="100" height="30" rx="3" fill="#FAF9F5" stroke="#193F7D" stroke-width="0.5"/>
+  <text x="130" y="170" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">Menú Standard</text>
+  <text x="130" y="180" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="700">Menú Advanced (contraseña)</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Diagnóstico y control manual en campo</text>
+</svg>`,
+hmi:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <!-- HMI screen -->
+  <rect x="55" y="30" width="150" height="100" rx="6" fill="#253464"/>
+  <rect x="62" y="37" width="136" height="86" rx="3" fill="#002664"/>
+  <text x="130" y="58" text-anchor="middle" fill="#F6B707" font-size="8" font-weight="800">HMI exP20</text>
+  <text x="130" y="70" text-anchor="middle" fill="#fff" font-size="6">192.168.3.12 (Maestra)</text>
+  <text x="130" y="80" text-anchor="middle" fill="#6EC1E4" font-size="5.5">192.168.3.21 (Esclava)</text>
+  <rect x="68" y="88" width="124" height="28" rx="2" fill="#193F7D"/>
+  <text x="130" y="100" text-anchor="middle" fill="#F6B707" font-size="6" font-weight="700">Last Events</text>
+  <text x="130" y="111" text-anchor="middle" fill="#fff" font-size="5.5">0x0A · 0x0B · 0x0C · 0x0D...</text>
+  <!-- stand -->
+  <rect x="120" y="130" width="20" height="15" fill="#253464"/>
+  <rect x="100" y="145" width="60" height="8" rx="2" fill="#253464"/>
+  <!-- Ethernet connection -->
+  <rect x="88" y="165" width="84" height="24" rx="3" fill="#193F7D"/>
+  <text x="130" y="177" text-anchor="middle" fill="#fff" font-size="7" font-weight="700">Switch AGV</text>
+  <text x="130" y="187" text-anchor="middle" fill="#F6B707" font-size="5.5">Ethernet</text>
+  <line x1="130" y1="153" x2="130" y2="165" stroke="#6EC1E4" stroke-width="1.5"/>
+  <!-- error badge -->
+  <rect x="10" y="50" width="40" height="24" rx="3" fill="#FCEBEB" stroke="#E3A414" stroke-width="1"/>
+  <text x="30" y="61" text-anchor="middle" fill="#A32D2D" font-size="6" font-weight="800">0x000A</text>
+  <text x="30" y="71" text-anchor="middle" fill="#A32D2D" font-size="5">Sin prog.</text>
+  <rect x="210" y="50" width="40" height="24" rx="3" fill="#FFF8EE" stroke="#F6B707" stroke-width="1"/>
+  <text x="230" y="61" text-anchor="middle" fill="#854F0B" font-size="6" font-weight="800">0x0E</text>
+  <text x="230" y="71" text-anchor="middle" fill="#854F0B" font-size="5">EDM fallo</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Interfaz HMI — Visualización y diagnóstico</text>
+</svg>`,
+vsystems:`<svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
+  <rect width="260" height="220" fill="#fff"/>
+  <!-- Server -->
+  <rect x="88" y="12" width="84" height="40" rx="4" fill="#193F7D"/>
+  <text x="130" y="30" text-anchor="middle" fill="#F6B707" font-size="10" font-weight="800">VSystems</text>
+  <text x="130" y="43" text-anchor="middle" fill="#fff" font-size="6">Plataforma gestión flota AGV</text>
+  <text x="130" y="50" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Acceso navegador web</text>
+  <!-- WiFi / LAN -->
+  <line x1="130" y1="52" x2="130" y2="75" stroke="#6EC1E4" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="136" y="66" fill="#6EC1E4" font-size="6" font-weight="700">WiFi/LAN</text>
+  <!-- PLC AGV -->
+  <rect x="70" y="75" width="120" height="40" rx="3" fill="#253464"/>
+  <text x="130" y="91" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">PLC AGV (MAC)</text>
+  <text x="130" y="103" text-anchor="middle" fill="#F6B707" font-size="6">MAC como Nº serie · IP Mikrotik</text>
+  <text x="130" y="111" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Alta Terminal + Alta AGV</text>
+  <!-- params -->
+  <rect x="10" y="75" width="55" height="80" rx="3" fill="#FAF9F5" stroke="#F6B707" stroke-width="1"/>
+  <text x="37" y="88" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">PARAMS</text>
+  <text x="37" y="100" text-anchor="middle" fill="#212121" font-size="5.5">Bat. mín.</text>
+  <text x="37" y="110" text-anchor="middle" fill="#212121" font-size="5.5">Bat. crítica</text>
+  <text x="37" y="120" text-anchor="middle" fill="#212121" font-size="5.5">Acelerac.</text>
+  <text x="37" y="130" text-anchor="middle" fill="#212121" font-size="5.5">Diám. rueda</text>
+  <text x="37" y="140" text-anchor="middle" fill="#212121" font-size="5.5">IP Mikrotik</text>
+  <line x1="65" y1="115" x2="70" y2="115" stroke="#F6B707" stroke-width="1.5"/>
+  <!-- incidents table -->
+  <rect x="10" y="162" width="240" height="36" rx="3" fill="#FAF9F5" stroke="#193F7D" stroke-width="0.5"/>
+  <text x="130" y="174" text-anchor="middle" fill="#193F7D" font-size="6" font-weight="800">Tabla de incidencias: Códigos 0–35</text>
+  <text x="130" y="185" text-anchor="middle" fill="#212121" font-size="5.5">Batería · Seguridad · Variadores · Seguidor · PIN · RFID · PN/CAN</text>
+  <text x="130" y="193" text-anchor="middle" fill="#6EC1E4" font-size="5.5">Subcódigos detallados por periférico</text>
+  <!-- fleet -->
+  <rect x="70" y="120" width="50" height="30" rx="3" fill="#193F7D"/>
+  <text x="95" y="135" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">AGV 1</text>
+  <text x="95" y="145" text-anchor="middle" fill="#F6B707" font-size="5.5">Online</text>
+  <rect x="125" y="120" width="50" height="30" rx="3" fill="#193F7D"/>
+  <text x="150" y="135" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">AGV 2</text>
+  <text x="150" y="145" text-anchor="middle" fill="#F6B707" font-size="5.5">Online</text>
+  <rect x="180" y="120" width="50" height="30" rx="3" fill="#253464"/>
+  <text x="205" y="135" text-anchor="middle" fill="#fff" font-size="6" font-weight="700">AGV N</text>
+  <text x="205" y="145" text-anchor="middle" fill="#888" font-size="5.5">Offline</text>
+  <text x="130" y="210" text-anchor="middle" fill="#193F7D" font-size="8" font-weight="700">Gestión y monitorización centralizada de flota</text>
+</svg>`
+};
+
+const C = [
+  {id:"plc", name:"PLC S7-1200", subtitle:"Siemens — Control principal", tag:"PLC",
+   software:["Simatic Automation Tool"], hardware:["PC","Cable Ethernet"],
+   params:[
+     {k:"IP Maestro",v:"192.168.3.10"},
+     {k:"IP Esclavo",v:"192.168.3.30"},
+     {k:"Máscara subred",v:"255.255.255.0"},
+     {k:"Puerta de enlace",v:"192.168.3.1"},
+     {k:"Protocolo",v:"PROFINET + Modbus RTU (RS485)"},
+   ],
+   steps:[
+     {t:"Alimentar CPU y conectar al PC",d:"Cable Ethernet. Alimentación 24Vdc."},
+     {t:"Abrir Simatic Automation Tool",d:"Escanear la red para detectar el PLC."},
+     {t:"Asignar IP",d:"Maestro: 192.168.3.10 · Esclavo: 192.168.3.30."},
+     {t:"Cargar programa",d:"Archivo .upd para firmware o bloque de programa."},
+     {t:"STOP → RUN",d:"Cambiar el estado de la CPU a RUN."},
+   ],
+   errors:[
+     {code:"LED ERROR rojo parpadeante",name:"Fallo configuración / hardware",action:"Revisar configuración del proyecto y conexión Ethernet."},
+     {code:"LED MAINT amarillo",name:"Mantenimiento / E/S forzadas",action:"Revisar si hay E/S forzadas activas en el programa."},
+     {code:"0x000A (HMI)",name:"PLC sin programa / error red",action:"Verificar que el programa está cargado y la red Ethernet está activa."},
+     {code:"Cod. 23 (VSystems)",name:"Error comunicación PLC Slave",action:"Revisar comunicación PROFINET entre maestro y esclavo."},
+     {code:"Cod. 24 (VSystems)",name:"Error PLC Slave",action:"Sin defectos asignados. Revisar estado general del PLC esclavo."},
+   ],
+   warns:[{type:"warn",text:"El PLC esclavo debe estar inicializado antes de conectar el Joystick CAN para permitir la correcta inicialización del maestro."}]
+  },
+  {id:"pncan", name:"PN/CAN Link", subtitle:"Pasarela PROFINET ↔ CAN", tag:"Pasarela",
+   software:["Simatic Automation Tool"], hardware:["PC","Cable Ethernet"],
+   params:[
+     {k:"IP",v:"192.168.3.11"},
+     {k:"Nombre PROFINET",v:"Link_1"},
+     {k:"Puertos Ethernet",v:"2× inferiores en modo bridge"},
+     {k:"Puerto CAN",v:"Sub-D 9 inferior"},
+   ],
+   steps:[
+     {t:"Alimentar el módulo y conectar al PC",d:"Ethernet al módulo PN/CAN Link."},
+     {t:"Abrir Simatic Automation Tool",d:"Escanear la red para detectar el módulo."},
+     {t:"Asignar IP 192.168.3.11",d:"Configurar dirección IP del módulo."},
+     {t:"Asignar nombre PROFINET",d:"Nombre: Link_1. Debe coincidir con configuración del PLC."},
+   ],
+   errors:[
+     {code:"LED ERROR rojo parpadeante",name:"Config. incorrecta PLC S7",action:"Verificar nombre PROFINET y dirección IP asignados."},
+     {code:"LED BUS CAN error",name:"Fallo red CAN",action:"Revisar cableado CAN y terminación de red."},
+     {code:"Cod. 30 (VSystems)",name:"Error comunicación PN/CAN",action:"Revisar comunicación entre el PLC y la pasarela."},
+     {code:"Cod. 31 (VSystems)",name:"Error PN/CAN pasarela",action:"Error en pasarela CAN. Verificar configuración y alimentación."},
+   ],
+   warns:[{type:"warn",text:"No modificar las IPs internas de los dispositivos. Se usan para comunicación interna, no solo para acceso externo."}]
+  },
+  {id:"canbridge", name:"CAN Bridge", subtitle:"Interfaz batería — sistema", tag:"Batería",
+   software:["MPLAB X IPE","HTerm (calibración)"], hardware:["PicKit4 / PicKit","PC"],
+   params:[
+     {k:"Microcontrolador",v:"ATSAMC21J18A"},
+     {k:"Switch S4",v:"24V o 48V según batería"},
+     {k:"V_OFF / V_SLP",v:"Potenciómetros tensión (calibrar con polímetro)"},
+     {k:"I_OFF",v:"Potenciómetro corriente (calibrar con polímetro)"},
+     {k:"Modo litio",v:"Auto — activa al recibir datos BMS"},
+   ],
+   steps:[
+     {t:"Conectar PicKit al PC y alimentar placa",d:"Conexión para programación del microcontrolador."},
+     {t:"Abrir MPLAB X IPE",d:"Seleccionar microcontrolador ATSAMC21J18A."},
+     {t:"Cargar archivo .hex",d:"Programar el microcontrolador con el firmware correspondiente."},
+     {t:"Calibrar con HTerm",d:"Ajustar potenciómetros V_OFF, V_SLP e I_OFF hasta que los valores coincidan con el polímetro externo."},
+   ],
+   errors:[
+     {code:"LED D7 — 1 parpadeo",name:"Funcionamiento correcto",action:"La placa opera correctamente. Sin acción necesaria."},
+     {code:"LED D7 — 2 parpadeos",name:"Fallo CAN",action:"Revisar cableado CAN y conexión con el resto del sistema."},
+     {code:"LED D7 — 3 parpadeos",name:"Batería fuera de rango",action:"Verificar que el switch S4 está en la posición correcta (24V/48V)."},
+     {code:"Cod. 0 (VSystems)",name:"Error comm. placa batería CAN",action:"Revisar comunicación CAN entre CAN Bridge y sistema AGV."},
+     {code:"Cod. 2 (VSystems)",name:"Sobretensión batería",action:"Verificar estado de la batería y parámetros de carga."},
+     {code:"Cod. 3 (VSystems)",name:"Batería en reserva",action:"Llevar el AGV a cargar. Nivel mínimo alcanzado."},
+     {code:"Cod. 4 (VSystems)",name:"Batería crítica",action:"Parada inminente. Cargar batería inmediatamente."},
+   ],
+   warns:[{type:"warn",text:"El modo litio se activa automáticamente al recibir datos del BMS. No requiere configuración manual."}]
+  },
+  {id:"sick", name:"Escáneres SICK S300", subtitle:"Seguridad + PROFIsafe UE4740", tag:"Seguridad",
+   software:["Flexi Soft Designer","CDS Configuration Software"], hardware:["PC","Cable M8 de configuración"],
+   params:[
+     {k:"IP UE4740",v:"192.168.3.31"},
+     {k:"Nombre PROFINET UE4740",v:"UE4740"},
+     {k:"Campos S300",v:"Aproximación, Modo Auto, Protección, Aviso"},
+     {k:"Conexión",v:"EFI (escáneres) · PROFINET (UE4740 ↔ PLC)"},
+   ],
+   steps:[
+     {t:"Configurar UE4740 primero",d:"Obligatorio configurar la pasarela PROFIsafe ANTES que la CPU de seguridad SICK."},
+     {t:"Asignar IP y nombre PROFINET",d:"IP: 192.168.3.31 · Nombre: UE4740."},
+     {t:"Abrir CDS Software",d:"Parametrizar el mapa de memoria EFI vía software."},
+     {t:"Abrir Flexi Soft Designer",d:"Definir lógica de seguridad y mapas de campos de los escáneres."},
+     {t:"Cargar configuración al escáner",d:"Transferir la configuración a cada escáner S300."},
+   ],
+   errors:[
+     {code:"Display 3",name:"Inicializando",action:"Normal al arranque. Esperar inicialización completa."},
+     {code:"Display 4",name:"Esperando entradas",action:"El escáner espera señal de habilitación. Revisar entradas."},
+     {code:"Display 6",name:"Esperando configuración",action:"No hay configuración cargada. Cargar via Flexi Soft."},
+     {code:"Display 8",name:"Error EDM",action:"Fallo en circuito EDM. Revisar contactores y cableado."},
+     {code:"Display 9",name:"Error rearme",action:"Rearme fallido. Revisar secuencia de rearme."},
+     {code:"Display E1",name:"Fallo / averiado",action:"Escáner averiado. Sustituir o contactar soporte."},
+     {code:"Display F1-F9",name:"Fallo sistema",action:"Fallo interno del sistema. Consultar documentación SICK."},
+     {code:"Display I1",name:"Obstrucción total",action:"Objeto en campo de protección. Retirar obstáculo."},
+     {code:"Display I2",name:"Deslumbramiento",action:"Fuente de luz intensa afecta al escáner. Reposicionar."},
+     {code:"Display U1",name:"Ventana sucia",action:"Limpiar la ventana del escáner con paño apropiado."},
+     {code:"LED DIA rojo 1Hz (UE4740)",name:"Error sistema lock-out",action:"Error de sistema en pasarela PROFIsafe. Revisar configuración EFI."},
+     {code:"Cod. 7 (VSystems)",name:"Error comm. sistema seguridad",action:"Fallo de comunicación con el sistema de seguridad."},
+     {code:"Cod. 8 / sub 3",name:"Limpieza escáner",action:"Limpiar cubierta del escáner S300."},
+     {code:"Cod. 8 / sub 4",name:"EDM fallo",action:"Revisar contactores EDM del sistema de seguridad."},
+   ],
+   warns:[{type:"danger",text:"La pasarela UE4740 DEBE configurarse antes que la CPU de seguridad SICK. El orden es obligatorio."}]
+  },
+  {id:"variadores", name:"Variadores", subtitle:"Roboteq (CAN) · Oriental Motor (RS485)", tag:"Tracción",
+   software:["Software Roboteq","OPX-2A (Oriental)"], hardware:["PC","Cable USB (Roboteq)","Programador OPX-2A"],
+   params:[
+     {k:"Roboteq — Aceleración",v:"0.2"},
+     {k:"Roboteq — Deceleración",v:"0.2"},
+     {k:"Roboteq — Tiempo espera",v:"0.0"},
+     {k:"Roboteq — Protocolo",v:"Bus CAN"},
+     {k:"Oriental — Switch SW1",v:"Configuración según posición"},
+     {k:"Oriental — Protocolo",v:"Modbus RTU RS485"},
+   ],
+   steps:[
+     {t:"Conectar Roboteq al PC via USB",d:"Abrir software Roboteq."},
+     {t:"Cargar firmware Roboteq",d:"Primero firmware, luego configuración, finalmente Script."},
+     {t:"Verificar LED CAN Roboteq",d:"LED de comunicación parpadeando indica CAN habilitado."},
+     {t:"Configurar Oriental con OPX-2A",d:"Programador hardware externo. Configurar switch SW1 según posición del variador."},
+   ],
+   errors:[
+     {code:"Cod. 10 / sub 1 (VSystems)",name:"Overcurrent M1",action:"Sobrecorriente en motor 1. Revisar carga mecánica y parámetros."},
+     {code:"Cod. 10 / sub 2",name:"Overheat M1",action:"Sobrecalentamiento variador. Verificar ventilación."},
+     {code:"Cod. 10 / sub 3",name:"Overvoltage M1",action:"Sobretensión. Revisar tensión de alimentación."},
+     {code:"Cod. 10 / sub 4",name:"Undervoltage M1",action:"Subtensión. Revisar batería y conexiones."},
+     {code:"Cod. 10 / sub 7",name:"Overload M1",action:"Sobrecarga. Reducir carga o revisar mecánica."},
+     {code:"Cod. 10 / sub 8",name:"Overspeed M1",action:"Velocidad excesiva. Revisar parámetros de velocidad máxima."},
+     {code:"Cod. 10 / sub 13",name:"Network bus error M1",action:"Error en bus de red CAN. Revisar cableado y terminación."},
+     {code:"Oriental / 11 parpadeos",name:"Initial operation error",action:"Alimentación ciclada con FWD/REV activa. Desactivar entradas y ciclar alimentación."},
+     {code:"Oriental / 12 parpadeos",name:"Error ajuste comunicación",action:"Switch SW2 encendido o error de ajuste. Apagar switch y ciclar alimentación."},
+     {code:"0xCE (HMI)",name:"Parada defecto variador",action:"Defecto en variador. Consultar subcódigo en VSystems (periférico 10-20)."},
+     {code:"2X01-2X2F (Roboteq)",name:"Límite corriente / emergencia",action:"Rango de códigos Roboteq. Consultar tabla de diagnóstico Roboteq."},
+   ],
+   warns:[{type:"warn",text:"Al cargar en Roboteq: respetar el orden firmware → configuración → script. Saltarse pasos causa fallos de operación."}]
+  },
+  {id:"joystick", name:"Joystick CAN", subtitle:"Control manual y diagnóstico en campo", tag:"HMI",
+   software:[], hardware:["Joystick CAN","Conector frontal AGV"],
+   params:[
+     {k:"Conexión",v:"Bus CAN / I2C (conector frontal AGV)"},
+     {k:"Menú Standard",v:"Movimiento manual, cambio mapas seguridad"},
+     {k:"Menú Advanced",v:"Acceso con contraseña — diagnóstico avanzado"},
+     {k:"OVR",v:"Override — permite obviar seguridades"},
+   ],
+   steps:[
+     {t:"Encender el AGV primero",d:"El PLC debe estar inicializado antes de conectar el joystick."},
+     {t:"Conectar joystick al conector frontal",d:"Bus CAN o I2C según modelo de AGV."},
+     {t:"Verificar estado 0x40",d:"HMI muestra 0x40 (conectado). El joystick está listo."},
+     {t:"Seleccionar menú",d:"Standard para operación básica. Advanced (contraseña) para diagnóstico."},
+   ],
+   errors:[
+     {code:"0x40",name:"Joystick conectado",action:"Estado normal. Joystick operativo."},
+     {code:"0x41",name:"Joystick desconectado",action:"Se ha desconectado el joystick. Reconectar si es necesario."},
+     {code:"0x42",name:"OVR activado",action:"Override activo. Las seguridades están obviadas. Precaución."},
+     {code:"0x43",name:"OVR desactivado",action:"Override desactivado. Seguridades activas de nuevo."},
+     {code:"W!! fijo",name:"Avisos no inmovilizantes",action:"Hay avisos activos. Consultar Last Events en HMI."},
+     {code:"W!! parpadeando",name:"Aviso inmovilizante",action:"Aviso que inmoviliza la máquina. Resolver antes de continuar."},
+     {code:"0xE6 (HMI)",name:"Parada por conexión joystick",action:"El AGV se para al conectar el joystick. Normal — esperar inicialización."},
+   ],
+   warns:[{type:"warn",text:"El AGV debe estar encendido y el PLC inicializado ANTES de conectar el joystick para evitar paradas por error de inicialización."}]
+  },
+  {id:"hmi", name:"HMI exP20", subtitle:"Pantalla — Visualización y diagnóstico", tag:"HMI",
+   software:[], hardware:["Cable Ethernet","Switch AGV"],
+   params:[
+     {k:"IP Maestra",v:"192.168.3.12"},
+     {k:"IP Esclava",v:"192.168.3.21"},
+     {k:"Conexión",v:"Puerto Ethernet → Switch del AGV"},
+     {k:"Vista",v:"Last Events — eventos y avisos del sistema"},
+   ],
+   steps:[
+     {t:"Conectar HMI al Switch del AGV",d:"Cable Ethernet."},
+     {t:"Verificar IP asignada",d:"Maestra: 192.168.3.12 · Esclava: 192.168.3.21."},
+     {t:"Arrancar sistema AGV",d:"La HMI se conecta automáticamente al PLC."},
+     {t:"Consultar Last Events",d:"Línea de estado con los últimos avisos del sistema."},
+   ],
+   errors:[
+     {code:"0x000A",name:"PLC sin programa / error red",action:"El PLC no tiene cargado el programa correcto o hay fallo de red HMI."},
+     {code:"0x0A",name:"Parada Q's FS no detectadas",action:"Fallo salidas PLC de seguridad. Revisar PLC seguridad."},
+     {code:"0x0B",name:"Parada Espera Rearme",action:"Sistema esperando rearme. Ejecutar secuencia de rearme."},
+     {code:"0x0C",name:"Parada seta seguridad",action:"Seta de emergencia activada. Desactivar y rearmar."},
+     {code:"0x0D",name:"Rest. Sis. Seg. / Escáner sucio",action:"Limpiar cubierta del escáner y rearmar."},
+     {code:"0x0E",name:"Parada EDM (contactores)",action:"Fallo en contactores EDM. Revisar circuito de contactores."},
+     {code:"0x0F",name:"Parada error cableado",action:"Error de cableado en sistema de seguridad. Revisar conexiones."},
+     {code:"0x10",name:"Sist. Seg. Velocidad Reducida",action:"Campo de aviso activo. El AGV circula a velocidad reducida."},
+     {code:"0x11",name:"Escáner WF1 (campo aviso 1)",action:"Obstáculo en campo de aviso 1. Retirar obstáculo."},
+     {code:"0x12",name:"Escáner PF (campo protección)",action:"Obstáculo en campo de protección. El AGV para. Retirar obstáculo."},
+     {code:"0x13",name:"Carro no detectado",action:"Supervisión de carro fallida. Revisar sensor de detección de carro."},
+     {code:"0x14",name:"C.O. Activada (EDM carga online)",action:"Fallo EDM en carga online. Revisar sistema de carga."},
+     {code:"0x15",name:"Fallo PLC-Variador",action:"Fallo comunicación entre PLC S7 y variador. Revisar conexión."},
+     {code:"0x30",name:"Sin conexión VSystems",action:"Bloqueo de movimiento por pérdida de conexión con VSystems."},
+     {code:"0xCE",name:"Defecto variador",action:"Consultar código de variador en VSystems (periférico 10-20)."},
+     {code:"0xD2",name:"Defecto seguidor magnético",action:"Pérdida de guía o defecto del seguidor. Revisar banda y seguidor."},
+     {code:"0xD4",name:"Fallo comm. VSystems",action:"Servidor caído o zona sin cobertura WiFi. Verificar red."},
+     {code:"0xE1",name:"Config. GM errónea",action:"Configuración de Grupo Motor incorrecta. Revisar parámetros GM."},
+     {code:"0xE4",name:"Defecto Encoder GM",action:"Encoder averiado. Sustituir encoder."},
+     {code:"0xE6",name:"Parada conexión joystick",action:"Normal al conectar joystick. Esperar inicialización del sistema."},
+   ],
+   warns:[]
+  },
+  {id:"vsystems", name:"VSystems", subtitle:"Gestión centralizada de flota", tag:"Software",
+   software:["Navegador web (acceso servidor)"], hardware:[],
+   params:[
+     {k:"Nº serie terminal",v:"MAC del PLC Siemens"},
+     {k:"IP Mikrotik",v:"IP del router WiFi del AGV"},
+     {k:"Batería mínima reserva",v:"Umbral de aviso de batería"},
+     {k:"Batería crítica",v:"Umbral de parada por batería"},
+     {k:"Rampas aceleración",v:"Parámetro de comportamiento"},
+     {k:"Diámetros de rueda",v:"Para cálculo de odometría"},
+   ],
+   steps:[
+     {t:"Alta de Terminal",d:"Ingresar MAC del PLC Siemens y la IP del Mikrotik del AGV."},
+     {t:"Alta de AGV",d:"Crear la unidad AGV y enlazarla con el terminal creado."},
+     {t:"Configurar Parámetros Generales",d:"Batería, rampas, diámetros de rueda y otros parámetros operativos."},
+     {t:"Verificar conexión online",d:"El AGV debe aparecer online en el panel de supervisión."},
+   ],
+   errors:[
+     {code:"Cod. 0",name:"Error comm. placa batería CAN",action:"Revisar comunicación CAN con la placa CAN Bridge."},
+     {code:"Cod. 1",name:"Encendido máquina",action:"Notificación de arranque. Sin acción necesaria."},
+     {code:"Cod. 2",name:"Sobretensión batería",action:"Verificar estado de batería y sistema de carga."},
+     {code:"Cod. 3",name:"Batería en reserva",action:"Llevar AGV a cargar. Nivel mínimo alcanzado."},
+     {code:"Cod. 4",name:"Batería crítica",action:"Parada inminente. Cargar batería inmediatamente."},
+     {code:"Cod. 5",name:"Error comm. servidor WiFi",action:"Sin comunicación WiFi. Revisar AP y cobertura."},
+     {code:"Cod. 7",name:"Error comm. sistema seguridad",action:"Fallo comunicación con sistema de seguridad SICK."},
+     {code:"Cod. 8 / sub 0",name:"Seg. inicializando",action:"Normal al arranque. Esperar inicialización."},
+     {code:"Cod. 8 / sub 2",name:"Seta activada",action:"Emergencia pulsada. Desactivar y rearmar."},
+     {code:"Cod. 8 / sub 3",name:"Limpieza escáner",action:"Limpiar cubierta del escáner SICK S300."},
+     {code:"Cod. 8 / sub 8",name:"Protective Field",action:"Obstáculo en campo de protección del escáner."},
+     {code:"Cod. 9",name:"Error comm. variador M1",action:"Sin comunicación con variador 1 maestro (CAN)."},
+     {code:"Cod. 10 / sub 1",name:"Overcurrent variador M1",action:"Sobrecorriente. Revisar carga mecánica."},
+     {code:"Cod. 13",name:"Error comm. seguidor master",action:"Sin comunicación con seguidor magnético maestro."},
+     {code:"Cod. 14",name:"Error seguidor master",action:"Parada por pérdida de guía magnética."},
+     {code:"Cod. 21",name:"Error comm. botonera",action:"Sin comunicación con botonera del AGV."},
+     {code:"Cod. 25",name:"Error comm. PIN master",action:"Sin comunicación con módulo PIN maestro."},
+     {code:"Cod. 26 / sub 1",name:"Bulón fuera de tiempo",action:"El bulón no completa el movimiento. Revisar mecánica."},
+     {code:"Cod. 26 / sub 12",name:"Fallo driver PIN",action:"Fallo en el driver del motor del PIN."},
+     {code:"Cod. 29",name:"Error AP (punto de acceso)",action:"Sin información del punto de acceso WiFi."},
+     {code:"Cod. 30",name:"Error comm. PN/CAN",action:"Sin comunicación con la pasarela PN/CAN Link."},
+     {code:"Cod. 31",name:"Error PN/CAN pasarela",action:"Error en la pasarela CAN. Revisar configuración."},
+     {code:"Cod. 32",name:"Error comm. RFID CAN master",action:"Sin comunicación con lector RFID maestro."},
+     {code:"Cod. 34",name:"Error comm. RFID CAN slave",action:"Sin comunicación con lector RFID esclavo."},
+   ],
+   warns:[{type:"warn",text:"El número de serie del terminal en VSystems es la MAC del PLC Siemens S7-1200, no un número impreso en la caja."}]
+  },
+];
+
+function renderGrid(){
+  document.getElementById('comp-grid').innerHTML=C.map((c,i)=>`
+    <button class="comp-btn${i===0?' active':''}" onclick="show(${i})" id="btn-${i}">
+      ${c.name}<span class="tag">${c.tag}</span>
+    </button>`).join('');
+}
+
+function showTab(id,tab){
+  document.querySelectorAll(`#tc-${id} .tab-content`).forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll(`#tb-${id} .tab-btn`).forEach(t=>t.classList.remove('active'));
+  document.getElementById(`tab-${id}-${tab}`).classList.add('active');
+  document.getElementById(`tc-${id}-${tab}`).classList.add('active');
+}
+
+function show(idx){
+  document.querySelectorAll('.comp-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  const c=C[idx]; const id=c.id;
+  let toolsHtml='<div class="tools-block">';
+  if(c.software&&c.software.length) toolsHtml+=`<div class="tools-type-label sw">Software</div><div class="tools-row">${c.software.map(t=>`<span class="pill-sw">${t}</span>`).join('')}</div>`;
+  if(c.hardware&&c.hardware.length) toolsHtml+=`<div class="tools-type-label hw">Herramienta física</div><div class="tools-row">${c.hardware.map(t=>`<span class="pill-hw">${t}</span>`).join('')}</div>`;
+  toolsHtml+='</div>';
+
+  const configTab=`
+    <div class="two-col">
+      <div>
+        <div class="section-label">Parámetros</div>
+        ${c.params.map(p=>`<div class="param-card"><div class="param-key">${p.k}</div><div class="param-val">${p.v}</div></div>`).join('')}
+      </div>
+      <div>
+        <div class="section-label">Procedimiento</div>
+        ${c.steps.map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div><div class="step-title">${s.t}</div><div class="step-desc">${s.d}</div></div></div>`).join('')}
+      </div>
+    </div>
+    ${(c.warns&&c.warns.length)?c.warns.map(w=>w.type==='danger'
+      ?`<div class="danger-box"><span style="color:#E3A414;font-weight:800;font-size:12px;flex-shrink:0">!</span><div class="danger-text">${w.text}</div></div>`
+      :`<div class="warn-box"><span style="color:#F6B707;font-weight:800;font-size:12px;flex-shrink:0">!</span><div class="warn-text">${w.text}</div></div>`
+    ).join(''):''}
+  `;
+  const errTab=`
+    <div class="section-label">Códigos de avería</div>
+    <table class="err-table">
+      <tr><th style="width:100px">Código</th><th style="width:160px">Nombre</th><th>Causa / Acción correctiva</th></tr>
+      ${c.errors.map(e=>`<tr><td class="err-code">${e.code}</td><td class="err-name">${e.name}</td><td class="err-action">${e.action}</td></tr>`).join('')}
+    </table>
+  `;
+
+  document.getElementById('main').innerHTML=`
+    <div class="comp-header">
+      <div class="comp-title">${c.name}</div>
+      <div class="comp-sub">${c.subtitle}</div>
+    </div>
+    <div class="layout">
+      <div class="infographic-wrap">${svgs[id]||''}</div>
+      <div>
+        ${toolsHtml}
+        <div class="tabs" id="tb-${id}">
+          <button class="tab-btn active" id="tab-${id}-config" onclick="showTab('${id}','config')">Configuración</button>
+          <button class="tab-btn" id="tab-${id}-errors" onclick="showTab('${id}','errors')">Códigos de avería (${c.errors.length})</button>
+        </div>
+        <div id="tc-${id}">
+          <div class="tab-content active" id="tc-${id}-config">${configTab}</div>
+          <div class="tab-content" id="tc-${id}-errors">${errTab}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+renderGrid();
+show(0);
+</script>
