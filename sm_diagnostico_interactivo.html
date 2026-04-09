@@ -1,0 +1,345 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',Arial,sans-serif;background:#FAF9F5}
+.app-header{background:#193F7D;position:relative;overflow:hidden}
+.app-header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.brand-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1}
+.brand-name span{color:#F6B707}
+.brand-tag{display:inline-block;background:#F6B707;color:#193F7D;font-size:9px;font-weight:700;padding:2px 7px;letter-spacing:0.08em}
+.header-title{color:#fff;font-size:13px;font-weight:500;opacity:0.85;text-align:right;line-height:1.4}
+.diag-accent{position:absolute;right:0;top:0;width:60px;height:100%;background:#F6B707;clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:0.18}
+.model-bar{background:#253464;padding:6px 24px;display:flex;align-items:center;gap:10px}
+.model-badge{font-size:10px;font-weight:800;color:#193F7D;background:#F6B707;padding:2px 8px;letter-spacing:0.06em}
+.model-label{font-size:11px;color:rgba(255,255,255,0.7);font-weight:400}
+.sys-selector{display:flex;gap:0;padding:0 24px;background:#193F7D;border-bottom:2px solid #F6B707;overflow-x:auto}
+.sys-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 16px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;border:none;background:none;color:rgba(255,255,255,0.5);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.15s;white-space:nowrap}
+.sys-btn:hover{color:#fff}
+.sys-btn.active{color:#F6B707;border-bottom-color:#F6B707}
+.main{padding:20px 24px;background:#FAF9F5;min-height:400px}
+.comp-header{margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #F6B707}
+.comp-title{font-size:17px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.03em}
+.comp-sub{font-size:11px;color:#6EC1E4;font-weight:700;margin-top:3px;text-transform:uppercase;letter-spacing:0.06em}
+.err-section-title{font-size:10px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.12em;margin:16px 0 8px;display:flex;align-items:center;gap:6px}
+.err-section-title::after{content:'';flex:1;height:1px;background:#F6B707}
+.err-card{background:#fff;margin-bottom:7px;cursor:pointer;transition:border-left-color 0.15s;border:0.5px solid #e0ddd5;border-left:4px solid #193F7D}
+.err-card:hover{border-left-color:#F6B707}
+.err-card.expanded{border-left-color:#F6B707}
+.err-card.danger{border-left-color:#A32D2D}
+.err-card.danger:hover,.err-card.danger.expanded{border-left-color:#F6B707}
+.err-card-header{display:flex;align-items:center;gap:10px;padding:9px 14px}
+.err-code-badge{font-size:11px;font-weight:800;color:#fff;background:#193F7D;padding:4px 8px;min-width:110px;text-align:center;flex-shrink:0;line-height:1.3}
+.err-card.danger .err-code-badge{background:#A32D2D}
+.err-card.warn .err-code-badge{background:#854F0B}
+.err-card-info{flex:1}
+.err-card-name{font-size:12px;font-weight:700;color:#212121}
+.err-card-msg{font-size:10px;color:#6EC1E4;font-weight:600;margin-top:1px;font-style:italic}
+.err-chevron{font-size:16px;color:#193F7D;font-weight:800;transition:transform 0.2s;flex-shrink:0}
+.err-card.expanded .err-chevron{transform:rotate(90deg)}
+.err-card-body{display:none;padding:0 14px 12px;border-top:0.5px solid #f0ece3}
+.err-card.expanded .err-card-body{display:block}
+.err-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.err-detail-box{background:#FAF9F5;border-left:3px solid #F6B707;padding:8px 10px}
+.err-detail-label{font-size:9px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px}
+.err-detail-val{font-size:11px;color:#212121;font-weight:500;line-height:1.4}
+.err-action-box{margin-top:10px;background:#193F7D;padding:10px 12px;display:flex;gap:8px;align-items:flex-start}
+.err-action-icon{color:#F6B707;font-weight:800;font-size:14px;flex-shrink:0;margin-top:1px}
+.err-action-text{font-size:11px;color:#fff;font-weight:500;line-height:1.5}
+.err-danger-note{background:#FCEBEB;border-left:3px solid #A32D2D;padding:8px 10px;margin-top:8px}
+.err-danger-text{font-size:11px;color:#A32D2D;font-weight:600;line-height:1.4}
+.legend{display:flex;gap:16px;align-items:center;padding:7px 24px;background:#FAF9F5;border-bottom:0.5px solid #e0ddd5}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:9px;font-weight:700;color:#253464;text-transform:uppercase;letter-spacing:0.06em}
+.leg-dot{width:12px;height:12px;flex-shrink:0}
+.footer-bar{background:#193F7D;padding:7px 24px;display:flex;align-items:center;justify-content:space-between}
+.footer-bar span{font-size:9px;color:rgba(255,255,255,0.5)}
+.footer-bar strong{font-size:9px;color:#F6B707;font-weight:700}
+</style>
+
+<div class="app-header">
+  <div class="app-header-inner">
+    <div>
+      <div class="brand-name">syner<span>sight</span></div>
+      <div class="brand-tag">let's move together</div>
+    </div>
+    <div class="header-title">Guía de errores y diagnóstico<br>Gama SM · SMU · SMB</div>
+  </div>
+  <div class="diag-accent"></div>
+</div>
+<div class="model-bar">
+  <span class="model-badge">Gama SM / SMU / SMB</span>
+  <span class="model-label">PLC S7-1200 · PROFINET · Bus CAN · VSystems</span>
+</div>
+<div class="sys-selector">
+  <button class="sys-btn active" onclick="show('hmi',this)">HMI — Pantalla</button>
+  <button class="sys-btn" onclick="show('vsystems',this)">VSystems</button>
+  <button class="sys-btn" onclick="show('sick',this)">Escáneres SICK S300</button>
+  <button class="sys-btn" onclick="show('variadores',this)">Variadores</button>
+  <button class="sys-btn" onclick="show('joystick',this)">Joystick CAN</button>
+  <button class="sys-btn" onclick="show('canbridge',this)">CAN Bridge</button>
+  <button class="sys-btn" onclick="show('plc',this)">PLC / PN·CAN</button>
+</div>
+<div class="legend">
+  <div class="legend-item"><div class="leg-dot" style="background:#A32D2D"></div>Crítico — posible parada o sustitución</div>
+  <div class="legend-item"><div class="leg-dot" style="background:#854F0B"></div>Aviso — revisar antes de continuar</div>
+  <div class="legend-item"><div class="leg-dot" style="background:#193F7D"></div>Informativo</div>
+</div>
+<div class="main" id="main"></div>
+<div class="footer-bar">
+  <span>© 2024 Emayor Synersight Technologies SL</span>
+  <strong>synersight.es</strong>
+</div>
+
+<script>
+const DATA = {
+  hmi:{
+    title:'HMI exP20 — Avisos en pantalla',
+    sub:'Códigos mostrados en la línea Last Events de la pantalla principal del AGV',
+    grupos:[
+      {titulo:'Errores de sistema y programa',items:[
+        {code:'0x000A',name:'PLC SIN PROGRAMA / ERROR RED',msg:'',cause:'El PLC S7-1200 no tiene el programa cargado correctamente, o hay un fallo de red en la HMI.',action:'Verificar que el programa está cargado en el PLC y que la red Ethernet está activa.',sev:'danger'},
+        {code:'0x0A',name:'PARADA Q\'s FS NO DETECTADAS',msg:'',cause:'Fallo en las salidas de seguridad del PLC de seguridad SICK.',action:'Revisar el PLC de seguridad y sus salidas FS.',sev:'danger'},
+        {code:'0x0B',name:'PARADA ESPERA REARME',msg:'',cause:'El sistema de seguridad está esperando la secuencia de rearme tras un evento.',action:'Ejecutar la secuencia de rearme del sistema de seguridad.',sev:'warn'},
+        {code:'0x0C',name:'PARADA SETA SEGURIDAD',msg:'',cause:'Seta de emergencia activada en el AGV o en la instalación.',action:'Localizar y desactivar la seta de emergencia. Rearmar el sistema.',sev:'danger'},
+        {code:'0x0F',name:'PARADA ERROR CABLEADO',msg:'',cause:'Error de cableado detectado en el sistema de seguridad.',action:'Revisar todas las conexiones del sistema de seguridad con Safety Designer.',sev:'danger'},
+        {code:'0x15',name:'FALLO PLC — VARIADOR',msg:'',cause:'Fallo de comunicación entre el PLC S7-1200 y el variador de tracción.',action:'Revisar la conexión Modbus RTU RS485 entre el PLC y el variador.',sev:'danger'},
+        {code:'0x000A',name:'ERROR HARDWARE / RED HMI',msg:'',cause:'Fallo de hardware interno en la HMI o pérdida de conexión de red.',action:'Verificar IP de la HMI (Maestra: 192.168.3.12, Esclava: 192.168.3.21) y cable Ethernet.',sev:'danger'},
+      ]},
+      {titulo:'Errores de escáneres y seguridad',items:[
+        {code:'0x0D',name:'ESCÁNER SUCIO / REARME',msg:'',cause:'Cubierta del escáner SICK S300 sucia.',action:'Limpiar cubierta del escáner con paño apropiado. Rearmar.',sev:'warn'},
+        {code:'0x0E',name:'PARADA EDM — CONTACTORES',msg:'',cause:'Fallo en el circuito EDM de los contactores principales.',action:'Revisar contactores y el circuito EDM asociado.',sev:'danger'},
+        {code:'0x10',name:'VELOCIDAD REDUCIDA',msg:'',cause:'Campo de aviso WF1 o WF2 del escáner activo — obstáculo en zona de aviso.',action:'El AGV circula a velocidad reducida. Despejar la zona de aviso.',sev:'warn'},
+        {code:'0x11',name:'ESCÁNER WF1 — CAMPO AVISO 1',msg:'',cause:'Obstáculo detectado en el campo de aviso 1 del escáner.',action:'Retirar obstáculo del campo de aviso 1.',sev:'warn'},
+        {code:'0x12',name:'ESCÁNER PF — CAMPO PROTECCIÓN',msg:'',cause:'Obstáculo detectado en el campo de protección del escáner. AGV parado.',action:'Retirar obstáculo del campo de protección. Rearmar.',sev:'danger'},
+        {code:'0x13',name:'CARRO NO DETECTADO',msg:'',cause:'La supervisión del carro remolcado ha fallado.',action:'Revisar sensor de detección de carro.',sev:'warn'},
+        {code:'0x14',name:'EDM CARGA ONLINE',msg:'',cause:'Fallo en el chequeo EDM del sistema de carga online.',action:'Revisar sistema de carga online y contactor asociado.',sev:'danger'},
+      ]},
+      {titulo:'Errores de comunicación y otros',items:[
+        {code:'0x30',name:'SIN CONEXIÓN VSYSTEMS',msg:'',cause:'El AGV ha perdido la conexión con el servidor VSystems.',action:'Bloqueo de movimiento activo. Verificar red WiFi y servidor VSystems.',sev:'warn'},
+        {code:'0xCE',name:'DEFECTO VARIADOR',msg:'',cause:'Defecto en variador de tracción o dirección.',action:'Consultar subcódigo en VSystems (periféricos 9–20) para identificar el variador afectado.',sev:'danger'},
+        {code:'0xD2',name:'DEFECTO SEGUIDOR MAGNÉTICO',msg:'',cause:'Pérdida de guía magnética o defecto en el seguidor.',action:'Revisar estado de la banda magnética y calibrar el seguidor.',sev:'danger'},
+        {code:'0xD4',name:'FALLO COMM. VSYSTEMS',msg:'',cause:'Servidor VSystems caído o zona sin cobertura WiFi.',action:'Verificar estado del servidor VSystems y cobertura del punto de acceso.',sev:'warn'},
+        {code:'0xE1',name:'CONFIG. GM ERRÓNEA',msg:'',cause:'La configuración del Grupo Motor (GM) es incorrecta.',action:'Revisar y corregir los parámetros de Grupo Motor en VSystems.',sev:'danger'},
+        {code:'0xE4',name:'DEFECTO ENCODER GM',msg:'',cause:'Encoder del Grupo Motor averiado.',action:'Sustituir el encoder del Grupo Motor.',sev:'danger'},
+        {code:'0xE6',name:'PARADA CONEXIÓN JOYSTICK',msg:'',cause:'El AGV se para al conectar el joystick CAN.',action:'Normal. Esperar inicialización completa del sistema con el joystick conectado.',sev:'warn'},
+      ]},
+    ]
+  },
+  vsystems:{
+    title:'VSystems — Tabla de incidencias',
+    sub:'Códigos reportados en el panel de supervisión del terminal (periférico · subcódigo)',
+    grupos:[
+      {titulo:'Batería',items:[
+        {code:'Cod. 0',name:'ERROR COMM. PLACA BATERÍA',msg:'',cause:'Sin comunicación CAN con la placa CAN Bridge.',action:'Revisar cableado CAN entre CAN Bridge y sistema AGV.',sev:'danger'},
+        {code:'Cod. 1',name:'ENCENDIDO MÁQUINA',msg:'',cause:'Notificación informativa de arranque del AGV.',action:'Sin acción necesaria. Evento no bloqueante.',sev:'info'},
+        {code:'Cod. 2',name:'SOBRETENSIÓN BATERÍA',msg:'',cause:'Tensión de batería excede el límite configurado.',action:'Verificar estado de la batería y sistema de carga.',sev:'danger'},
+        {code:'Cod. 3',name:'BATERÍA EN RESERVA',msg:'',cause:'Nivel mínimo de batería alcanzado.',action:'Llevar el AGV a cargar inmediatamente.',sev:'warn'},
+        {code:'Cod. 4',name:'BATERÍA CRÍTICA',msg:'',cause:'Nivel crítico de batería — parada inminente.',action:'Cargar batería urgentemente. No operar.',sev:'danger'},
+      ]},
+      {titulo:'Comunicaciones y red',items:[
+        {code:'Cod. 5',name:'ERROR COMM. SERVIDOR WIFI',msg:'',cause:'Sin comunicación WiFi con el servidor.',action:'Revisar punto de acceso Mikrotik y cobertura de red.',sev:'warn'},
+        {code:'Cod. 7',name:'ERROR COMM. SISTEMA SEGURIDAD',msg:'',cause:'Fallo de comunicación con el sistema de seguridad SICK.',action:'Revisar red PROFINET y pasarela UE4740.',sev:'danger'},
+        {code:'Cod. 29',name:'ERROR PUNTO DE ACCESO',msg:'',cause:'Sin información del punto de acceso WiFi.',action:'Verificar AP y configuración de red inalámbrica.',sev:'warn'},
+        {code:'Cod. 30',name:'ERROR COMM. PN/CAN',msg:'',cause:'Sin comunicación con la pasarela PN/CAN Link.',action:'Revisar red PROFINET y alimentación de la pasarela.',sev:'danger'},
+        {code:'Cod. 31',name:'ERROR PASARELA PN/CAN',msg:'',cause:'Error interno en la pasarela PN/CAN.',action:'Revisar configuración y alimentación de la pasarela.',sev:'danger'},
+        {code:'Cod. 32',name:'ERROR COMM. RFID MASTER',msg:'',cause:'Sin comunicación CAN con el lector RFID maestro.',action:'Revisar bus CAN y conexión con el lector RFID.',sev:'warn'},
+        {code:'Cod. 34',name:'ERROR COMM. RFID SLAVE',msg:'',cause:'Sin comunicación CAN con el lector RFID esclavo.',action:'Revisar bus CAN y conexión con el lector RFID esclavo.',sev:'warn'},
+      ]},
+      {titulo:'Sistema de seguridad — Cod. 8',items:[
+        {code:'Cod. 8 / sub 0',name:'SEGURIDAD INICIALIZANDO',msg:'',cause:'Sistema de seguridad en proceso de arranque.',action:'Normal al encender. Esperar inicialización completa.',sev:'warn'},
+        {code:'Cod. 8 / sub 1',name:'REARME PENDIENTE',msg:'',cause:'El sistema de seguridad solicita rearme.',action:'Ejecutar secuencia de rearme.',sev:'warn'},
+        {code:'Cod. 8 / sub 2',name:'SETA ACTIVADA',msg:'',cause:'Emergencia pulsada.',action:'Desactivar seta de emergencia y rearmar.',sev:'danger'},
+        {code:'Cod. 8 / sub 3',name:'LIMPIEZA ESCÁNER',msg:'',cause:'Cubierta del escáner SICK S300 sucia.',action:'Limpiar cubierta del escáner y rearmar.',sev:'warn'},
+        {code:'Cod. 8 / sub 4',name:'EDM FALLO',msg:'',cause:'Fallo en los contactores EDM.',action:'Revisar contactores del circuito EDM.',sev:'danger'},
+        {code:'Cod. 8 / sub 8',name:'CAMPO PROTECCIÓN ACTIVO',msg:'',cause:'Obstáculo en el campo de protección del escáner.',action:'Retirar obstáculo del campo de protección.',sev:'danger'},
+        {code:'Cod. 8 / sub 9',name:'CARRO NO DETECTADO',msg:'',cause:'Supervisión del carro remolcado fallida.',action:'Revisar sensor de detección de carro.',sev:'warn'},
+        {code:'Cod. 8 / sub 11',name:'SEGURIDAD PLC DESACTIVADA',msg:'',cause:'Función de seguridad del PLC desactivada.',action:'Revisar configuración del PLC de seguridad.',sev:'danger'},
+        {code:'Cod. 8 / sub 16',name:'LÍMITE VELOCIDAD HALL',msg:'',cause:'Velocidad por sensor Hall excede el límite.',action:'Revisar parámetros de velocidad máxima.',sev:'warn'},
+        {code:'Cod. 8 / sub 18',name:'DIFERENCIA VELOCIDAD VARIADOR/HALL',msg:'',cause:'Discrepancia entre velocidad del variador y sensor Hall.',action:'Revisar encoder y parámetros del variador.',sev:'danger'},
+        {code:'Cod. 8 / sub 19',name:'SIN VARIACIÓN ENCODER',msg:'',cause:'El encoder no varía pese a orden de movimiento.',action:'Revisar encoder y conexiones.',sev:'danger'},
+        {code:'Cod. 8 / sub 20',name:'ENCODER DIRECCIÓN FUERA LÍMITES',msg:'',cause:'Encoder de dirección fuera del rango válido.',action:'Recalibrar encoder de dirección.',sev:'danger'},
+      ]},
+      {titulo:'Variadores — Cod. 9 a 20',items:[
+        {code:'Cod. 9',name:'ERROR COMM. VARIADOR M1',msg:'',cause:'Sin comunicación con variador 1 maestro.',action:'Revisar bus CAN y conexión con variador M1.',sev:'danger'},
+        {code:'Cod. 10 / sub 1',name:'OVERCURRENT M1',msg:'',cause:'Sobrecorriente en motor 1.',action:'Revisar carga mecánica y parámetros del variador.',sev:'danger'},
+        {code:'Cod. 10 / sub 2',name:'OVERHEAT M1',msg:'',cause:'Sobrecalentamiento del variador M1.',action:'Verificar ventilación del variador.',sev:'danger'},
+        {code:'Cod. 10 / sub 3',name:'OVERVOLTAGE M1',msg:'',cause:'Sobretensión en variador M1.',action:'Revisar tensión de alimentación y rampa de deceleración.',sev:'danger'},
+        {code:'Cod. 10 / sub 4',name:'UNDERVOLTAGE M1',msg:'',cause:'Subtensión en variador M1.',action:'Revisar batería y conexiones de potencia.',sev:'warn'},
+        {code:'Cod. 10 / sub 7',name:'OVERLOAD M1',msg:'',cause:'Sobrecarga en motor 1.',action:'Reducir carga o revisar mecánica del AGV.',sev:'danger'},
+        {code:'Cod. 10 / sub 8',name:'OVERSPEED M1',msg:'',cause:'Velocidad excesiva en motor 1.',action:'Revisar parámetros de velocidad máxima.',sev:'danger'},
+        {code:'Cod. 10 / sub 13',name:'NETWORK BUS ERROR M1',msg:'',cause:'Error en bus CAN del variador M1.',action:'Revisar cableado CAN y terminación de red.',sev:'danger'},
+        {code:'Cod. 11',name:'ERROR COMM. VARIADOR M2',msg:'',cause:'Sin comunicación con variador 2 maestro.',action:'Revisar bus CAN y conexión con variador M2.',sev:'danger'},
+        {code:'Cod. 13',name:'ERROR COMM. SEGUIDOR MASTER',msg:'',cause:'Sin comunicación con seguidor magnético maestro.',action:'Revisar bus CAN y conexión con el seguidor.',sev:'warn'},
+        {code:'Cod. 14',name:'ERROR SEGUIDOR MASTER',msg:'',cause:'Parada por pérdida de guía magnética.',action:'Revisar banda magnética y calibrar seguidor.',sev:'danger'},
+        {code:'Cod. 17',name:'ERROR COMM. VARIADOR M3',msg:'',cause:'Sin comunicación con variador 1 esclavo.',action:'Revisar bus CAN y conexión con variador M3.',sev:'danger'},
+        {code:'Cod. 19',name:'ERROR COMM. VARIADOR M4',msg:'',cause:'Sin comunicación con variador 2 esclavo.',action:'Revisar bus CAN y conexión con variador M4.',sev:'danger'},
+      ]},
+      {titulo:'PIN y periféricos — Cod. 21 a 28',items:[
+        {code:'Cod. 21',name:'ERROR COMM. BOTONERA',msg:'',cause:'Sin comunicación con la botonera del AGV.',action:'Revisar bus CAN y conexión con la botonera.',sev:'warn'},
+        {code:'Cod. 22 / sub 1',name:'ERROR RTCC BOTONERA',msg:'',cause:'Error en el reloj de tiempo real de la botonera.',action:'Revisar o sustituir el módulo de reloj de la botonera.',sev:'warn'},
+        {code:'Cod. 22 / sub 2',name:'ERROR MÓDULO RADIO',msg:'',cause:'Fallo en el módulo radio de la botonera.',action:'Revisar o sustituir el módulo radio.',sev:'warn'},
+        {code:'Cod. 23',name:'ERROR COMM. PLC SLAVE',msg:'',cause:'Sin comunicación entre PLC maestro y esclavo.',action:'Revisar comunicación PROFINET entre maestro y esclavo.',sev:'danger'},
+        {code:'Cod. 25',name:'ERROR COMM. PIN MASTER',msg:'',cause:'Sin comunicación con el módulo PIN maestro.',action:'Revisar bus CAN y conexión con el módulo PIN.',sev:'warn'},
+        {code:'Cod. 26 / sub 1',name:'BULÓN FUERA DE TIEMPO',msg:'',cause:'El bulón no completa el movimiento en el tiempo esperado.',action:'Revisar obstrucción mecánica del bulón.',sev:'warn'},
+        {code:'Cod. 26 / sub 5',name:'BULÓN BAJANDO FUERA TIEMPO',msg:'',cause:'El bulón no baja en el tiempo esperado.',action:'Revisar mecánica de bajada del bulón.',sev:'warn'},
+        {code:'Cod. 26 / sub 9',name:'ACTIVOS DOS SENSORES PIN',msg:'',cause:'Dos sensores de posición del PIN activos simultáneamente.',action:'Revisar sensores de posición del mecanismo PIN.',sev:'danger'},
+        {code:'Cod. 26 / sub 12',name:'FALLO DRIVER PIN',msg:'',cause:'Fallo en el driver del motor del PIN.',action:'Revisar driver y cableado del motor del PIN.',sev:'danger'},
+        {code:'Cod. 27',name:'ERROR COMM. PIN SLAVE',msg:'',cause:'Sin comunicación con el módulo PIN esclavo.',action:'Revisar bus CAN y conexión con el módulo PIN esclavo.',sev:'warn'},
+      ]},
+    ]
+  },
+  sick:{
+    title:'Escáneres SICK S300 Mini',
+    sub:'Display de 7 segmentos del escáner + LEDs pasarela PROFIsafe UE4740',
+    grupos:[
+      {titulo:'Estados del display 7 segmentos',items:[
+        {code:'Display 3',name:'INICIALIZANDO',msg:'',cause:'Proceso de arranque del escáner en curso.',action:'Normal al encender. Esperar inicialización completa.',sev:'warn'},
+        {code:'Display 4',name:'ESPERANDO ENTRADAS',msg:'',cause:'El escáner espera señal de habilitación.',action:'Revisar señales de entrada de habilitación del escáner.',sev:'warn'},
+        {code:'Display 6',name:'ESPERANDO CONFIGURACIÓN',msg:'',cause:'No hay configuración cargada en el escáner.',action:'Cargar configuración mediante Flexi Soft Designer.',sev:'danger'},
+        {code:'Display 8',name:'ERROR EDM',msg:'',cause:'Fallo en el circuito EDM del escáner.',action:'Revisar contactores y cableado EDM del escáner.',sev:'danger'},
+        {code:'Display 9',name:'ERROR REARME',msg:'',cause:'La secuencia de rearme no se ha completado correctamente.',action:'Revisar la secuencia de rearme y repetirla.',sev:'warn'},
+        {code:'Display E1',name:'FALLO / AVERIADO',msg:'',cause:'Avería interna del escáner SICK S300.',action:'Sustituir el escáner. Contactar soporte SICK si es necesario.',sev:'danger'},
+        {code:'Display F1-F9',name:'FALLO SISTEMA',msg:'',cause:'Fallo interno del sistema del escáner.',action:'Consultar documentación SICK y realizar reset de alimentación.',sev:'danger'},
+        {code:'Display I1',name:'OBSTRUCCIÓN TOTAL',msg:'',cause:'Objeto en el campo de protección del escáner.',action:'Retirar el obstáculo del campo de protección.',sev:'danger'},
+        {code:'Display I2',name:'DESLUMBRAMIENTO',msg:'',cause:'Fuente de luz intensa afecta al escáner.',action:'Identificar y eliminar la fuente de deslumbramiento. Reubicar si es necesario.',sev:'warn'},
+        {code:'Display U1',name:'VENTANA SUCIA',msg:'',cause:'Suciedad en la ventana del escáner.',action:'Limpiar la ventana con paño apropiado y rearmar.',sev:'warn'},
+      ]},
+      {titulo:'LEDs pasarela PROFIsafe UE4740',items:[
+        {code:'LED DIA Rojo 1 Hz',name:'ERROR SISTEMA — LOCK-OUT',msg:'',cause:'Error de sistema en la pasarela PROFIsafe UE4740.',action:'Revisar configuración EFI con software CDS. Verificar comunicación con el PLC.',sev:'danger'},
+        {code:'LED PWR apagado',name:'SIN ALIMENTACIÓN',msg:'',cause:'La pasarela no tiene alimentación.',action:'Revisar alimentación 24V de la pasarela UE4740.',sev:'danger'},
+        {code:'LED BUS error',name:'ERROR BUS PROFINET',msg:'',cause:'Fallo en la comunicación PROFINET con el PLC.',action:'Revisar red PROFINET e IP de la pasarela (192.168.3.31).',sev:'danger'},
+      ]},
+    ]
+  },
+  variadores:{
+    title:'Variadores — Oriental Motor (Roboteq)',
+    sub:'Parpadeos LED alarma Oriental Motor · Códigos Roboteq',
+    grupos:[
+      {titulo:'Alarmas Oriental Motor — parpadeos LED',items:[
+        {code:'11 parpadeos',name:'INITIAL OPERATION ERROR',msg:'',cause:'La alimentación fue ciclada con las entradas FWD o REV activas.',action:'Desactivar entradas FWD/REV y ciclar la alimentación del variador.',sev:'warn'},
+        {code:'12 parpadeos',name:'ERROR AJUSTE COMUNICACIÓN',msg:'',cause:'El switch de comunicación SW2 está encendido o hay un error de ajuste.',action:'Apagar el switch SW2 y ciclar la alimentación.',sev:'warn'},
+        {code:'Cod. 10 / sub 1',name:'OVERCURRENT',msg:'',cause:'Sobrecorriente en el motor.',action:'Revisar carga mecánica y parámetros del variador.',sev:'danger'},
+        {code:'Cod. 10 / sub 2',name:'MAIN CIRCUIT OVERHEAT',msg:'',cause:'Sobrecalentamiento del circuito principal.',action:'Verificar ventilación del variador.',sev:'danger'},
+        {code:'Cod. 10 / sub 3',name:'OVERVOLTAGE',msg:'',cause:'Sobretensión en el variador.',action:'Revisar tensión de alimentación y rampa de deceleración.',sev:'danger'},
+        {code:'Cod. 10 / sub 4',name:'UNDERVOLTAGE',msg:'',cause:'Subtensión en el variador.',action:'Revisar batería y conexiones de potencia.',sev:'warn'},
+        {code:'Cod. 10 / sub 5',name:'SENSOR ERROR',msg:'',cause:'Error en el sensor de posición del motor.',action:'Revisar conexiones del sensor.',sev:'warn'},
+        {code:'Cod. 10 / sub 7',name:'OVERLOAD',msg:'',cause:'Sobrecarga en el motor.',action:'Reducir carga o revisar mecánica del AGV.',sev:'danger'},
+        {code:'Cod. 10 / sub 8',name:'OVERSPEED',msg:'',cause:'Velocidad del motor excesiva.',action:'Revisar parámetros de velocidad máxima.',sev:'danger'},
+        {code:'Cod. 10 / sub 9',name:'EEPROM ERROR',msg:'',cause:'Error en la memoria EEPROM del variador.',action:'Inicializar parámetros a fábrica o sustituir el variador.',sev:'danger'},
+        {code:'Cod. 10 / sub 13',name:'NETWORK BUS ERROR',msg:'',cause:'Error en el bus CAN del variador.',action:'Revisar cableado CAN y terminación de red.',sev:'danger'},
+        {code:'Cod. 10 / sub 15',name:'RS485 COMM. ERROR',msg:'',cause:'Error de comunicación RS485/Modbus.',action:'Revisar cableado RS485 y configuración Modbus.',sev:'danger'},
+      ]},
+      {titulo:'Códigos Roboteq',items:[
+        {code:'2X01',name:'LÍMITE DE CORRIENTE',msg:'',cause:'El motor ha alcanzado el límite de corriente configurado.',action:'Revisar carga mecánica y parámetros de corriente.',sev:'warn'},
+        {code:'LED CAN parpadeando',name:'CAN HABILITADO — OK',msg:'',cause:'Estado normal de comunicación CAN activa.',action:'Sin acción. LED parpadeando indica CAN operativo.',sev:'info'},
+        {code:'2X2F',name:'PARADA EMERGENCIA ESCLAVO',msg:'',cause:'Orden de parada de emergencia recibida en el variador esclavo.',action:'Identificar y resolver la causa de la emergencia.',sev:'danger'},
+      ]},
+    ]
+  },
+  joystick:{
+    title:'Joystick CAN — Estados y avisos',
+    sub:'Eventos de conexión mostrados en la pantalla del AGV',
+    grupos:[
+      {titulo:'Estados de conexión',items:[
+        {code:'0x40',name:'JOYSTICK CONECTADO',msg:'',cause:'El joystick CAN se ha conectado correctamente al AGV.',action:'Estado normal. El joystick está operativo.',sev:'info'},
+        {code:'0x41',name:'JOYSTICK DESCONECTADO',msg:'',cause:'El joystick CAN se ha desconectado.',action:'Sin acción si es intencionado. Verificar conexión si es inesperado.',sev:'warn'},
+        {code:'0x42',name:'OVR JOYSTICK ACTIVADO',msg:'',cause:'Override activo — el joystick está obviando las seguridades del AGV.',action:'Precaución. Velocidad reducida. Desactivar OVR al terminar la operación manual.',sev:'danger'},
+        {code:'0x43',name:'OVR JOYSTICK DESACTIVADO',msg:'',cause:'Override desactivado. Seguridades activas de nuevo.',action:'El sistema de seguridad está operativo.',sev:'info'},
+        {code:'0xE6 (HMI)',name:'PARADA POR CONEXIÓN JOYSTICK',msg:'',cause:'El AGV se para al conectar el joystick.',action:'Normal durante inicialización. Esperar arranque completo del sistema.',sev:'warn'},
+      ]},
+      {titulo:'Avisos en pantalla HMI',items:[
+        {code:'W!! — LED fijo',name:'AVISOS ACTIVOS NO INMOVILIZANTES',msg:'',cause:'Hay uno o más avisos activos que no inmovilizan el AGV.',action:'Consultar Last Events en la HMI para identificar los avisos.',sev:'warn'},
+        {code:'W!! — LED parpadeando',name:'AVISO INMOVILIZANTE ACTIVO',msg:'',cause:'Hay un aviso activo que inmoviliza el AGV.',action:'Consultar Last Events en la HMI. Resolver el aviso antes de continuar.',sev:'danger'},
+      ]},
+    ]
+  },
+  canbridge:{
+    title:'CAN Bridge — Batería',
+    sub:'LED D7 de la placa CAN Bridge — número de parpadeos',
+    grupos:[
+      {titulo:'Estados del LED D7',items:[
+        {code:'LED D7 — 1 parpadeo',name:'FUNCIONAMIENTO CORRECTO',msg:'',cause:'La placa CAN Bridge opera correctamente.',action:'Estado normal. Sin acción necesaria.',sev:'info'},
+        {code:'LED D7 — 2 parpadeos',name:'FALLO CAN',msg:'',cause:'Fallo de comunicación CAN de la placa CAN Bridge.',action:'Revisar cableado CAN y conexión con el sistema AGV.',sev:'danger'},
+        {code:'LED D7 — 3 parpadeos',name:'BATERÍA FUERA DE RANGO',msg:'',cause:'El switch S4 está en posición incorrecta (24V/48V no coincide con la batería instalada).',action:'Verificar y corregir la posición del switch S4 según la tensión de la batería.',sev:'warn'},
+      ]},
+      {titulo:'Errores de batería reportados en VSystems',items:[
+        {code:'Cod. 0',name:'ERROR COMM. CAN BRIDGE',msg:'',cause:'Sin comunicación CAN entre la placa CAN Bridge y el sistema.',action:'Revisar bus CAN y alimentación de la placa CAN Bridge.',sev:'danger'},
+        {code:'Cod. 2',name:'SOBRETENSIÓN BATERÍA',msg:'',cause:'Tensión de la batería excede el límite configurado.',action:'Verificar estado de la batería y el cargador.',sev:'danger'},
+        {code:'Cod. 3',name:'BATERÍA EN RESERVA',msg:'',cause:'Nivel mínimo de batería alcanzado.',action:'Llevar el AGV a cargar inmediatamente.',sev:'warn'},
+        {code:'Cod. 4',name:'BATERÍA CRÍTICA',msg:'',cause:'Nivel crítico de batería — parada inminente.',action:'Cargar batería urgentemente. No operar el AGV.',sev:'danger'},
+      ]},
+    ]
+  },
+  plc:{
+    title:'PLC S7-1200 / Pasarela PN·CAN',
+    sub:'LEDs de estado del PLC Siemens S7-1200 y pasarela PN/CAN Link',
+    grupos:[
+      {titulo:'LEDs PLC Siemens S7-1200',items:[
+        {code:'LED ERROR — Rojo parpadeante',name:'FALLO CONFIG. / HARDWARE PLC',msg:'',cause:'Error de configuración del proyecto o fallo hardware en el PLC.',action:'Revisar el proyecto en Simatic Automation Tool. Verificar el programa cargado.',sev:'danger'},
+        {code:'LED MAINT — Amarillo',name:'MANTENIMIENTO / E/S FORZADAS',msg:'',cause:'Hay entradas/salidas forzadas activas o el PLC está en modo mantenimiento.',action:'Verificar si hay E/S forzadas activas en el programa del PLC.',sev:'warn'},
+        {code:'LED RUN — Verde',name:'PLC EN MARCHA',msg:'',cause:'El PLC está ejecutando el programa correctamente.',action:'Estado normal. Sin acción necesaria.',sev:'info'},
+        {code:'LED STOP — Amarillo',name:'PLC PARADO',msg:'',cause:'El PLC está en estado STOP — no ejecuta el programa.',action:'Cambiar el estado del PLC de STOP a RUN desde Simatic Automation Tool.',sev:'danger'},
+      ]},
+      {titulo:'LEDs Pasarela PN/CAN Link',items:[
+        {code:'LED ERROR — Rojo parpadeante',name:'CONFIG. INCORRECTA PLC S7',msg:'',cause:'La configuración IP o el nombre PROFINET de la pasarela no coinciden con el PLC.',action:'Verificar IP (192.168.3.11) y nombre PROFINET (Link_1) con Simatic Automation Tool.',sev:'danger'},
+        {code:'LED BUS CAN — Error',name:'FALLO RED CAN',msg:'',cause:'Fallo en la red CAN aguas abajo de la pasarela.',action:'Revisar cableado CAN y terminación de red de los dispositivos conectados.',sev:'danger'},
+        {code:'Cod. 30 (VSystems)',name:'ERROR COMM. PN/CAN',msg:'',cause:'Sin comunicación entre el PLC y la pasarela PN/CAN.',action:'Revisar red PROFINET y alimentación de la pasarela.',sev:'danger'},
+        {code:'Cod. 31 (VSystems)',name:'ERROR PASARELA PN/CAN',msg:'',cause:'Error interno en la pasarela CAN.',action:'Verificar configuración y reiniciar la pasarela.',sev:'danger'},
+      ]},
+    ]
+  }
+};
+
+let expanded={};
+
+function show(id,btn){
+  document.querySelectorAll('.sys-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  expanded={};
+  renderPage(id);
+}
+
+function toggleCard(sys,gi,ii){
+  const k=`${sys}-${gi}-${ii}`;
+  expanded[k]=!expanded[k];
+  renderPage(sys);
+}
+
+function renderPage(id){
+  const d=DATA[id];
+  if(!d){document.getElementById('main').innerHTML='';return;}
+  let html=`<div class="comp-header"><div class="comp-title">${d.title}</div><div class="comp-sub">${d.sub}</div></div>`;
+  d.grupos.forEach((g,gi)=>{
+    html+=`<div class="err-section-title">${g.titulo}</div>`;
+    g.items.forEach((e,ii)=>{
+      const k=`${id}-${gi}-${ii}`;
+      const isExp=!!expanded[k];
+      const sevClass=e.sev==='danger'?'danger':e.sev==='warn'?'warn':'';
+      html+=`<div class="err-card ${sevClass}${isExp?' expanded':''}" onclick="toggleCard('${id}',${gi},${ii})">
+        <div class="err-card-header">
+          <div class="err-code-badge">${e.code}</div>
+          <div class="err-card-info">
+            <div class="err-card-name">${e.name}</div>
+            ${e.msg?`<div class="err-card-msg">"${e.msg}"</div>`:''}
+          </div>
+          <div class="err-chevron">›</div>
+        </div>
+        ${isExp?`<div class="err-card-body">
+          <div class="err-detail-grid">
+            <div class="err-detail-box"><div class="err-detail-label">Causa probable</div><div class="err-detail-val">${e.cause}</div></div>
+            <div class="err-detail-box"><div class="err-detail-label">Sistema</div><div class="err-detail-val">${d.title}</div></div>
+          </div>
+          <div class="err-action-box">
+            <div class="err-action-icon">→</div>
+            <div class="err-action-text"><strong style="color:#F6B707">Acción correctiva:</strong> ${e.action}</div>
+          </div>
+          ${e.sev==='danger'?'<div class="err-danger-note"><div class="err-danger-text">⚠ Error crítico — puede requerir sustitución de componente o parada del AGV.</div></div>':''}
+        </div>`:''}
+      </div>`;
+    });
+  });
+  document.getElementById('main').innerHTML=html;
+}
+
+renderPage('hmi');
+</script>
