@@ -1,0 +1,320 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',Arial,sans-serif;background:#FAF9F5}
+.app-header{background:#193F7D;position:relative;overflow:hidden}
+.app-header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.brand-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1}
+.brand-name span{color:#F6B707}
+.brand-tag{display:inline-block;background:#F6B707;color:#193F7D;font-size:9px;font-weight:700;padding:2px 7px;letter-spacing:0.08em}
+.header-title{color:#fff;font-size:13px;font-weight:500;opacity:0.85;text-align:right;line-height:1.4}
+.diag-accent{position:absolute;right:0;top:0;width:60px;height:100%;background:#F6B707;clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:0.18}
+
+.model-bar{background:#253464;padding:6px 24px;display:flex;align-items:center;gap:10px}
+.model-badge{font-size:10px;font-weight:800;color:#193F7D;background:#F6B707;padding:2px 8px;letter-spacing:0.06em}
+.model-label{font-size:11px;color:rgba(255,255,255,0.7);font-weight:400}
+
+.sys-selector{display:flex;gap:0;padding:0 24px;background:#193F7D;border-bottom:2px solid #F6B707;overflow-x:auto}
+.sys-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 16px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;border:none;background:none;color:rgba(255,255,255,0.5);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.15s;white-space:nowrap}
+.sys-btn:hover{color:#fff}
+.sys-btn.active{color:#F6B707;border-bottom-color:#F6B707}
+
+.search-area{padding:16px 24px;background:#fff;border-bottom:0.5px solid #e0ddd5}
+.search-row{display:flex;gap:8px;margin-bottom:0}
+.search-input{font-family:'Montserrat',Arial,sans-serif;flex:1;padding:9px 14px;border:1.5px solid #193F7D;font-size:12px;font-weight:500;color:#212121;background:#fff;outline:none}
+.search-input:focus{border-color:#F6B707}
+.search-input::placeholder{color:#aaa;font-weight:400}
+.search-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 18px;background:#193F7D;color:#F6B707;border:none;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer}
+.search-btn:hover{background:#253464}
+.clear-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 14px;background:#fff;color:#193F7D;border:1.5px solid #193F7D;font-size:11px;font-weight:700;cursor:pointer}
+
+.results-area{padding:16px 24px;background:#FAF9F5;min-height:320px}
+.results-header{display:flex;align-items:center;margin-bottom:12px}
+.results-count{font-size:11px;font-weight:700;color:#193F7D;text-transform:uppercase;letter-spacing:0.06em}
+.results-count span{color:#F6B707}
+
+.welcome-state{text-align:center;padding:50px 20px}
+.welcome-icon{width:56px;height:56px;background:#193F7D;margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
+.welcome-q{color:#F6B707;font-size:22px;font-weight:800;line-height:1}
+.welcome-title{font-size:15px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.welcome-sub{font-size:12px;color:#888;font-weight:400;line-height:1.6;max-width:420px;margin:0 auto 24px}
+.welcome-hints{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.hint-btn{font-family:'Montserrat',Arial,sans-serif;padding:6px 14px;border:1.5px solid #193F7D;background:#fff;color:#193F7D;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.04em;transition:all 0.12s}
+.hint-btn:hover{background:#193F7D;color:#F6B707}
+
+.no-results{text-align:center;padding:40px 20px;color:#aaa;font-size:13px;font-weight:500}
+.no-results strong{display:block;font-size:15px;color:#193F7D;margin-bottom:8px}
+
+.err-card{background:#fff;margin-bottom:8px;cursor:pointer;transition:border-left-color 0.15s;border:0.5px solid #e0ddd5;border-left:4px solid #193F7D}
+.err-card:hover{border-left-color:#F6B707}
+.err-card.expanded{border-left-color:#F6B707}
+.err-card-header{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.err-code-badge{font-size:11px;font-weight:800;color:#fff;background:#193F7D;padding:4px 8px;min-width:90px;text-align:center;flex-shrink:0;line-height:1.3}
+.err-card.severity-danger .err-code-badge{background:#A32D2D}
+.err-card.severity-warn .err-code-badge{background:#854F0B}
+.err-card-info{flex:1}
+.err-card-name{font-size:12px;font-weight:700;color:#212121}
+.err-card-meta{display:flex;gap:6px;margin-top:3px;flex-wrap:wrap}
+.err-tag{font-size:9px;font-weight:700;padding:1px 6px;background:#FAF9F5;color:#193F7D;border:0.5px solid #193F7D;text-transform:uppercase}
+.err-tag.danger-tag{background:#FCEBEB;color:#A32D2D;border-color:#A32D2D}
+.err-chevron{font-size:16px;color:#193F7D;font-weight:800;transition:transform 0.2s;flex-shrink:0}
+.err-card.expanded .err-chevron{transform:rotate(90deg)}
+.err-card-body{display:none;padding:0 14px 12px;border-top:0.5px solid #f0ece3}
+.err-card.expanded .err-card-body{display:block}
+.err-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.err-detail-box{background:#FAF9F5;border-left:3px solid #F6B707;padding:8px 10px}
+.err-detail-label{font-size:9px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px}
+.err-detail-val{font-size:11px;color:#212121;font-weight:500;line-height:1.4}
+.err-action-box{margin-top:10px;background:#193F7D;padding:10px 12px;display:flex;gap:8px;align-items:flex-start}
+.err-action-icon{color:#F6B707;font-weight:800;font-size:14px;flex-shrink:0;margin-top:1px}
+.err-action-text{font-size:11px;color:#fff;font-weight:500;line-height:1.5}
+.err-danger-box{background:#FCEBEB;border-left:3px solid #A32D2D;padding:8px 10px;margin-top:8px}
+.err-danger-text{font-size:11px;color:#A32D2D;font-weight:600;line-height:1.4}
+
+.footer-bar{background:#193F7D;padding:7px 24px;display:flex;align-items:center;justify-content:space-between}
+.footer-bar span{font-size:9px;color:rgba(255,255,255,0.5)}
+.footer-bar strong{font-size:9px;color:#F6B707;font-weight:700}
+</style>
+
+<div class="app-header">
+  <div class="app-header-inner">
+    <div>
+      <div class="brand-name">syner<span>sight</span></div>
+      <div class="brand-tag">let's move together</div>
+    </div>
+    <div class="header-title">Diagnóstico interactivo de errores<br>Gama Sx — AGV Industrial</div>
+  </div>
+  <div class="diag-accent"></div>
+</div>
+
+<div class="model-bar">
+  <span class="model-badge">Gama Sx</span>
+  <span class="model-label">ACU · WOC · CPU Flexi · nanoScan · PIN P20 · Batería · BLVD · RFID</span>
+</div>
+
+<div class="sys-selector">
+  <button class="sys-btn active" onclick="setSys('all',this)">Todos los sistemas</button>
+  <button class="sys-btn" onclick="setSys('acu',this)">ACU</button>
+  <button class="sys-btn" onclick="setSys('flexi',this)">CPU Flexi / nanoScan</button>
+  <button class="sys-btn" onclick="setSys('woc',this)">Placa WOC</button>
+  <button class="sys-btn" onclick="setSys('pin',this)">PIN P20.R10</button>
+  <button class="sys-btn" onclick="setSys('bateria',this)">Batería</button>
+  <button class="sys-btn" onclick="setSys('blvd',this)">Variadores BLVD</button>
+</div>
+
+<div class="search-area">
+  <div class="search-row">
+    <input class="search-input" id="search-input" placeholder="Busca por código (b3, 257, 4 parpadeos...) o síntoma (escáner, freno, CAN, WiFi...)"/>
+    <button class="search-btn" onclick="doSearch()">Buscar</button>
+    <button class="clear-btn" onclick="clearSearch()">Limpiar</button>
+  </div>
+</div>
+
+<div class="results-area">
+  <div id="results-header" class="results-header" style="display:none">
+    <div class="results-count">Mostrando <span id="count-num">0</span> errores</div>
+  </div>
+  <div id="results-list"></div>
+</div>
+
+<div class="footer-bar">
+  <span>© 2024 Emayor Synersight Technologies SL</span>
+  <strong>synersight.es</strong>
+</div>
+
+<script>
+const DB = [
+  // ── ACU ─────────────────────────────────────────
+  {sys:'acu',code:'b0',name:'COMMS INTERNAS',cause:'Problema de comunicación entre módulos internos de la placa ACU.',action:'Requiere sustitución de la placa ACU.',severity:'danger'},
+  {sys:'acu',code:'b1',name:'VOLTAJE 24V NOK',cause:'Alimentación de 24V incorrecta.',action:'Revisar fuente externa o cableado de alimentación.',severity:'warn'},
+  {sys:'acu',code:'b8',name:'PID CONFIGS / AUX 12',cause:'Datos corruptos en memoria de la ACU.',action:'Reinicializar la máquina.',severity:'warn'},
+  {sys:'acu',code:'b10',name:'BATERÍA RTC DEFECTUOSA',cause:'Pila interna de la ACU agotada.',action:'Sustituir la pila interna de la placa ACU.',severity:'warn'},
+  {sys:'acu',code:'b11',name:'RTC DESINCRONIZADO',cause:'Reloj interno desajustado tras cambio de batería o primer arranque.',action:'Verificar y ajustar el reloj interno.',severity:'warn'},
+  {sys:'acu',code:'b12',name:'CARGA ONLINE EN DEFECTO',cause:'Fallo en comunicación con cargador o falta de corriente hacia la batería.',action:'Revisar cableado de carga y conexión con el cargador.',severity:'warn'},
+  {sys:'acu',code:'b13',name:'COMUNICACIÓN CAN BATERÍA',cause:'Fallo en red CAN entre ACU y batería.',action:'Revisar cableado CAN y versiones de periféricos.',severity:'warn'},
+  {sys:'acu',code:'b14',name:'SD EN ERROR',cause:'La placa no detecta la tarjeta SD.',action:'Revisar inserción de la tarjeta SD o sustituirla.',severity:'warn'},
+  {sys:'acu',code:'264',name:'VERSIÓN FLEXI INCOMPATIBLE',cause:'Versión del firmware Flexi incompatible con la ACU.',action:'Actualizar firmware Flexi o ACU para compatibilidad.',severity:'danger'},
+  {sys:'acu',code:'265',name:'FRENO MAGNÉTICO NO LIBERADO',cause:'Freno no se libera pese a orden de marcha de la ACU.',action:'Revisar driver del motor y conexiones del freno.',severity:'danger'},
+
+  // ── CPU FLEXI / nanoScan ─────────────────────────
+  {sys:'flexi',code:'257',name:'FALLO FLEXI — ACU',cause:'Fallo de comunicación entre ACU y CPU FLEXI.',action:'Revisar cableado entre ACU y Flexi o actualizar GPL.',severity:'warn'},
+  {sys:'flexi',code:'258',name:'ERROR INTERNO ESCÁNER MAESTRO',cause:'Error interno en el escáner nanoScan maestro.',action:'Consultar diagnóstico del escáner con SICK Safety Designer.',severity:'warn'},
+  {sys:'flexi',code:'259',name:'ERROR APLICACIÓN ESCÁNER MAESTRO',cause:'Mapa de seguridad incorrecto o mala programación del escáner maestro.',action:'Recargar configuración correcta con Safety Designer.',severity:'warn'},
+  {sys:'flexi',code:'260',name:'CUBIERTA SUCIA — MAESTRO',cause:'Cubierta del escáner nanoScan maestro sucia.',action:'Limpiar cubierta con paño apropiado y rearmar.',severity:'warn'},
+  {sys:'flexi',code:'261',name:'ERROR INTERNO ESCÁNER ESCLAVO',cause:'Error interno en el escáner nanoScan esclavo.',action:'Consultar diagnóstico del escáner con SICK Safety Designer.',severity:'warn'},
+  {sys:'flexi',code:'262',name:'ERROR APLICACIÓN ESCÁNER ESCLAVO',cause:'Mapa de seguridad incorrecto o mala programación del escáner esclavo.',action:'Recargar configuración correcta con Safety Designer.',severity:'warn'},
+  {sys:'flexi',code:'263',name:'CUBIERTA SUCIA — ESCLAVO',cause:'Cubierta del escáner nanoScan esclavo sucia.',action:'Limpiar cubierta con paño apropiado y rearmar.',severity:'warn'},
+  {sys:'flexi',code:'268',name:'CANAL DUAL NO VÁLIDO',cause:'Discrepancia en fotocélula de canal dual.',action:'Revisar cableado de la fotocélula.',severity:'warn'},
+  {sys:'flexi',code:'269',name:'RELÉ DRIVER EDM NO VÁLIDO',cause:'Discrepancia en relé del pin EDM.',action:'Revisar conexiones del relé EDM.',severity:'warn'},
+  {sys:'flexi',code:'274',name:'DRIVER TRACCIÓN S1 EDM',cause:'Discrepancia detectada en variador de tracción S1.',action:'Revisar variador S1 y su cableado.',severity:'danger'},
+  {sys:'flexi',code:'275',name:'DRIVER TRACCIÓN S2 EDM',cause:'Discrepancia detectada en variador de tracción S2.',action:'Revisar variador S2 y su cableado.',severity:'danger'},
+  {sys:'flexi',code:'276',name:'PIN MOVIDO EN MARCHA',cause:'El mecanismo PIN se activó durante el movimiento del AGV.',action:'Revisar lógica de control del PIN y enclavamientos.',severity:'danger'},
+  {sys:'flexi',code:'277',name:'VELOCIDAD GM MAESTRO INCORRECTA',cause:'Velocidad del grupo motor maestro excede el límite del mapa.',action:'Revisar parámetros de velocidad máxima en el mapa de seguridad.',severity:'warn'},
+  {sys:'flexi',code:'278',name:'VELOCIDAD GM ESCLAVO INCORRECTA',cause:'Velocidad del grupo motor esclavo excede el límite del mapa.',action:'Revisar parámetros de velocidad máxima en el mapa de seguridad.',severity:'warn'},
+  {sys:'flexi',code:'280',name:'ERROR RAMPA VELOCIDAD',cause:'El AGV no frena en el tiempo previsto.',action:'Revisar sistema de frenado y variadores BLVD.',severity:'danger'},
+  {sys:'flexi',code:'281',name:'ERROR DE DIRECCIÓN',cause:'Encoder montado al revés o feedback de dirección contrario.',action:'Revisar montaje y orientación del encoder de dirección.',severity:'danger'},
+  {sys:'flexi',code:'282',name:'ERROR INMOVILIZACIÓN',cause:'Movimiento detectado cuando el AGV debería estar parado.',action:'Revisar frenos y estado de los variadores.',severity:'danger'},
+  {sys:'flexi',code:'291',name:'INMOVILIZACIÓN INDEPENDIENTE',cause:'Una rueda está parada mientras el AGV está en marcha.',action:'Revisar variadores individualmente.',severity:'danger'},
+  {sys:'flexi',code:'292',name:'DESAJUSTE DE ORIENTACIÓN',cause:'Encoder de dirección no coincide con la posición real de las ruedas.',action:'Recalibrar encoder de dirección.',severity:'warn'},
+  {sys:'flexi',code:'293',name:'RED EFIPRO CAÍDA',cause:'Fallo en la red de comunicación Efipro de los escáneres.',action:'Revisar cableado Efipro entre CPU Flexi y escáneres nanoScan.',severity:'danger'},
+
+  // ── WOC ─────────────────────────────────────────
+  {sys:'woc',code:'1 parpadeo',name:'EERAM NO DISPONIBLE',cause:'Placa WOC defectuosa.',action:'Sustituir la placa WOC.',severity:'danger'},
+  {sys:'woc',code:'2 parpadeos',name:'CARGADOR NO RESPONDE',cause:'Cargador sin comunicación CAN con la WOC.',action:'Revisar cableado CAN o resistencia de terminación de red.',severity:'warn'},
+  {sys:'woc',code:'3 parpadeos',name:'WLAN DESCONECTADO',cause:'Sin conexión al punto de acceso WiFi tras 2 minutos.',action:'Revisar SSID, contraseña y cobertura WiFi.',severity:'warn'},
+  {sys:'woc',code:'4 parpadeos',name:'VSYSTEMS DESCONECTADO',cause:'La WOC no alcanza el servidor VSystems.',action:'Revisar IP y puerto del servidor VSystems o bloqueos de firewall.',severity:'warn'},
+  {sys:'woc',code:'5 parpadeos',name:'MÓDULO WIFI NO DISPONIBLE',cause:'Posible avería física del módulo WiFi de la placa.',action:'Sustituir el módulo WiFi.',severity:'danger'},
+  {sys:'woc',code:'6 parpadeos',name:'MÓDULO WIFI DESACTUALIZADO',cause:'Firmware del módulo WiFi desactualizado.',action:'Actualizar firmware del módulo vía OTA.',severity:'warn'},
+  {sys:'woc',code:'LED fijo',name:'NÚM. SERIE SIN INICIALIZAR',cause:'El número de serie de la placa WOC no ha sido grabado.',action:'Grabar número de serie con SynFW MultiTool.',severity:'warn'},
+
+  // ── PIN P20.R10 ──────────────────────────────────
+  {sys:'pin',code:'b0',name:'DRIVER FAULT',cause:'Fallo del driver del motor del mecanismo PIN.',action:'Revisar driver y cableado del motor del PIN.',severity:'danger'},
+  {sys:'pin',code:'b1',name:'TRANSITION TIMEOUT — LEVA',cause:'La leva no llega a su posición en el tiempo esperado. Posible obstrucción.',action:'Revisar obstrucción mecánica en el recorrido de la leva.',severity:'warn'},
+  {sys:'pin',code:'b2',name:'ERROR SENSOR POSICIÓN LEVA',cause:'Sensor de posición de la leva defectuoso o desconectado.',action:'Revisar switches o sensores inductivos de posición de la leva.',severity:'warn'},
+  {sys:'pin',code:'b3',name:'BOLT POSITION LOST',cause:'Bulón sube y baja erráticamente. Puede estar causado por switch CONFIG del RFID incorrecto.',action:'Revisar switch CONFIG del módulo RFID. Verificar mecánica del bulón.',severity:'danger'},
+  {sys:'pin',code:'b4',name:'TRANSITION TIMEOUT — BULÓN',cause:'El bulón no llega a su posición en el tiempo esperado.',action:'Revisar obstrucción mecánica en el recorrido del bulón.',severity:'warn'},
+  {sys:'pin',code:'b5',name:'ERROR SENSOR POSICIÓN BULÓN',cause:'Sensor de posición del bulón defectuoso o desconectado.',action:'Revisar switches o sensores inductivos de posición del bulón.',severity:'warn'},
+  {sys:'pin',code:'b6',name:'CAN COMM. FAILURE',cause:'Fallo de mensajes en la red CAN del módulo PIN P20.',action:'Revisar cableado CAN y resistencia de terminación.',severity:'danger'},
+  {sys:'pin',code:'b7',name:'DRIVER POWEROFF',cause:'Sin energía en el driver del PIN — seta de emergencia activada.',action:'Desactivar seta de emergencia y rearmar el sistema.',severity:'warn'},
+
+  // ── BATERÍA ──────────────────────────────────────
+  {sys:'bateria',code:'—',name:'SOBRECALENTAMIENTO',cause:'Corriente de carga excede el límite configurado en Varta Tool.',action:'Reducir Current en parámetros OK Temp / High Temp con Varta Tool.',severity:'danger'},
+  {sys:'bateria',code:'—',name:'AUTO-APAGADO PREMATURO',cause:'Parámetro Deadband configurado demasiado alto.',action:'Ajustar umbral de corriente (Deadband) en Varta Tool.',severity:'warn'},
+  {sys:'bateria',code:'b12 (ACU)',name:'CARGA ONLINE EN DEFECTO',cause:'Fallo de comunicación con el cargador o falta de corriente hacia la batería.',action:'Revisar cableado de carga, pinzas y conexión con el cargador.',severity:'warn'},
+  {sys:'bateria',code:'b13 (ACU)',name:'COMUNICACIÓN CAN BATERÍA',cause:'Fallo en la red CAN entre ACU y pack de batería.',action:'Revisar cableado CAN (pinout M12: CAN_L→5, CAN_H→4, GND→3).',severity:'warn'},
+
+  // ── VARIADORES BLVD ──────────────────────────────
+  {sys:'blvd',code:'Node-ID incorrecto',name:'VARIADOR NO RESPONDE',cause:'El variador no responde al Node-ID esperado por la ACU.',action:'Verificar que el archivo .mxex cargado corresponde a la posición del variador.',severity:'warn'},
+  {sys:'blvd',code:'Bitrate erróneo',name:'COMUNICACIÓN CAN FALLIDA',cause:'Bitrate del variador no es 250 kbps.',action:'Verificar en software BLVD Oriental que Present Value del Bitrate es 250 kbps.',severity:'warn'},
+  {sys:'blvd',code:'274 / 275',name:'EDM TRACCIÓN S1/S2 NO VÁLIDO',cause:'Discrepancia detectada en variador de tracción por CPU Flexi.',action:'Revisar conexión y estado del variador afectado.',severity:'danger'},
+];
+
+const sysLabels={
+  acu:'ACU',
+  flexi:'CPU Flexi / nanoScan',
+  woc:'Placa WOC',
+  pin:'PIN P20.R10',
+  bateria:'Batería',
+  blvd:'Variadores BLVD'
+};
+
+let currentSys='all', currentSearch='', expandedIdx=null;
+
+function setSys(s, btn){
+  currentSys=s;
+  document.querySelectorAll('.sys-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(s!=='all') renderResults();
+  else if(currentSearch) renderResults();
+  else showWelcome();
+}
+
+function doSearch(){
+  currentSearch=document.getElementById('search-input').value.trim().toLowerCase();
+  if(!currentSearch && currentSys==='all'){ showWelcome(); return; }
+  renderResults();
+}
+
+function clearSearch(){
+  document.getElementById('search-input').value='';
+  currentSearch=''; currentSys='all'; expandedIdx=null;
+  document.querySelectorAll('.sys-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.sys-btn').classList.add('active');
+  showWelcome();
+}
+
+function useHint(q){
+  document.getElementById('search-input').value=q;
+  currentSearch=q.toLowerCase();
+  renderResults();
+}
+
+function showWelcome(){
+  document.getElementById('results-header').style.display='none';
+  document.getElementById('results-list').innerHTML=`
+    <div class="welcome-state">
+      <div class="welcome-icon"><div class="welcome-q">?</div></div>
+      <div class="welcome-title">¿Qué error estás viendo?</div>
+      <div class="welcome-sub">Introduce el código o síntoma en el buscador, o selecciona un sistema en las pestañas superiores para filtrar.</div>
+      <div class="welcome-hints">
+        <button class="hint-btn" onclick="useHint('escáner')">Escáner</button>
+        <button class="hint-btn" onclick="useHint('freno')">Freno</button>
+        <button class="hint-btn" onclick="useHint('CAN')">Error CAN</button>
+        <button class="hint-btn" onclick="useHint('wifi')">WiFi / WOC</button>
+        <button class="hint-btn" onclick="useHint('batería')">Batería</button>
+        <button class="hint-btn" onclick="useHint('bulón')">Bulón / PIN</button>
+        <button class="hint-btn" onclick="useHint('velocidad')">Velocidad</button>
+        <button class="hint-btn" onclick="useHint('danger')">Solo críticos</button>
+      </div>
+    </div>`;
+}
+
+function toggleCard(idx){
+  expandedIdx=expandedIdx===idx?null:idx;
+  renderResults();
+}
+
+function renderResults(){
+  let filtered=DB.filter(e=>{
+    if(currentSys!=='all'&&e.sys!==currentSys) return false;
+    if(currentSearch){
+      const q=currentSearch;
+      if(q==='danger') return e.severity==='danger';
+      return e.code.toLowerCase().includes(q)||
+             e.name.toLowerCase().includes(q)||
+             e.cause.toLowerCase().includes(q)||
+             e.action.toLowerCase().includes(q)||
+             (sysLabels[e.sys]&&sysLabels[e.sys].toLowerCase().includes(q));
+    }
+    return true;
+  });
+
+  document.getElementById('results-header').style.display='flex';
+  document.getElementById('count-num').textContent=filtered.length;
+
+  if(filtered.length===0){
+    document.getElementById('results-list').innerHTML=`
+      <div class="no-results"><strong>Sin resultados</strong>Prueba con otro código o síntoma</div>`;
+    return;
+  }
+
+  document.getElementById('results-list').innerHTML=filtered.map((e,i)=>{
+    const isExp=expandedIdx===i;
+    const sysLabel=sysLabels[e.sys]||e.sys;
+    return `<div class="err-card severity-${e.severity}${isExp?' expanded':''}" onclick="toggleCard(${i})">
+      <div class="err-card-header">
+        <div class="err-code-badge">${e.code}</div>
+        <div class="err-card-info">
+          <div class="err-card-name">${e.name}</div>
+          <div class="err-card-meta">
+            <span class="err-tag">${sysLabel}</span>
+            ${e.severity==='danger'?'<span class="err-tag danger-tag">CRÍTICO</span>':''}
+          </div>
+        </div>
+        <div class="err-chevron">›</div>
+      </div>
+      ${isExp?`<div class="err-card-body">
+        <div class="err-detail-grid">
+          <div class="err-detail-box">
+            <div class="err-detail-label">Causa probable</div>
+            <div class="err-detail-val">${e.cause}</div>
+          </div>
+          <div class="err-detail-box">
+            <div class="err-detail-label">Sistema</div>
+            <div class="err-detail-val">${sysLabel}</div>
+          </div>
+        </div>
+        <div class="err-action-box">
+          <div class="err-action-icon">→</div>
+          <div class="err-action-text"><strong style="color:#F6B707">Acción correctiva:</strong> ${e.action}</div>
+        </div>
+        ${e.severity==='danger'?'<div class="err-danger-box"><div class="err-danger-text">⚠ Error crítico — puede requerir sustitución de componente o parada del AGV.</div></div>':''}
+      </div>`:''}
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('search-input').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+showWelcome();
+</script>
