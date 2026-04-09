@@ -1,0 +1,392 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',Arial,sans-serif;background:#FAF9F5}
+.app-header{background:#193F7D;position:relative;overflow:hidden}
+.app-header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.brand-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1}
+.brand-name span{color:#F6B707}
+.brand-tag{display:inline-block;background:#F6B707;color:#193F7D;font-size:9px;font-weight:700;padding:2px 7px;letter-spacing:0.08em}
+.header-title{color:#fff;font-size:13px;font-weight:500;opacity:0.85;text-align:right;line-height:1.4}
+.diag-accent{position:absolute;right:0;top:0;width:60px;height:100%;background:#F6B707;clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:0.18}
+.model-bar{background:#253464;padding:6px 24px;display:flex;align-items:center;gap:10px}
+.model-badge{font-size:10px;font-weight:800;color:#193F7D;background:#F6B707;padding:2px 8px;letter-spacing:0.06em}
+.model-label{font-size:11px;color:rgba(255,255,255,0.7);font-weight:400}
+.sys-selector{display:flex;gap:0;padding:0 24px;background:#193F7D;border-bottom:2px solid #F6B707;overflow-x:auto}
+.sys-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 16px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;border:none;background:none;color:rgba(255,255,255,0.5);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.15s;white-space:nowrap}
+.sys-btn:hover{color:#fff}
+.sys-btn.active{color:#F6B707;border-bottom-color:#F6B707}
+.main{padding:20px 24px;background:#FAF9F5;min-height:400px}
+.comp-header{margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #F6B707}
+.comp-title{font-size:17px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.03em}
+.comp-sub{font-size:11px;color:#6EC1E4;font-weight:700;margin-top:3px;text-transform:uppercase;letter-spacing:0.06em}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.layout-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.tools-block{margin-bottom:14px}
+.tools-type-label{font-size:10px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.1em;padding:3px 8px;display:inline-block;margin-bottom:5px}
+.tools-type-label.sw{background:#193F7D}
+.tools-type-label.hw{background:#253464}
+.tools-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.pill-sw{font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:700;padding:4px 10px;background:#193F7D;color:#F6B707;text-transform:uppercase;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:4px}
+.pill-sw::before{content:'';display:inline-block;width:6px;height:6px;background:#F6B707;border-radius:50%}
+.pill-hw{font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:700;padding:4px 10px;background:#fff;color:#253464;border:1.5px solid #253464;text-transform:uppercase;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:4px}
+.pill-hw::before{content:'';display:inline-block;width:6px;height:6px;background:#253464;border-radius:0}
+.section-label{font-size:10px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.section-label::after{content:'';flex:1;height:1px;background:#F6B707}
+.param-card{background:#fff;border-left:3px solid #F6B707;padding:7px 10px;margin-bottom:5px}
+.param-key{font-size:9px;color:#193F7D;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px}
+.param-val{font-size:11px;color:#212121;font-weight:500}
+.step{display:flex;gap:8px;padding:7px 0;border-bottom:0.5px solid #e8e5dc}
+.step:last-child{border-bottom:none}
+.step-num{width:22px;height:22px;background:#193F7D;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-title{font-size:11px;font-weight:700;color:#193F7D}
+.step-desc{font-size:10px;color:#212121;margin-top:2px;line-height:1.5;font-weight:400}
+.warn-box{display:flex;gap:6px;padding:8px 10px;margin-top:10px;border-left:3px solid #F6B707;background:#fff}
+.danger-box{display:flex;gap:6px;padding:8px 10px;margin-top:8px;border-left:3px solid #A32D2D;background:#FCEBEB}
+.warn-text{font-size:10px;color:#212121;line-height:1.4;font-weight:500}
+.danger-text{font-size:10px;color:#A32D2D;line-height:1.4;font-weight:600}
+/* Switch table */
+.sw-table{width:100%;border-collapse:collapse;font-size:10px;margin-top:6px}
+.sw-table th{text-align:left;padding:5px 8px;background:#193F7D;color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:0.04em}
+.sw-table td{padding:5px 8px;border-bottom:0.5px solid #e0ddd5;font-weight:500;color:#212121}
+.sw-table tr:nth-child(even) td{background:#fff}
+.sw-table tr:nth-child(odd) td{background:#FAF9F5}
+.sw-table .sw-on{font-weight:800;color:#193F7D}
+.code-inline{font-family:monospace;background:#253464;color:#F6B707;padding:2px 6px;font-size:10px;font-weight:700}
+.info-badge{display:inline-block;font-size:9px;font-weight:800;background:#EEF2FF;color:#193F7D;padding:2px 7px;border:0.5px solid #193F7D;text-transform:uppercase;margin-bottom:6px}
+.footer-bar{background:#193F7D;padding:7px 24px;display:flex;align-items:center;justify-content:space-between}
+.footer-bar span{font-size:9px;color:rgba(255,255,255,0.5)}
+.footer-bar strong{font-size:9px;color:#F6B707;font-weight:700}
+</style>
+
+<div class="app-header">
+  <div class="app-header-inner">
+    <div>
+      <div class="brand-name">syner<span>sight</span></div>
+      <div class="brand-tag">smart logistics</div>
+    </div>
+    <div class="header-title">Guía de configuración<br>Modelo CM · CM2W · CM3000 · FCM3000</div>
+  </div>
+  <div class="diag-accent"></div>
+</div>
+<div class="model-bar">
+  <span class="model-badge">FCM — Modelo CM</span>
+  <span class="model-label">CM700Rx · CM900Rx · CM1200Rx · CM2W · CM3000Rx · FCM3000</span>
+</div>
+<div class="sys-selector">
+  <button class="sys-btn active" onclick="show('g6',this)">CPU G6 / MOXA</button>
+  <button class="sys-btn" onclick="show('mikrotik',this)">Mikrotik WiFi</button>
+  <button class="sys-btn" onclick="show('pid',this)">Placa PID</button>
+  <button class="sys-btn" onclick="show('variadores',this)">Variadores BLV/BLH</button>
+  <button class="sys-btn" onclick="show('rfid',this)">RFID</button>
+  <button class="sys-btn" onclick="show('flexi',this)">FlexiSoft SICK</button>
+  <button class="sys-btn" onclick="show('vsystems',this)">VSystems</button>
+  <button class="sys-btn" onclick="show('lcd',this)">Consola LCD / PIN</button>
+</div>
+<div class="main" id="main"></div>
+<div class="footer-bar">
+  <span>© 2024 Emayor Synersight Technologies SL — Etileno 4, Valladolid</span>
+  <strong>synersight.es</strong>
+</div>
+
+<script>
+const pages = {
+
+g6: `
+<div class="comp-header">
+  <div class="comp-title">CPU G6 / MOXA</div>
+  <div class="comp-sub">Centralita de procesamiento — núcleo del AGV</div>
+</div>
+<div class="tools-block">
+  <div class="tools-type-label sw">Software</div>
+  <div class="tools-row">
+    <span class="pill-sw">Navegador Web</span>
+    <span class="pill-sw">VSystems</span>
+    <span class="pill-sw">G6C Tools (opcional)</span>
+  </div>
+  <div class="tools-type-label hw">Herramienta física</div>
+  <div class="tools-row">
+    <span class="pill-hw">PC con Ethernet</span>
+  </div>
+</div>
+<div class="layout">
+  <div>
+    <div class="section-label">Parámetros</div>
+    <div class="param-card"><div class="param-key">Acceso MOXA</div><div class="param-val">IP_TERMINAL:1000 desde navegador</div></div>
+    <div class="param-card"><div class="param-key">Obtener IP Terminal</div><div class="param-val">Panel de supervisión de VSystems</div></div>
+    <div class="param-card"><div class="param-key">Router Usage</div><div class="param-val">Mikrotik WIFI (modelos CM / CM2W)</div></div>
+    <div class="param-card"><div class="param-key">Servidor VSystems</div><div class="param-val">IP y puerto del servidor del cliente</div></div>
+    <div class="param-card"><div class="param-key">SW1</div><div class="param-val">ON para modelos RX</div></div>
+    <div class="param-card"><div class="param-key">SW8</div><div class="param-val">ON activa log por UART (puerto J9)</div></div>
+    <div class="param-card"><div class="param-key">VBAT</div><div class="param-val">Configurar según voltaje batería: 24V / 48V</div></div>
+  </div>
+  <div>
+    <div class="section-label">Procedimiento</div>
+    <div class="step"><div class="step-num">1</div><div><div class="step-title">Localizar la máquina en VSystems</div><div class="step-desc">Copiar la IP Terminal desde el panel de supervisión.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div><div class="step-title">Acceder al MOXA</div><div class="step-desc">Abrir navegador y entrar en <span class="code-inline">IP_TERMINAL:1000</span></div></div></div>
+    <div class="step"><div class="step-num">3</div><div><div class="step-title">Actualizar firmware (si necesario)</div><div class="step-desc">Cargar archivo .rom o .txt en el apartado Firmware Upgrade.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div><div class="step-title">Configurar red y servidor</div><div class="step-desc">Ajustar Network Settings y VSystems Settings con IP, puerto y Router Usage.</div></div></div>
+    <div class="step"><div class="step-num">5</div><div><div class="step-title">Configurar switches físicos</div><div class="step-desc">SW1 en ON para RX. VBAT según tensión de batería instalada.</div></div></div>
+  </div>
+</div>`,
+
+mikrotik: `
+<div class="comp-header">
+  <div class="comp-title">Mikrotik WiFi</div>
+  <div class="comp-sub">Access Point — comunicaciones inalámbricas del AGV</div>
+</div>
+<div class="tools-block">
+  <div class="tools-type-label sw">Software</div>
+  <div class="tools-row"><span class="pill-sw">WinBox</span></div>
+  <div class="tools-type-label hw">Herramienta física</div>
+  <div class="tools-row"><span class="pill-hw">Cable Ethernet directo al Mikrotik</span></div>
+</div>
+<div class="layout">
+  <div>
+    <div class="section-label">Parámetros previos — PC</div>
+    <div class="param-card"><div class="param-key">IP fija PC</div><div class="param-val">192.168.88.254</div></div>
+    <div class="param-card"><div class="param-key">Máscara</div><div class="param-val">255.255.255.0</div></div>
+    <div class="param-card"><div class="param-key">WiFi del PC</div><div class="param-val">DESHABILITADO durante la configuración</div></div>
+    <div class="param-card"><div class="param-key">Contraseña admin</div><div class="param-val">SinerlineFCM</div></div>
+    <div class="param-card"><div class="param-key">Logs</div><div class="param-val">System → Logging → acción: disk</div></div>
+    <div class="param-card"><div class="param-key">Red con credenciales EAP</div><div class="param-val">Wireless → Security Profiles → default → EAP</div></div>
+  </div>
+  <div>
+    <div class="section-label">Procedimiento</div>
+    <div class="step"><div class="step-num">1</div><div><div class="step-title">Preparar PC</div><div class="step-desc">Configurar IP fija 192.168.88.254 / 255.255.255.0. Deshabilitar WiFi del PC.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div><div class="step-title">Conectar y abrir WinBox</div><div class="step-desc">Conectar cable Ethernet al Mikrotik. Encender AGV. En WinBox clicar Refresh, seleccionar la MAC del equipo y Connect.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div><div class="step-title">Reset completo</div><div class="step-desc">System → Reset configuration → marcar "No Default Configuration" y "Do Not Backup" → Reset. WinBox se cerrará.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div><div class="step-title">Volver a conectar tras reinicio</div><div class="step-desc">Esperar reinicio del Mikrotik y reconectar desde WinBox con la MAC.</div></div></div>
+    <div class="step"><div class="step-num">5</div><div><div class="step-title">Actualizar firmware (opcional)</div><div class="step-desc">Arrastrar archivo .npk a File List → System → Reboot.</div></div></div>
+    <div class="step"><div class="step-num">6</div><div><div class="step-title">Importar configuración</div><div class="step-desc">Arrastrar fichero .rsc a File List. Abrir New Terminal y ejecutar: <span class="code-inline">import nombre_fichero.rsc</span></div></div></div>
+    <div class="step"><div class="step-num">7</div><div><div class="step-title">Configurar credenciales EAP (si aplica)</div><div class="step-desc">Wireless → Security Profiles → default → EAP → introducir usuario y contraseña de la red del cliente.</div></div></div>
+  </div>
+</div>
+<div class="danger-box"><span style="color:#A32D2D;font-weight:800;font-size:13px;flex-shrink:0">!</span><div class="danger-text">El reset debe seleccionar "No Default Configuration" y "Do Not Backup". Sin estas opciones el Mikrotik no queda en estado limpio para importar la configuración.</div></div>`,
+
+pid: `
+<div class="comp-header">
+  <div class="comp-title">Placa PID</div>
+  <div class="comp-sub">Control de guiado y tracción diferencial</div>
+</div>
+<div class="tools-block">
+  <div class="tools-type-label sw">Software</div>
+  <div class="tools-row">
+    <span class="pill-sw">VSystems (online .bin)</span>
+    <span class="pill-sw">MPLAB + PickIt (offline .hex)</span>
+  </div>
+</div>
+<div class="section-label">Configuración de switches — selección de modelo</div>
+<div class="info-badge">Bloque de 8 interruptores físicos SW — binario: SW ON suma su valor de posición</div>
+<table class="sw-table">
+  <tr><th>Modelo</th><th>Variante</th><th>Velocidad</th><th>Valor SW</th><th>Switches ON</th></tr>
+  <tr><td>CM700</td><td>STD</td><td>40 m/min</td><td class="sw-on">1</td><td>SW1</td></tr>
+  <tr><td>CM700</td><td>RX</td><td>40 m/min</td><td class="sw-on">2</td><td>SW2</td></tr>
+  <tr><td>CM700</td><td>STD</td><td>60 m/min</td><td class="sw-on">3</td><td>SW1, SW2</td></tr>
+  <tr><td>CM700</td><td>RX</td><td>60 m/min</td><td class="sw-on">4</td><td>SW3</td></tr>
+  <tr><td>CM900</td><td>STD</td><td>40 m/min</td><td class="sw-on">5</td><td>SW1, SW3</td></tr>
+  <tr><td>CM900</td><td>RX</td><td>40 m/min</td><td class="sw-on">6</td><td>SW2, SW3</td></tr>
+  <tr><td>CM900</td><td>STD</td><td>60 m/min</td><td class="sw-on">7</td><td>SW1, SW2, SW3</td></tr>
+  <tr><td>CM900</td><td>RX</td><td>60 m/min</td><td class="sw-on">8</td><td>SW4</td></tr>
+  <tr><td>CM1200</td><td>STD</td><td>40 m/min</td><td class="sw-on">9</td><td>SW1, SW4</td></tr>
+  <tr><td>CM1200</td><td>RX</td><td>40 m/min</td><td class="sw-on">10</td><td>SW2, SW4</td></tr>
+  <tr><td>CM1200</td><td>STD</td><td>60 m/min</td><td class="sw-on">11</td><td>SW1, SW2, SW4</td></tr>
+  <tr><td>CM1200</td><td>RX</td><td>60 m/min</td><td class="sw-on">12</td><td>SW3, SW4</td></tr>
+  <tr><td>CM3000</td><td>STD/RX</td><td>4 m/min</td><td class="sw-on">13</td><td>SW1, SW3, SW4</td></tr>
+  <tr><td>CM3000</td><td>STD/RX</td><td>40 m/min</td><td class="sw-on">14</td><td>SW2, SW3, SW4</td></tr>
+  <tr><td>CM3000</td><td>STD/RX</td><td>60 m/min</td><td class="sw-on">15</td><td>SW1, SW2, SW3, SW4</td></tr>
+  <tr><td>CM2W1200</td><td>—</td><td>40 m/min</td><td class="sw-on">64</td><td>SW7 + SW modelo</td></tr>
+  <tr><td>CM2W3000</td><td>—</td><td>40 m/min</td><td class="sw-on">66</td><td>SW7 + SW modelo</td></tr>
+</table>
+<div class="warn-box"><span style="color:#F6B707;font-weight:800;font-size:13px;flex-shrink:0">!</span><div class="warn-text">Modelos CM2W (bidireccionales): requieren SW7 en ON adicionalmente para indicar presencia de segunda placa PID esclava.</div></div>
+<div class="section-label" style="margin-top:14px">Carga de firmware online vía VSystems</div>
+<div class="step"><div class="step-num">1</div><div><div class="step-title">Localizar máquina en VSystems</div><div class="step-desc">Acceder al panel de supervisión y buscar por número de flota.</div></div></div>
+<div class="step"><div class="step-num">2</div><div><div class="step-title">Ir a Operaciones Software</div><div class="step-desc">Seleccionar el periférico a programar: PID, RFID, LCD, etc.</div></div></div>
+<div class="step"><div class="step-num">3</div><div><div class="step-title">Seleccionar versión de firmware</div><div class="step-desc">Elegir la versión disponible (previamente subida al servidor).</div></div></div>
+<div class="step"><div class="step-num">4</div><div><div class="step-title">Subir archivo</div><div class="step-desc">Clicar "Subir (Servidor → Terminal)" para descargar el archivo a la máquina.</div></div></div>
+<div class="step"><div class="step-num">5</div><div><div class="step-title">Programar</div><div class="step-desc">La máquina debe estar parada. Clicar "Programar".</div></div></div>
+<div class="step"><div class="step-num">6</div><div><div class="step-title">Confirmar en consola LCD</div><div class="step-desc">Verificar la actualización físicamente en la consola LCD del AGV.</div></div></div>`,
+
+variadores: `
+<div class="comp-header">
+  <div class="comp-title">Variadores BLV / BLH</div>
+  <div class="comp-sub">Drivers de motor — tracción y dirección</div>
+</div>
+<div class="layout">
+  <div>
+    <div class="info-badge">BLV — CM3000 / FCM3000</div>
+    <div class="section-label">Parámetros BLV</div>
+    <div class="param-card"><div class="param-key">Calibración de fábrica</div><div class="param-val">No requiere ajuste interno por parte del técnico</div></div>
+    <div class="param-card"><div class="param-key">Protocolo</div><div class="param-val">CAN Bus</div></div>
+    <div class="param-card"><div class="param-key">Configuración</div><div class="param-val">Vienen calibrados de fábrica. Plug & Play.</div></div>
+    <div class="warn-box" style="margin-top:10px"><span style="color:#F6B707;font-weight:800;font-size:13px;flex-shrink:0">!</span><div class="warn-text">Los variadores BLV no requieren ningún ajuste por parte del técnico. Si hay fallo, consultar la tabla de alarmas.</div></div>
+  </div>
+  <div>
+    <div class="info-badge">BLH — CM700 / CM900 / CM1200</div>
+    <div class="section-label">Potenciómetros BLH</div>
+    <div class="param-card"><div class="param-key">VR1 — Internal Potentiometer</div><div class="param-val">Velocidad operativa del motor. Sentido horario = aumentar valor.</div></div>
+    <div class="param-card"><div class="param-key">VR2 — Accel/Decel Potentiometer</div><div class="param-val">Tiempo de aceleración y deceleración del motor.</div></div>
+    <div class="param-card"><div class="param-key">VR3 — Torque Potentiometer</div><div class="param-val">Valor límite del par (torque) aplicado al motor.</div></div>
+    <div class="section-label" style="margin-top:12px">Alarmas LED rojo (parpadeos)</div>
+    <div class="param-card"><div class="param-key">2 parpadeos</div><div class="param-val">Sobrecarga — reducir carga o revisar aceleración</div></div>
+    <div class="param-card"><div class="param-key">4 parpadeos</div><div class="param-val">Sobretensión — revisar patrón de deceleración</div></div>
+    <div class="param-card"><div class="param-key">5 parpadeos</div><div class="param-val">Baja tensión — comprobar batería y cableado</div></div>
+    <div class="param-card"><div class="param-key">9 parpadeos</div><div class="param-val">Calentamiento — revisar ventilación</div></div>
+  </div>
+</div>`,
+
+rfid: `
+<div class="comp-header">
+  <div class="comp-title">Módulo RFID</div>
+  <div class="comp-sub">Lector de TAGs — localización y ejecución de maniobras</div>
+</div>
+<div class="tools-block">
+  <div class="tools-type-label sw">Software</div>
+  <div class="tools-row">
+    <span class="pill-sw">VSystems (online)</span>
+    <span class="pill-sw">MPLAB + PickIt (offline)</span>
+  </div>
+</div>
+<div class="layout">
+  <div>
+    <div class="section-label">Configuración de switches</div>
+    <div class="param-card"><div class="param-key">SW1 — OFF</div><div class="param-val">RFID Maestra (posición por defecto)</div></div>
+    <div class="param-card"><div class="param-key">SW1 — ON</div><div class="param-val">RFID Esclava (modelos 2W)</div></div>
+    <div class="param-card"><div class="param-key">SW2 — OFF</div><div class="param-val">Lectura de TAGs CM y SM</div></div>
+    <div class="param-card"><div class="param-key">SW2 — ON</div><div class="param-val">Solo lectura de TAGs CM</div></div>
+  </div>
+  <div>
+    <div class="section-label">Procedimiento de sustitución</div>
+    <div class="step"><div class="step-num">1</div><div><div class="step-title">Sustituir la lectora</div><div class="step-desc">Retirar la lectora RFID defectuosa e instalar la nueva.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div><div class="step-title">Configurar switches</div><div class="step-desc">SW1: OFF (maestra) u ON (esclava). SW2 según tipo de TAGs.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div><div class="step-title">Programar el periférico</div><div class="step-desc">Vía online desde VSystems (Operaciones Software) o con PickIt offline.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div><div class="step-title">Verificar lectura de TAGs</div><div class="step-desc">Pasar el AGV por un TAG instalado en el suelo y confirmar lectura en VSystems.</div></div></div>
+  </div>
+</div>`,
+
+flexi: `
+<div class="comp-header">
+  <div class="comp-title">FlexiSoft / Safety Designer — SICK</div>
+  <div class="comp-sub">Sistema de seguridad funcional — escáneres y paradas de emergencia</div>
+</div>
+<div class="tools-block">
+  <div class="tools-type-label sw">Software</div>
+  <div class="tools-row">
+    <span class="pill-sw">Flexi Soft Designer (FSD)</span>
+    <span class="pill-sw">Safety Designer (modelos Compact)</span>
+    <span class="pill-sw">CDS (campos escáner)</span>
+  </div>
+  <div class="tools-type-label hw">Herramienta física</div>
+  <div class="tools-row"><span class="pill-hw">Cable USB naranja SICK</span></div>
+</div>
+<div class="layout">
+  <div>
+    <div class="section-label">Parámetros clave</div>
+    <div class="param-card"><div class="param-key">Contraseña de transferencia</div><div class="param-val">SICKSAFE (en mayúsculas)</div></div>
+    <div class="param-card"><div class="param-key">ACR</div><div class="param-val">Automatic Configuration Recovery — respaldo automático de configuración al sustituir módulo</div></div>
+    <div class="param-card"><div class="param-key">Archivo de proyecto</div><div class="param-val">.fsp (Flexi Soft Designer)</div></div>
+    <div class="param-card"><div class="param-key">LED CV amarillo fijo</div><div class="param-val">Configuración verificada correctamente</div></div>
+    <div class="param-card"><div class="param-key">Icono candado cerrado</div><div class="param-val">Configuración verificada y bloqueada</div></div>
+    <div class="section-label" style="margin-top:12px">LEDs de diagnóstico módulos</div>
+    <div class="param-card"><div class="param-key">Rojo 1 Hz</div><div class="param-val">Config. inválida o fallo cableado E/S → revisar con FSD</div></div>
+    <div class="param-card"><div class="param-key">Rojo 2 Hz</div><div class="param-val">Error crítico → reiniciar o sustituir módulo</div></div>
+    <div class="param-card"><div class="param-key">Rojo fijo</div><div class="param-val">Error en otro módulo del sistema → identificar con FSD</div></div>
+    <div class="param-card"><div class="param-key">Naranja 1 Hz (LED CV)</div><div class="param-val">Configuración sin verificar → verificar en FSD</div></div>
+  </div>
+  <div>
+    <div class="section-label">Procedimiento</div>
+    <div class="step"><div class="step-num">1</div><div><div class="step-title">Bloquear la máquina</div><div class="step-desc">Detener el AGV y pulsar la emergencia. Verificar que el botón reset parpadea 2 veces.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div><div class="step-title">Conectar cable USB naranja SICK</div><div class="step-desc">Conectar desde el PC al puerto de configuración de la CPU FlexiSoft.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div><div class="step-title">Abrir Flexi Soft Designer</div><div class="step-desc">O Safety Designer para modelos Compact.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div><div class="step-title">Cargar configuración</div><div class="step-desc">Clicar "Connect" para recibir la configuración actual. O abrir archivo .fsp de respaldo desde "Open existing project file".</div></div></div>
+    <div class="step"><div class="step-num">5</div><div><div class="step-title">Activar ACR (si aplica)</div><div class="step-desc">Clic derecho sobre el módulo CPU2 → activar Automatic Configuration Recovery.</div></div></div>
+    <div class="step"><div class="step-num">6</div><div><div class="step-title">Transferir configuración</div><div class="step-desc">Tras los cambios, clicar "Transfer" (Download) al dispositivo.</div></div></div>
+    <div class="step"><div class="step-num">7</div><div><div class="step-title">Verificar</div><div class="step-desc">Comprobar que el icono del candado está cerrado y el LED CV está en amarillo fijo.</div></div></div>
+    <div class="step"><div class="step-num">8</div><div><div class="step-title">Desconectar</div><div class="step-desc">Clicar "Disconnect" para cerrar la sesión de configuración.</div></div></div>
+  </div>
+</div>
+<div class="danger-box"><span style="color:#A32D2D;font-weight:800;font-size:13px;flex-shrink:0">!</span><div class="danger-text">La contraseña de transferencia es SICKSAFE (mayúsculas). Sin ella no se puede transferir la configuración al dispositivo.</div></div>`,
+
+vsystems: `
+<div class="comp-header">
+  <div class="comp-title">VSystems</div>
+  <div class="comp-sub">Plataforma de gestión — configuración de parámetros operativos</div>
+</div>
+<div class="tools-block">
+  <div class="tools-type-label sw">Software</div>
+  <div class="tools-row"><span class="pill-sw">Navegador web (acceso al servidor)</span></div>
+</div>
+<div class="layout">
+  <div>
+    <div class="section-label">Parámetros operativos</div>
+    <div class="param-card"><div class="param-key">Rampa aceleración</div><div class="param-val">4 (rango 0–5)</div></div>
+    <div class="param-card"><div class="param-key">Rampa deceleración</div><div class="param-val">3 (rango 0–5)</div></div>
+    <div class="param-card"><div class="param-key">Rampa aceleración suave</div><div class="param-val">4 (rango 0–5)</div></div>
+    <div class="param-card"><div class="param-key">Velocidad de aviso</div><div class="param-val">10 m/min</div></div>
+    <div class="param-card"><div class="param-key">Velocidad precisa</div><div class="param-val">6 m/min</div></div>
+    <div class="param-card"><div class="param-key">Offset límite motores</div><div class="param-val">2</div></div>
+    <div class="param-card"><div class="param-key">Modo iluminación</div><div class="param-val">1 (gestión interna)</div></div>
+    <div class="param-card"><div class="param-key">Limitación cambio PIN</div><div class="param-val">0</div></div>
+    <div class="section-label" style="margin-top:12px">Niveles de batería</div>
+    <div class="param-card"><div class="param-key">Litio (CanBat) — Reserva</div><div class="param-val">20%</div></div>
+    <div class="param-card"><div class="param-key">Litio (CanBat) — Crítica</div><div class="param-val">10%</div></div>
+    <div class="param-card"><div class="param-key">Plomo — Reserva</div><div class="param-val">40%</div></div>
+    <div class="param-card"><div class="param-key">Plomo — Crítica</div><div class="param-val">20%</div></div>
+  </div>
+  <div>
+    <div class="section-label">Alta de terminal y AGV</div>
+    <div class="step"><div class="step-num">1</div><div><div class="step-title">Crear terminal</div><div class="step-desc">Registrar el AGV con su número de flota e IP Terminal asignada.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div><div class="step-title">Configurar IP Terminal</div><div class="step-desc">Introducir la IP Terminal obtenida del panel de supervisión.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div><div class="step-title">Configurar parámetros generales</div><div class="step-desc">Rampas, velocidades, umbrales de batería y parámetros de operación según los valores recomendados.</div></div></div>
+    <div class="step"><div class="step-num">4</div><div><div class="step-title">Verificar conexión online</div><div class="step-desc">El AGV debe aparecer online en el panel de supervisión de VSystems.</div></div></div>
+    <div class="section-label" style="margin-top:14px">Carga de firmware online</div>
+    <div class="step"><div class="step-num">1</div><div><div class="step-title">Operaciones Software</div><div class="step-desc">Seleccionar el periférico (PID, RFID, LCD...) y la versión de firmware.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div><div class="step-title">Subir → Programar</div><div class="step-desc">Subir archivo al terminal → máquina parada → Programar → confirmar en LCD.</div></div></div>
+  </div>
+</div>`,
+
+lcd: `
+<div class="comp-header">
+  <div class="comp-title">Consola LCD / Placa PIN P20</div>
+  <div class="comp-sub">Interfaz de operador — sistema de enganche PIN</div>
+</div>
+<div class="layout">
+  <div>
+    <div class="info-badge">Consola LCD</div>
+    <div class="section-label">Configuración</div>
+    <div class="param-card"><div class="param-key">Conexión</div><div class="param-val">Placa de expansión del AGV</div></div>
+    <div class="param-card"><div class="param-key">Address Switch</div><div class="param-val">OFF → modo Maestro</div></div>
+    <div class="param-card"><div class="param-key">MTC</div><div class="param-val">Configuración multicircuito desde la consola</div></div>
+    <div class="param-card"><div class="param-key">MTD</div><div class="param-val">Configuración multidestino desde la consola</div></div>
+    <div class="section-label" style="margin-top:12px">Errores LED L2</div>
+    <div class="param-card"><div class="param-key">1 parpadeo</div><div class="param-val">Fallo comms centralita → revisar cableado J3</div></div>
+    <div class="param-card"><div class="param-key">2 parpadeos</div><div class="param-val">Fallo comms display → reiniciar o sustituir</div></div>
+    <div class="param-card"><div class="param-key">3 parpadeos</div><div class="param-val">Fallo comms EEPROM → reconfigurar o sustituir</div></div>
+    <div class="param-card"><div class="param-key">4 parpadeos</div><div class="param-val">Fallo hardware → sustituir periférico</div></div>
+  </div>
+  <div>
+    <div class="info-badge">Placa PIN P20</div>
+    <div class="section-label">Configuración</div>
+    <div class="param-card"><div class="param-key">Conector J0</div><div class="param-val">Conector de programación de la placa</div></div>
+    <div class="param-card"><div class="param-key">Switch S1</div><div class="param-val">Selección del modelo de AGV donde se instala el sistema de enganche</div></div>
+    <div class="section-label" style="margin-top:12px">Verificación carga online</div>
+    <div class="step"><div class="step-num">1</div><div><div class="step-title">Posicionar AGV en punto de carga</div><div class="step-desc">El AGV debe estar sobre un punto de carga físico instalado en el suelo.</div></div></div>
+    <div class="step"><div class="step-num">2</div><div><div class="step-title">Ejecutar comando desde LCD</div><div class="step-desc">Accionar el comando de carga online desde la consola LCD.</div></div></div>
+    <div class="step"><div class="step-num">3</div><div><div class="step-title">Verificar</div><div class="step-desc">Confirmar que el sistema de carga responde correctamente.</div></div></div>
+  </div>
+</div>
+<div class="warn-box"><span style="color:#F6B707;font-weight:800;font-size:13px;flex-shrink:0">!</span><div class="warn-text">El Address Switch de la consola LCD debe estar en OFF (modo Maestro) para el correcto funcionamiento del periférico.</div></div>`
+
+};
+
+function show(id, btn){
+  document.querySelectorAll('.sys-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('main').innerHTML = pages[id] || '';
+}
+
+// Mostrar primera página por defecto
+document.querySelector('.sys-btn').classList.add('active');
+document.getElementById('main').innerHTML = pages['g6'];
+</script>
