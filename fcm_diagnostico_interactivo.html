@@ -1,0 +1,313 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',Arial,sans-serif;background:#FAF9F5}
+.app-header{background:#193F7D;position:relative;overflow:hidden}
+.app-header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.brand-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1}
+.brand-name span{color:#F6B707}
+.brand-tag{display:inline-block;background:#F6B707;color:#193F7D;font-size:9px;font-weight:700;padding:2px 7px;letter-spacing:0.08em}
+.header-title{color:#fff;font-size:13px;font-weight:500;opacity:0.85;text-align:right;line-height:1.4}
+.diag-accent{position:absolute;right:0;top:0;width:60px;height:100%;background:#F6B707;clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:0.18}
+
+.model-bar{background:#253464;padding:6px 24px;display:flex;align-items:center;gap:10px}
+.model-badge{font-size:10px;font-weight:800;color:#193F7D;background:#F6B707;padding:2px 8px;letter-spacing:0.06em}
+.model-label{font-size:11px;color:rgba(255,255,255,0.7);font-weight:400}
+
+.sys-selector{display:flex;gap:0;padding:0 24px;background:#193F7D;border-bottom:2px solid #F6B707;overflow-x:auto}
+.sys-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 16px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;border:none;background:none;color:rgba(255,255,255,0.5);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.15s;white-space:nowrap}
+.sys-btn:hover{color:#fff}
+.sys-btn.active{color:#F6B707;border-bottom-color:#F6B707}
+
+.search-area{padding:16px 24px;background:#fff;border-bottom:0.5px solid #e0ddd5}
+.search-row{display:flex;gap:8px;margin-bottom:10px}
+.search-input{font-family:'Montserrat',Arial,sans-serif;flex:1;padding:9px 14px;border:1.5px solid #193F7D;font-size:12px;font-weight:500;color:#212121;background:#fff;outline:none}
+.search-input:focus{border-color:#F6B707}
+.search-input::placeholder{color:#aaa;font-weight:400}
+.search-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 18px;background:#193F7D;color:#F6B707;border:none;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer}
+.search-btn:hover{background:#253464}
+.clear-btn{font-family:'Montserrat',Arial,sans-serif;padding:9px 14px;background:#fff;color:#193F7D;border:1.5px solid #193F7D;font-size:11px;font-weight:700;cursor:pointer}
+
+.results-area{padding:16px 24px;background:#FAF9F5;min-height:320px}
+.results-header{display:flex;align-items:center;margin-bottom:12px}
+.results-count{font-size:11px;font-weight:700;color:#193F7D;text-transform:uppercase;letter-spacing:0.06em}
+.results-count span{color:#F6B707}
+
+.welcome-state{text-align:center;padding:50px 20px}
+.welcome-icon{width:56px;height:56px;background:#193F7D;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;position:relative}
+.welcome-q{color:#F6B707;font-size:22px;font-weight:800;line-height:1}
+.welcome-title{font-size:15px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.welcome-sub{font-size:12px;color:#888;font-weight:400;line-height:1.6;max-width:400px;margin:0 auto 24px}
+.welcome-hints{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.hint-btn{font-family:'Montserrat',Arial,sans-serif;padding:6px 14px;border:1.5px solid #193F7D;background:#fff;color:#193F7D;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.04em;transition:all 0.12s}
+.hint-btn:hover{background:#193F7D;color:#F6B707}
+
+.no-results{text-align:center;padding:40px 20px;color:#aaa;font-size:13px;font-weight:500}
+.no-results strong{display:block;font-size:15px;color:#193F7D;margin-bottom:8px}
+
+.err-card{background:#fff;border-left:4px solid #193F7D;margin-bottom:8px;cursor:pointer;transition:border-left-color 0.15s;border:0.5px solid #e0ddd5;border-left:4px solid #193F7D}
+.err-card:hover{border-left-color:#F6B707}
+.err-card.expanded{border-left-color:#F6B707}
+.err-card-header{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.err-code-badge{font-size:11px;font-weight:800;color:#fff;background:#193F7D;padding:4px 8px;min-width:80px;text-align:center;flex-shrink:0;line-height:1.3}
+.err-card.severity-danger .err-code-badge{background:#A32D2D}
+.err-card.severity-warn .err-code-badge{background:#854F0B}
+.err-card-info{flex:1}
+.err-card-name{font-size:12px;font-weight:700;color:#212121}
+.err-card-meta{display:flex;gap:6px;margin-top:3px;flex-wrap:wrap}
+.err-tag{font-size:9px;font-weight:700;padding:1px 6px;background:#FAF9F5;color:#193F7D;border:0.5px solid #193F7D;text-transform:uppercase}
+.err-tag.danger-tag{background:#FCEBEB;color:#A32D2D;border-color:#A32D2D}
+.err-chevron{font-size:16px;color:#193F7D;font-weight:800;transition:transform 0.2s;flex-shrink:0}
+.err-card.expanded .err-chevron{transform:rotate(90deg)}
+.err-card-body{display:none;padding:0 14px 12px;border-top:0.5px solid #f0ece3}
+.err-card.expanded .err-card-body{display:block}
+.err-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.err-detail-box{background:#FAF9F5;border-left:3px solid #F6B707;padding:8px 10px}
+.err-detail-label{font-size:9px;font-weight:800;color:#193F7D;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px}
+.err-detail-val{font-size:11px;color:#212121;font-weight:500;line-height:1.4}
+.err-action-box{margin-top:10px;background:#193F7D;padding:10px 12px;display:flex;gap:8px;align-items:flex-start}
+.err-action-icon{color:#F6B707;font-weight:800;font-size:14px;flex-shrink:0;margin-top:1px}
+.err-action-text{font-size:11px;color:#fff;font-weight:500;line-height:1.5}
+.err-danger-box{background:#FCEBEB;border-left:3px solid #A32D2D;padding:8px 10px;margin-top:8px}
+.err-danger-text{font-size:11px;color:#A32D2D;font-weight:600;line-height:1.4}
+
+.footer-bar{background:#193F7D;padding:7px 24px;display:flex;align-items:center;justify-content:space-between}
+.footer-bar span{font-size:9px;color:rgba(255,255,255,0.5)}
+.footer-bar strong{font-size:9px;color:#F6B707;font-weight:700}
+</style>
+
+<div class="app-header">
+  <div class="app-header-inner">
+    <div>
+      <div class="brand-name">syner<span>sight</span></div>
+      <div class="brand-tag">smart logistics</div>
+    </div>
+    <div class="header-title">Diagnóstico interactivo de errores<br>Modelo CM · CM2W · CM3000 · FCM3000</div>
+  </div>
+  <div class="diag-accent"></div>
+</div>
+
+<div class="model-bar">
+  <span class="model-badge">FCM — Modelo CM</span>
+  <span class="model-label">CM700Rx · CM900Rx · CM1200Rx · CM2W · CM3000Rx · FCM3000</span>
+</div>
+
+<div class="sys-selector">
+  <button class="sys-btn active" onclick="setSys('all')">Todos los sistemas</button>
+  <button class="sys-btn" onclick="setSys('reset')">Botón Reset</button>
+  <button class="sys-btn" onclick="setSys('pid')">Placa PID</button>
+  <button class="sys-btn" onclick="setSys('variador')">Variadores BLV/BLH</button>
+  <button class="sys-btn" onclick="setSys('lcd')">Consola LCD</button>
+  <button class="sys-btn" onclick="setSys('vsystems')">VSystems / Periféricos</button>
+  <button class="sys-btn" onclick="setSys('flexi')">FlexiSoft SICK</button>
+</div>
+
+<div class="search-area">
+  <div class="search-row">
+    <input class="search-input" id="search-input" placeholder="Busca por código (4 parpadeos, EDM...) o síntoma (sobrecarga, batería, escáner...)" />
+    <button class="search-btn" onclick="doSearch()">Buscar</button>
+    <button class="clear-btn" onclick="clearSearch()">Limpiar</button>
+  </div>
+</div>
+
+<div class="results-area">
+  <div id="results-header" class="results-header" style="display:none">
+    <div class="results-count">Mostrando <span id="count-num">0</span> errores</div>
+  </div>
+  <div id="results-list"></div>
+</div>
+
+<div class="footer-bar">
+  <span>© 2024 Emayor Synersight Technologies SL — Etileno 4, Valladolid</span>
+  <strong>synersight.es</strong>
+</div>
+
+<script>
+const DB = [
+  // BOTÓN RESET — Sistema de seguridad FlexiSoft
+  {sys:'reset',code:'1 parpadeo',name:'REARM NEEDED',msg:'Rearm needed',cause:'Petición de rearme necesaria tras evento de seguridad.',action:'Mantener pulsado el botón reset durante 3 segundos.',severity:'warn'},
+  {sys:'reset',code:'2 parpadeos',name:'EMERGENCY BUTTON ON',msg:'Emergency button ON!',cause:'Pulsador de emergencia activado.',action:'Localizar el pulsador de emergencia activado, liberarlo y rearmar.',severity:'danger'},
+  {sys:'reset',code:'3 parpadeos',name:'OBSTACLE DETECTED',msg:'Obstacle detected!',cause:'Obstáculo detectado en el campo del escáner.',action:'Retirar el objeto del campo o limpiar la cúpula del escáner.',severity:'warn'},
+  {sys:'reset',code:'4 parpadeos',name:'POWER EDM ERROR',msg:'Power EDM error!',cause:'Fallo en chequeo EDM de potencia.',action:'Revisar contactores y cableado del circuito EDM de potencia.',severity:'danger'},
+  {sys:'reset',code:'5 parpadeos',name:'SAFETY EDM ERROR',msg:'Safety EDM error!',cause:'Fallo en EDM del relé de seguridad.',action:'Revisar módulo de seguridad FlexiSoft y relés de seguridad.',severity:'danger'},
+  {sys:'reset',code:'6 parpadeos',name:'C. ONLINE EDM ERROR',msg:'C. online EDM error!',cause:'Fallo en EDM de carga online.',action:'Revisar contactor de carga online y microswitches asociados.',severity:'danger'},
+  {sys:'reset',code:'7 parpadeos',name:'PX MAP RELAY ERROR',msg:'PX Map relay error!',cause:'Fallo en relés de la placa de expansión.',action:'Sustituir la tarjeta de expansión.',severity:'danger'},
+  {sys:'reset',code:'8 parpadeos',name:'CO PIN ON LOAD',msg:'CO Pin on load!',cause:'Contactos de carga online en tensión cuando no deberían.',action:'Revisar aislamiento de terminales de carga online.',severity:'danger'},
+  {sys:'reset',code:'9 parpadeos',name:'DIRECTION SENSOR NOK',msg:'Direction sensor NOK!',cause:'Fallo en inductivos de posición del motor de dirección.',action:'Revisar sensores inductivos y cableado de posición.',severity:'warn'},
+  {sys:'reset',code:'10 parpadeos',name:'3 POS SWITCH RLY ERROR',msg:'3 Pos swtch rly error!',cause:'Fallo en selector de 3 posiciones.',action:'Revisar selector y sus conexiones.',severity:'warn'},
+  {sys:'reset',code:'11 parpadeos',name:'WRONG GM POSITION',msg:'Wrong GM position',cause:'Posición incorrecta del grupo motor.',action:'Corregir la posición mecánica del grupo motor.',severity:'warn'},
+
+  // PLACA PID — Guiado y tracción
+  {sys:'pid',code:'1 parpadeo',name:'SIN COMUNICACIÓN',msg:'',cause:'Fallo de comunicación con la centralita principal.',action:'Revisar cableado y conexiones de la placa PID.',severity:'danger'},
+  {sys:'pid',code:'2 parpadeos',name:'SIN COMUNICACIÓN PID',msg:'',cause:'Fallo de comunicación entre placas PID (modelos 2W).',action:'Revisar versiones de firmware y cableado entre las dos placas PID.',severity:'danger'},
+  {sys:'pid',code:'3 parpadeos',name:'MODELO NO DEFINIDO',msg:'',cause:'Switch de modelo del AGV mal configurado.',action:'Configurar el bloque SW correctamente según el manual del modelo.',severity:'warn'},
+  {sys:'pid',code:'4 parpadeos',name:'FALLO VARIADOR 1',msg:'',cause:'Error detectado en el driver del motor izquierdo.',action:'Consultar alarmas del variador izquierdo (ver sección Variadores).',severity:'danger'},
+  {sys:'pid',code:'5 parpadeos',name:'FALLO VARIADOR 2',msg:'',cause:'Error detectado en el driver del motor derecho.',action:'Consultar alarmas del variador derecho (ver sección Variadores).',severity:'danger'},
+  {sys:'pid',code:'6 parpadeos',name:'PÉRDIDA DE GUÍA (MAESTRO)',msg:'',cause:'Seguidor magnético maestro fuera de la banda.',action:'Revisar estado de la cinta magnética y alineación del seguidor maestro.',severity:'danger'},
+  {sys:'pid',code:'7 parpadeos',name:'PÉRDIDA DE GUÍA (ESCLAVO)',msg:'',cause:'Seguidor magnético esclavo fuera de la banda.',action:'Revisar cinta magnética y alineación del seguidor esclavo.',severity:'danger'},
+  {sys:'pid',code:'8 parpadeos',name:'VELOCIDAD BAJA',msg:'',cause:'Defecto por velocidad insuficiente del AGV.',action:'Revisar carga del AGV y estado de la batería.',severity:'warn'},
+  {sys:'pid',code:'9 parpadeos',name:'VELOCIDAD ALTA',msg:'',cause:'Defecto por exceso de velocidad.',action:'Reprogramar parámetros de velocidad máxima.',severity:'warn'},
+
+  // VARIADORES BLV/BLH
+  {sys:'variador',code:'2 parpadeos',name:'SOBRECARGA',msg:'',cause:'La carga excede el par nominal durante más de 5 segundos.',action:'Reducir la carga del AGV o revisar la rampa de aceleración.',severity:'warn'},
+  {sys:'variador',code:'3 parpadeos',name:'ERROR DE SENSOR',msg:'',cause:'Sensor o conector de señal del motor abierto o defectuoso.',action:'Revisar la conexión entre el variador y el motor.',severity:'warn'},
+  {sys:'variador',code:'4 parpadeos',name:'SOBRETENSIÓN',msg:'',cause:'Voltaje excesivo, habitualmente por frenado brusco.',action:'Revisar el patrón de deceleración y aumentar el tiempo de frenado.',severity:'danger'},
+  {sys:'variador',code:'5 parpadeos',name:'BAJA TENSIÓN',msg:'',cause:'Voltaje de alimentación insuficiente (inferior a 16 VDC).',action:'Comprobar cableado de potencia y nivel de carga de la batería.',severity:'danger'},
+  {sys:'variador',code:'6 parpadeos',name:'VELOCIDAD EXCESIVA',msg:'',cause:'Rotación del eje superior a 4800 rpm.',action:'Reducir la carga y revisar parámetros de aceleración.',severity:'danger'},
+  {sys:'variador',code:'7 parpadeos',name:'SOBREINTENSIDAD',msg:'',cause:'Defecto en masa/tierra o corriente excesiva en el motor.',action:'Revisar cableado entre variador y motor. Comprobar tomas de tierra.',severity:'danger'},
+  {sys:'variador',code:'8 parpadeos',name:'ERROR EEPROM',msg:'',cause:'Información almacenada en el variador dañada o corrupta.',action:'Inicializar los parámetros del variador a fábrica o sustituir el driver.',severity:'danger'},
+  {sys:'variador',code:'9 parpadeos',name:'CALENTAMIENTO',msg:'',cause:'Exceso de temperatura en el circuito del variador.',action:'Revisar ventilación del armario y encapsulado del variador.',severity:'danger'},
+  {sys:'variador',code:'10 parpadeos',name:'PARADA EXTERNA',msg:'',cause:'Entrada EXT-Error del variador está apagada.',action:'Comprobar la señal externa de error que controla el variador.',severity:'warn'},
+  {sys:'variador',code:'11 parpadeos',name:'ERROR OP. INICIAL',msg:'',cause:'Entradas FWD o REV activas en el momento del encendido.',action:'Desactivar todas las entradas de marcha y ciclar la alimentación.',severity:'warn'},
+
+  // CONSOLA LCD
+  {sys:'lcd',code:'1 parpadeo (L2)',name:'FALLO COMMS CENTRALITA',msg:'',cause:'Pérdida de comunicación entre la consola LCD y la centralita.',action:'Revisar cableado de 6 vías del conector J3.',severity:'danger'},
+  {sys:'lcd',code:'2 parpadeos (L2)',name:'FALLO COMMS DISPLAY',msg:'',cause:'Fallo de comunicación con el display.',action:'Reiniciar la consola. Si persiste, sustituir el periférico.',severity:'warn'},
+  {sys:'lcd',code:'3 parpadeos (L2)',name:'FALLO COMMS EEPROM',msg:'',cause:'Error de comunicación con la memoria EEPROM de la consola.',action:'Reconfigurar la consola LCD. Si persiste, sustituir.',severity:'warn'},
+  {sys:'lcd',code:'4 parpadeos (L2)',name:'FALLO HARDWARE',msg:'',cause:'Fallo hardware interno de la consola.',action:'Sustituir el periférico LCD.',severity:'danger'},
+
+  // VSYSTEMS / PERIFÉRICOS / CENTRALITA G6
+  {sys:'vsystems',code:'BATERIA KO',name:'BATERÍA FUERA DE RANGO',msg:'',cause:'Tensión de batería por debajo del umbral configurado.',action:'Sustituir la batería.',severity:'danger'},
+  {sys:'vsystems',code:'BATERIA CRITICA',name:'BATERÍA CRÍTICA',msg:'',cause:'Nivel de batería crítico. Parada inminente.',action:'Llevar el AGV a cargar urgentemente.',severity:'danger'},
+  {sys:'vsystems',code:'BATERIA RESERVA',name:'BATERÍA EN RESERVA',msg:'',cause:'Nivel de batería mínimo alcanzado.',action:'Llevar el AGV a cargar.',severity:'warn'},
+  {sys:'vsystems',code:'ERROR COMS RADIO',name:'ERROR COMUNICACIÓN RADIO',msg:'',cause:'Pérdida de enlace inalámbrico con el servidor.',action:'Revisar punto de acceso WiFi y antena del AGV.',severity:'warn'},
+  {sys:'vsystems',code:'ERROR COMS LCD',name:'ERROR COMUNICACIÓN LCD',msg:'',cause:'Pérdida de comunicación con la consola LCD.',action:'Revisar cableado J3 y estado de la consola.',severity:'warn'},
+  {sys:'vsystems',code:'Voltaje 24V NOK',name:'FALLO TENSIÓN 24V',msg:'',cause:'Fallo en el estabilizador Tracopower o cableado de 24V.',action:'Sustituir el estabilizador Tracopower.',severity:'danger'},
+  {sys:'vsystems',code:'Voltaje 5V0 NOK',name:'FALLO TENSIÓN 5V',msg:'',cause:'Fallo en la línea de 5V del estabilizador.',action:'Sustituir el estabilizador Tracopower.',severity:'danger'},
+  {sys:'vsystems',code:'Voltaje POE NOK',name:'FALLO TENSIÓN POE',msg:'',cause:'Fallo en la alimentación POE.',action:'Revisar cableado POE y estabilizador.',severity:'danger'},
+  {sys:'vsystems',code:'SD sin formato',name:'TARJETA SD SIN FORMATO',msg:'',cause:'La tarjeta SD interna no tiene formato válido.',action:'Formatear o sustituir la tarjeta SD.',severity:'warn'},
+  {sys:'vsystems',code:'SD sin espacio',name:'TARJETA SD SIN ESPACIO',msg:'',cause:'La tarjeta SD interna está llena.',action:'Liberar espacio o sustituir la tarjeta SD.',severity:'warn'},
+  {sys:'vsystems',code:'SD defectuosa',name:'TARJETA SD DEFECTUOSA',msg:'',cause:'La tarjeta SD interna está dañada.',action:'Sustituir la tarjeta SD.',severity:'danger'},
+  {sys:'vsystems',code:'ALERTA CARTA RFID',name:'ERROR DISPOSITIVO RFID',msg:'',cause:'Error general en el dispositivo RFID.',action:'Revisar conexiones del lector RFID.',severity:'warn'},
+  {sys:'vsystems',code:'ALERTA CARTA PID',name:'ERROR DISPOSITIVO PID',msg:'',cause:'Error general en la placa PID.',action:'Revisar conexiones de la placa PID.',severity:'warn'},
+  {sys:'vsystems',code:'CAN BMS KO',name:'COMM. CAN CON BMS KO',msg:'',cause:'Error de comunicación CAN con el BMS de la batería de litio.',action:'Revisar bus CAN entre centralita y módulo BMS.',severity:'danger'},
+
+  // FLEXISOFT SICK
+  {sys:'flexi',code:'LED Rojo 1 Hz',name:'CONFIG. INVÁLIDA / FALLO CABLEADO',msg:'',cause:'Configuración inválida o fallo de cableado en entradas/salidas del módulo.',action:'Revisar con el software Safety Designer (FSD). Comprobar E/S del módulo.',severity:'danger'},
+  {sys:'flexi',code:'LED Rojo 2 Hz',name:'ERROR CRÍTICO MÓDULO',msg:'',cause:'Error crítico interno en el módulo FlexiSoft específico.',action:'Reiniciar el sistema. Si persiste, sustituir el módulo.',severity:'danger'},
+  {sys:'flexi',code:'LED Rojo fijo',name:'ERROR EN OTRO MÓDULO',msg:'',cause:'Error serio en un módulo diferente al que tiene el LED fijo.',action:'Identificar el módulo afectado revisando el sistema completo con FSD.',severity:'danger'},
+  {sys:'flexi',code:'LED Naranja 1 Hz',name:'CONFIGURACIÓN SIN VERIFICAR',msg:'',cause:'La configuración del módulo no ha sido verificada.',action:'Verificar la configuración en Flexi Soft Designer.',severity:'warn'},
+];
+
+let currentSys='all', currentSearch='', expandedIdx=null;
+
+function setSys(s){
+  currentSys=s;
+  document.querySelectorAll('.sys-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  if(currentSearch) renderResults();
+  else if(s!=='all') renderResults();
+  else showWelcome();
+}
+
+function doSearch(){
+  currentSearch=document.getElementById('search-input').value.trim().toLowerCase();
+  if(!currentSearch && currentSys==='all'){ showWelcome(); return; }
+  renderResults();
+}
+
+function clearSearch(){
+  document.getElementById('search-input').value='';
+  currentSearch='';
+  currentSys='all';
+  document.querySelectorAll('.sys-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.sys-btn').classList.add('active');
+  showWelcome();
+}
+
+function useHint(q){
+  document.getElementById('search-input').value=q;
+  currentSearch=q.toLowerCase();
+  renderResults();
+}
+
+function showWelcome(){
+  document.getElementById('results-header').style.display='none';
+  document.getElementById('results-list').innerHTML=`
+    <div class="welcome-state">
+      <div class="welcome-icon"><div class="welcome-q">?</div></div>
+      <div class="welcome-title">¿Qué error estás viendo?</div>
+      <div class="welcome-sub">Introduce el código o síntoma en el buscador, o selecciona un sistema en las pestañas superiores para filtrar los errores.</div>
+      <div class="welcome-hints">
+        <button class="hint-btn" onclick="useHint('EDM')">Error EDM</button>
+        <button class="hint-btn" onclick="useHint('batería')">Batería</button>
+        <button class="hint-btn" onclick="useHint('escáner')">Escáner</button>
+        <button class="hint-btn" onclick="useHint('variador')">Variador</button>
+        <button class="hint-btn" onclick="useHint('guía')">Pérdida de guía</button>
+        <button class="hint-btn" onclick="useHint('temperatura')">Temperatura</button>
+        <button class="hint-btn" onclick="useHint('comunicación')">Comunicación</button>
+        <button class="hint-btn" onclick="useHint('danger')">Solo críticos</button>
+      </div>
+    </div>`;
+}
+
+function toggleCard(idx){
+  expandedIdx=expandedIdx===idx?null:idx;
+  renderResults();
+}
+
+const sysLabels={reset:'Botón Reset',pid:'Placa PID',variador:'Variadores BLV/BLH',lcd:'Consola LCD',vsystems:'VSystems / Periféricos',flexi:'FlexiSoft SICK'};
+
+function renderResults(){
+  let filtered=DB.filter(e=>{
+    if(currentSys!=='all'&&e.sys!==currentSys) return false;
+    if(currentSearch){
+      const q=currentSearch;
+      if(q==='danger') return e.severity==='danger';
+      return e.code.toLowerCase().includes(q)||e.name.toLowerCase().includes(q)||
+             e.cause.toLowerCase().includes(q)||e.action.toLowerCase().includes(q)||
+             (e.msg&&e.msg.toLowerCase().includes(q))||
+             (sysLabels[e.sys]&&sysLabels[e.sys].toLowerCase().includes(q));
+    }
+    return true;
+  });
+
+  document.getElementById('results-header').style.display='flex';
+  document.getElementById('count-num').textContent=filtered.length;
+
+  if(filtered.length===0){
+    document.getElementById('results-list').innerHTML=`
+      <div class="no-results"><strong>Sin resultados</strong>Prueba con otro código o síntoma</div>`;
+    return;
+  }
+
+  document.getElementById('results-list').innerHTML=filtered.map((e,i)=>{
+    const isExp=expandedIdx===i;
+    const sysLabel=sysLabels[e.sys]||e.sys;
+    return `<div class="err-card severity-${e.severity}${isExp?' expanded':''}" onclick="toggleCard(${i})">
+      <div class="err-card-header">
+        <div class="err-code-badge">${e.code}</div>
+        <div class="err-card-info">
+          <div class="err-card-name">${e.name}${e.msg?` <span style="color:#888;font-weight:400;font-size:11px">— ${e.msg}</span>`:''}</div>
+          <div class="err-card-meta">
+            <span class="err-tag">${sysLabel}</span>
+            ${e.severity==='danger'?'<span class="err-tag danger-tag">CRÍTICO</span>':''}
+          </div>
+        </div>
+        <div class="err-chevron">›</div>
+      </div>
+      ${isExp?`<div class="err-card-body">
+        <div class="err-detail-grid">
+          <div class="err-detail-box">
+            <div class="err-detail-label">Causa probable</div>
+            <div class="err-detail-val">${e.cause}</div>
+          </div>
+          <div class="err-detail-box">
+            <div class="err-detail-label">Sistema</div>
+            <div class="err-detail-val">${sysLabel}</div>
+          </div>
+        </div>
+        <div class="err-action-box">
+          <div class="err-action-icon">→</div>
+          <div class="err-action-text"><strong style="color:#F6B707">Acción correctiva:</strong> ${e.action}</div>
+        </div>
+        ${e.severity==='danger'?'<div class="err-danger-box"><div class="err-danger-text">⚠ Error crítico — puede requerir sustitución de componente o parada del AGV.</div></div>':''}
+      </div>`:''}
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('search-input').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+showWelcome();
+</script>
